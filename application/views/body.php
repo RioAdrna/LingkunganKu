@@ -19,12 +19,12 @@
 	<aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
 		<div class="sidenav-header">
 			<i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-			<a class="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html " target="_blank">
+			<a class="navbar-brand m-0">
 				<img src="<?= base_url('assets/img/logos/Logo_LingkunganKU-1.png') ?>" width="36px" height="260px" class="navbar-brand-img h-100" alt="main_logo">
 				<span class="ms-1 font-weight-bold">LingkunganKu</span>
 			</a>
 		</div>
-		<hr class="horizontal dark mt-0">
+		<hr class="horizontal dark mt-0	">
 		<div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
 			<ul class="navbar-nav">
 				<?php
@@ -41,11 +41,11 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link <?= ($current_page == "laporan_masalah") ? "active" : "" ?>" href="<?= base_url("?p=" . base64_encode('laporan_masalah')) ?>">
+					<a class="nav-link <?= ($current_page == "lapor") ? "active" : "" ?>" href="<?= base_url("?p=" . base64_encode('lapor')) ?>">
 						<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-							<i class="fas fa-tasks-alt text-dark text-sm opacity-10"></i>
+							<i class="fas fa-bullhorn text-dark text-sm opacity-10"></i>
 						</div>
-						<span class="nav-link-text ms-1">Laporan Masalah</span>
+						<span class="nav-link-text ms-1">Lapor</span>
 					</a>
 				</li>
 				<li class="nav-item">
@@ -54,6 +54,14 @@
 							<i class="fas fa-tasks text-dark text-sm opacity-10"></i>
 						</div>
 						<span class="nav-link-text ms-1">Status Laporan</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link <?= ($current_page == "peta_laporan") ? "active" : "" ?>" href="<?= base_url("?p=" . base64_encode('peta_laporan')) ?>">
+						<div class=" icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+							<i class="fas fa-map-marked-alt text-dark text-sm opacity-10"></i>
+						</div>
+						<span class="nav-link-text ms-1">Peta Laporan</span>
 					</a>
 				</li>
 				<li class="nav-item mt-3">
@@ -277,6 +285,8 @@
 	</div>
 
 	<!--   Core JS Files   -->
+	<script src="<?= base_url('assets/vendor/jquery/dist/jquery.min.js') ?>"></script>
+
 	<script src="<?= base_url('assets/js/core/popper.min.js') ?>"></script>
 	<script src="<?= base_url('assets/js/core/bootstrap.min.js"') ?>"></script>
 	<script src="<?= base_url('assets/js/plugins/perfect-scrollbar.min.js') ?>"></script>
@@ -371,6 +381,7 @@
 		</script>
 		<script src="<?= base_url("assets/js/pages/" . base64_decode($this->input->get('p')) . ".js") ?>"></script>
 	<?php } ?>
+
 	<script>
 		var win = navigator.platform.indexOf('Win') > -1;
 		if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -383,6 +394,29 @@
 	<!-- Github buttons -->
 	<script async defer src="https://buttons.github.io/buttons.js"></script>
 	<!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-	<script src="<?= base_url("pages/" . $this->input->get('p')) . ".js" ?>"></script>
+	<!-- Data Tables -->
+	<script src=" <?= base_url("assets/vendor/js/popper.min.js") ?> "></script>
+	<script src=" <?= base_url("assets/vendor/js/bootstrap.min.js") ?> "></script>
+	<!-- <script src="<?= base_url('assets/vendor/DataTables/datatables.min.js') ?>"></script> -->
+
+	<!-- DataTables + Bootstrap 5 JS -->
+
+	<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+	<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+	<script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap5.min.js"></script>
+
+	<script src="<?= base_url('assets/vendor/libs/sweetalert/sweetalert.min.js') ?>"></script>
+	<!-- JQuery Mask -->
+	<script src=" <?= base_url("assets/vendor/libs/jqueryMask/dist/jquery.mask.min.js") ?>"></script>
+	<!-- select 2 -->
+	<script type="text/javascript" src="<?= base_url('assets/plugins/select2/dist/js/select2.min.js') ?>"></script>
+
+	<!-- FILEPOND -->
+	<script src="<?= base_url("assets/vendor/libs/filepond/plugins/filepond-plugin-file-validate-type.js") ?>"></script>
+	<script src="<?= base_url("assets/vendor/libs/filepond/plugins/filepond-plugin-file-validate-size.js") ?>"></script>
+	<script src="<?= base_url("assets/vendor/libs/filepond/plugins/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js") ?>"></script>
+	<script src="<?= base_url("assets/vendor/libs/filepond/plugins/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js") ?>"></script>
+	<script src="<?= base_url("assets/vendor/libs/filepond/dist/filepond.min.js") ?>"></script>
 	<script src="<?= base_url('assets/js/argon-dashboard.min.js') ?> "></script>
 </body>
