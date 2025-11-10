@@ -27,7 +27,11 @@
 		<hr class="horizontal dark mt-0">
 		<div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
 			<ul class="navbar-nav">
-				<?php $current_page = base64_decode($this->input->get("p")); ?>
+				<?php
+				$p = $this->input->get("p");
+				$current_page = $p ? base64_decode($p) : '';
+				?>
+
 				<li class="nav-item">
 					<a class="nav-link <?= ($current_page == "dashboard") ? "active" : "" ?>" href="<?= base_url("?p=" . base64_encode('dashboard')) ?>">
 						<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -129,45 +133,41 @@
 		</nav>
 		<!-- End Navbar -->
 		<div class="container-fluid py-6">
+			<?php
+			$p = $this->input->get('p');
+			$halaman = $p ? base64_decode($p) : null;
 
-			<div class="container-xxl flex-grow-1 container-p-y">
-				<?php
-				$halaman = base64_decode($this->input->get('p'));
-				if ($halaman) {
-
-					if (file_exists(APPPATH . "views/pages/$halaman.php"))
-						$this->load->view("pages/$halaman");
-					else
-
-						echo "
-           <div class='container-fluid dashboard-default-sec'>
-              <div class='row'>
+			if ($halaman) {
+				if (file_exists(APPPATH . "views/pages/$halaman.php")) {
+					$this->load->view("pages/$halaman");
+				} else {
+					echo "
+        <div class='container-fluid dashboard-default-sec'>
+            <div class='row'>
                 <div class='col-xl-12'> 
-                  <div  class='alert bg-white row text-dark'>
-                    <div class='col-md-6 p-4'>
-                        <h3 class='text-danger'><i class='fa fa-exclamation-triangle'></i> ERROR 404</h3>
-                        <hr> 
-                        Halaman tidak tersedia.
-                        Beberapa Penyebab Halaman ini tidak bisa ditampilkan, antara lain:
-                        <ol>
-                        <li>Halaman ini belum dikembangkan</li>
-                        <li>Kesalahan alamat permohonan akses halaman </li>
-                        <li>Kesalahan jaringan</li>
-                        </ol> 
-                        silahkan kunjungi halaman ini dilain waktu.<br> 
-                        Terimakasih
-                      </div>
+                    <div class='alert bg-white row text-dark'>
+                        <div class='col-md-6 p-4'>
+                            <h3 class='text-danger'><i class='fa fa-exclamation-triangle'></i> ERROR 404</h3>
+                            <hr> 
+                            Halaman tidak tersedia.
+                            <ol>
+                                <li>Halaman ini belum dikembangkan</li>
+                                <li>Kesalahan alamat permohonan akses halaman</li>
+                                <li>Kesalahan jaringan</li>
+                            </ol> 
+                            Silahkan kunjungi halaman ini di lain waktu.<br> 
+                            Terimakasih
+                        </div>
                     </div>
                 </div>
-              </div>
             </div>
-                  ";
-					// echo "[ERROR 404] Halaman tidak ditemukan";
+        </div>";
+				}
+			} else {
+				$this->load->view("pages/dashboard");
+			}
+			?>
 
-				} else
-					$this->load->view("pages/dashboard");
-				?>
-			</div>
 
 			<footer class="footer pt-3  ">
 				<div class="container-fluid">
