@@ -25,4 +25,5 @@
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/plugins/select2/dist/css/select2.min.css') ?>" />
     <link rel="stylesheet" type="text/css" href="<?= base_url("assets/plugins/filepond/dist/filepond.min.css") ?>">
     <link rel="stylesheet" type="text/css" href="<?= base_url("assets/plugins/filepond/plugins/filepond-plugin-image-preview/filepond-plugin-image-preview.min.css") ?>">
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 </head>
