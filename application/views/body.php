@@ -90,7 +90,7 @@
 				<img class="w-50 mx-auto" src="<?= base_url('assets/img/illustrations/icon-documentation.svg') ?>" alt="sidebar_illustration">
 				<div class="card-body text-center p-3 w-100 pt-0">
 					<div class="docs-info">
-						<h6 class="mb-0">Need help?</h6>
+						<h6 class="mb-0">Butuh Bantuan?</h6>
 						<!-- <p class="text-xs font-weight-bold mb-0">Please check our docs</p> -->
 					</div>
 				</div>
@@ -186,8 +186,8 @@
 									document.write(new Date().getFullYear())
 								</script>,
 								made with <i class="fa fa-heart"></i> by
-								<a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
-								for a better web.
+								<a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Neuro</a>
+								<!-- Universitas Nurtanio Bandung -->
 							</div>
 						</div>
 						<div class="col-lg-6">
@@ -292,7 +292,7 @@
 	<script src="<?= base_url('assets/js/plugins/perfect-scrollbar.min.js') ?>"></script>
 	<script src="<?= base_url('assets/js/plugins/smooth-scrollbar.min.js') ?>"></script>
 	<script src="<?= base_url('assets/js/plugins/chartjs.min.js') ?>"></script>
-	<script>
+	<!-- <script>
 		var ctx1 = document.getElementById("chart-line").getContext("2d");
 
 		var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
@@ -374,7 +374,7 @@
 				},
 			},
 		});
-	</script>
+	</script> -->
 	<?php if ($this->input->get('p')) { ?>
 		<script>
 			var origin = "<?= base_url() ?>";
@@ -395,8 +395,8 @@
 	<script async defer src="https://buttons.github.io/buttons.js"></script>
 	<!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
 	<!-- Data Tables -->
-	<script src=" <?= base_url("assets/vendor/js/popper.min.js") ?> "></script>
-	<script src=" <?= base_url("assets/vendor/js/bootstrap.min.js") ?> "></script>
+	<!-- <script src=" <?= base_url("assets/vendor/js/popper.min.js") ?> "></script>
+	<script src=" <?= base_url("assets/vendor/js/bootstrap.min.js") ?> "></script> -->
 	<!-- <script src="<?= base_url('assets/vendor/DataTables/datatables.min.js') ?>"></script> -->
 
 	<!-- DataTables + Bootstrap 5 JS -->
