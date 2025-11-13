@@ -315,16 +315,21 @@
 					beforeSend: function() {
 						$("#loading").css("display", "flex").hide().fadeIn(300);
 					},
+					beforeSend: function() {
+						$("#loading").css("display", "flex").hide().fadeIn(200); // fadeIn cepat
+					},
 					success: function(rsp) {
-						if (rsp.sts == "0") {
-							Swal.fire({
-								title: "Kesalahan!",
-								text: rsp.msg,
-								icon: "error"
-							}).then(function() {
-								location.reload();
+						if (rsp.sts == "0") { // login gagal
+							$("#loading").fadeOut(200, function() { // fadeOut cepat
+								Swal.fire({
+									title: "Kesalahan!",
+									text: rsp.msg,
+									icon: "error"
+								}).then(function() {
+									// location.reload();
+								});
 							});
-						} else {
+						} else { // login berhasil
 							const startTime = Date.now();
 							const minDuration = 800;
 
@@ -340,6 +345,7 @@
 							}, remaining);
 						}
 					},
+
 					error: function() {
 						Swal.fire({
 							title: "Error!",
