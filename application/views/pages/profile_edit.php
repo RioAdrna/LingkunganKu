@@ -100,11 +100,10 @@
                                                                         <hr>
 
                                                                         <div class="row mb-3">
-                                                                            <a href="<?= base_url("?p=" . base64_encode('profile_edit')) ?>" class="btn btn-primary float-end">
-                                                                                <i class="fa fa-edit"></i> Edit
+                                                                            <a href="<?= base_url("?p=" . base64_encode('profile')) ?>" class="btn btn-warning float-end">
+                                                                                <i class="fas fa-arrow-left"></i> &nbsp; Kembali
                                                                             </a>
-
-
+                                                                            <button class="btn btn-success float-end"><i class="fas fa-save"></i> &nbsp; Simpan</button>
                                                                         </div>
                                                                         <!-- BATAS RUANG IDENTITAS -->
 

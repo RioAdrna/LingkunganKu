@@ -96,8 +96,8 @@
 				</div>
 			</div>
 			<br>
-			<a class="btn btn-primary mt-3 w-100" href="<?= base_url("?p=" . base64_encode('login')) ?>"><i class="fas fa-sign-out-alt"></i>&nbsp;
-				Logout</a>
+			<a class="btn btn-primary mt-3 w-100" href="<?= base_url('login/logout?req=logout') ?>"><i class="fas fa-sign-out-alt"></i>&nbsp;
+				Log Out</a>
 		</div>
 	</aside>
 	<main class="main-content position-relative border-radius-lg ">
@@ -120,10 +120,11 @@
 					</div>
 					<ul class="navbar-nav  justify-content-end">
 						<li class="nav-item d-flex align-items-center">
-							<a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
+							<a class="nav-link text-white font-weight-bold px-0" href="<?= base_url('login/logout?req=logout') ?>">
 								<i class="fa fa-sign-out-alt me-sm-1"></i>
 								<span class="d-sm-inline d-none">Log Out</span>
 							</a>
+
 						</li>
 						<li class="nav-item d-xl-none ps-3 d-flex align-items-center">
 							<a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">

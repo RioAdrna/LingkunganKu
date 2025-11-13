@@ -28,7 +28,11 @@ class Utama extends CI_Controller
 
 	public function index()
 	{
-		$this->load->view('head');
-		$this->load->view('body');
+		if ($this->session->userdata('status') != "login") {
+			redirect('login');
+		} else {
+			$this->load->view('head');
+			$this->load->view('body');
+		}
 	}
 }
