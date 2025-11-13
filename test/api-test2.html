@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Peta GeoJSON dengan Marker</title>
+
+    <!-- Load Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Style peta -->
+    <style>
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="map"></div>
+
+    <!-- Load Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        // Inisialisasi peta
+        var map = L.map('map').setView([-6.9, 107.6], 11); // posisi awal (misal: Bandung)
+
+        // Tambahkan basemap (OpenStreetMap)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+
+        // === 1. Data GeoJSON (contoh polygon sederhana untuk batas wilayah) ===
+        fetch('http://localhost/lingkunganku/test/3273-kota-bandung.json')
+            .then(response => response.json())
+            .then(data => {
+                var geoLayer = L.geoJSON(data, {
+                    style: { color: "red", weight: 2, fillOpacity: 0.2 }
+                }).addTo(map);
+                map.fitBounds(geoLayer.getBounds());
+            });
+
+        // Tambahkan batas wilayah ke peta
+        var geoLayer = L.geoJSON(batasWilayah, {
+            style: {
+                color: "blue",
+                weight: 2,
+                fillColor: "lightblue",
+                fillOpacity: 0.3
+            },
+            onEachFeature: function (feature, layer) {
+                layer.bindPopup("Nama Wilayah: " + feature.properties.nama);
+            }
+        }).addTo(map);
+
+        // === 2. Tambahkan beberapa titik marker ===
+        var titikData = [
+            { nama: "Titik 1", lat: -6.91, lng: 107.60, info: "Ini titik pertama" },
+            { nama: "Titik 2", lat: -6.92, lng: 107.64, info: "Ini titik kedua" },
+            { nama: "Titik 3", lat: -6.89, lng: 107.58, info: "Ini titik ketiga" }
+        ];
+
+        titikData.forEach(function (titik) {
+            L.marker([titik.lat, titik.lng])
+                .addTo(map)
+                .bindPopup(`<b>${titik.nama}</b><br>${titik.info}`);
+        });
+
+        // Sesuaikan tampilan peta agar pas dengan batas wilayah
+        map.fitBounds(geoLayer.getBounds());
+    </script>
+</body>
+
+</html>

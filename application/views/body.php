@@ -57,7 +57,7 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link <?= ($current_page == "peta_laporan") ? "active" : "" ?>" href="<?= base_url("?p=" . base64_encode('peta_laporan')) ?>">
+					<a class="nav-link <?= ($current_page == "peta_laporan") ? "active" : "" ?>" href="<?= base_url("map") ?>">
 						<div class=" icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
 							<i class="fas fa-map-marked-alt text-dark text-sm opacity-10"></i>
 						</div>

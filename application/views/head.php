@@ -16,7 +16,7 @@
     <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- Font Awesome Icons -->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <!-- CSS Files -->
     <link id="pagestyle" rel="stylesheet" href="<?= base_url('assets/css/argon-dashboard.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/nucleo-icons.css') ?>">
