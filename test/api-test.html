@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaflet, GeoJSON, dan Nominatim</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhA9l+B47EAZSOmbiPAeJtA2sWzVnKjH/k+g="
+     crossorigin=""/>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        h2 {
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+            color: #333;
+            width: 100%;
+        }
+        select, textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; 
+        }
+        textarea {
+            margin-top: 15px;
+            height: 250px;
+            font-family: "Courier New", Courier, monospace;
+            background-color: #fff;
+            color: #222;
+            resize: vertical;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        /* Tata letak fleksibel */
+        .left-panel {
+            flex: 1;
+            padding: 20px;
+            min-width: 320px;
+        }
+        .right-panel {
+            flex: 2;
+            padding: 20px;
+            min-width: 400px;
+        }
+
+        /* 4. Tentukan tinggi untuk div Peta */
+        #map { 
+            height: 500px; 
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            .right-panel {
+                /* Pindahkan peta ke atas di mode seluler */
+                order: -1; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="left-panel">
+    <div class="container">
+        <h2>Pilih Lokasi</h2>
+        <select id="lokasiSelect">
+            <option value="" disabled selected>-- Pilih Kabupaten/Kota --</option>
+        </select>
+
+        <h2>Hasil Reverse Geocoding</h2>
+        <textarea id="hasilResponse" readonly placeholder="Hasil respons API akan ditampilkan di sini..."></textarea>
+    </div>
+</div>
+
+<div class="right-panel">
+    <h2>Peta Lokasi (Leaflet JS)</h2>
+    <div id="map"></div>
+</div>
+
+
+<script>
+// Data JSON yang Anda berikan
+const lokasiData = [
+  { "nama": "Kabupaten Bandung", "jenis": "Kabupaten", "ibu_kota": "Soreang", "lintang": -7.0203, "bujur": 107.5400 },
+  { "nama": "Kabupaten Bandung Barat", "jenis": "Kabupaten", "ibu_kota": "Ngamprah", "lintang": -6.8381, "bujur": 107.4969 },
+  { "nama": "Kabupaten Bekasi", "jenis": "Kabupaten", "ibu_kota": "Cikarang", "lintang": -6.3239, "bujur": 107.1493 },
+  { "nama": "Kabupaten Bogor", "jenis": "Kabupaten", "ibu_kota": "Cibinong", "lintang": -6.4820, "bujur": 106.8425 },
+  { "nama": "Kabupaten Ciamis", "jenis": "Kabupaten", "ibu_kota": "Ciamis", "lintang": -7.3239, "bujur": 108.3510 },
+  { "nama": "Kabupaten Cianjur", "jenis": "Kabupaten", "ibu_kota": "Cianjur", "lintang": -6.8183, "bujur": 107.1389 },
+  { "nama": "Kabupaten Cirebon", "jenis": "Kabupaten", "ibu_kota": "Sumber", "lintang": -6.7628, "bujur": 108.4868 },
+  { "nama": "Kabupaten Garut", "jenis": "Kabupaten", "ibu_kota": "Tarogong Kidul", "lintang": -7.2205, "bujur": 107.8860 },
+  { "nama": "Kabupaten Indramayu", "jenis": "Kabupaten", "ibu_kota": "Indramayu", "lintang": -6.3270, "bujur": 108.3230 },
+  { "nama": "Kabupaten Karawang", "jenis": "Kabupaten", "ibu_kota": "Karawang Barat", "lintang": -6.3013, "bujur": 107.3040 },
+  { "nama": "Kabupaten Kuningan", "jenis": "Kabupaten", "ibu_kota": "Kuningan", "lintang": -6.9756, "bujur": 108.4840 },
+  { "nama": "Kabupaten Majalengka", "jenis": "Kabupaten", "ibu_kota": "Majalengka", "lintang": -6.8340, "bujur": 108.2230 },
+  { "nama": "Kabupaten Pangandaran", "jenis": "Kabupaten", "ibu_kota": "Parigi", "lintang": -7.6833, "bujur": 108.4900 },
+  { "nama": "Kabupaten Purwakarta", "jenis": "Kabupaten", "ibu_kota": "Purwakarta", "lintang": -6.5560, "bujur": 107.4430 },
+  { "nama": "Kabupaten Subang", "jenis": "Kabupaten", "ibu_kota": "Subang", "lintang": -6.5700, "bujur": 107.7580 },
+  { "nama": "Kabupaten Sukabumi", "jenis": "Kabupaten", "ibu_kota": "Palabuhanratu", "lintang": -6.9890, "bujur": 106.5410 },
+  { "nama": "Kabupaten Sumedang", "jenis": "Kabupaten", "ibu_kota": "Sumedang Utara", "lintang": -6.8360, "bujur": 107.9210 },
+  { "nama": "Kabupaten Tasikmalaya", "jenis": "Kabupaten", "ibu_kota": "Singaparna", "lintang": -7.3550, "bujur": 108.1130 },
+  { "nama": "Kota Bandung", "jenis": "Kota", "ibu_kota": "Bandung", "lintang": -6.9175, "bujur": 107.6191 },
+  { "nama": "Kota Banjar", "jenis": "Kota", "ibu_kota": "Banjar", "lintang": -7.3699, "bujur": 108.5300 },
+  { "nama": "Kota Bekasi", "jenis": "Kota", "ibu_kota": "Bekasi", "lintang": -6.2348, "bujur": 106.9966 },
+  { "nama": "Kota Bogor", "jenis": "Kota", "ibu_kota": "Bogor", "lintang": -6.5950, "bujur": 106.7995 },
+  { "nama": "Kota Cimahi", "jenis": "Kota", "ibu_kota": "Cimahi", "lintang": -6.8913, "bujur": 107.5400 },
+  { "nama": "Kota Cirebon", "jenis": "Kota", "ibu_kota": "Cirebon", "lintang": -6.7118, "bujur": 108.5583 },
+  { "nama": "Kota Depok", "jenis": "Kota", "ibu_kota": "Depok", "lintang": -6.4025, "bujur": 106.7942 },
+  { "nama": "Kota Sukabumi", "jenis": "Kota", "ibu_kota": "Sukabumi", "lintang": -6.9220, "bujur": 106.9250 },
+  { "nama": "Kota Tasikmalaya", "jenis": "Kota", "ibu_kota": "Tasikmalaya", "lintang": -7.3364, "bujur": 108.2208 }
+];
+
+// Menunggu dokumen siap
+$(document).ready(function() {
+    
+    const $select = $('#lokasiSelect');
+    const $textarea = $('#hasilResponse');
+    
+    // Objek untuk menyimpan referensi ke layer marker Leaflet
+    const markerLayers = {};
+
+    // --- 1. Inisialisasi Peta Leaflet ---
+    // Pusat peta di Jawa Barat (tengah-tengah)
+    const map = L.map('map').setView([-6.9175, 107.6191], 9); // [Lat, Lon], Zoom
+
+    // Tambahkan layer 'tile' (latar belakang peta) dari OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // --- 2. Konversi Data ke GeoJSON & Tambahkan ke Peta ---
+    
+    // Ubah data asli menjadi format GeoJSON FeatureCollection
+    const geoJsonData = {
+        type: "FeatureCollection",
+        features: lokasiData.map(lokasi => ({
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                // GeoJSON menggunakan format [Longitude, Latitude]
+                coordinates: [lokasi.bujur, lokasi.lintang] 
+            },
+            properties: {
+                nama: lokasi.nama,
+                ibu_kota: lokasi.ibu_kota,
+                jenis: lokasi.jenis,
+                // simpan lat/lon asli untuk referensi
+                lat: lokasi.lintang,
+                lon: lokasi.bujur
+            }
+        }))
+    };
+
+    // Tambahkan layer GeoJSON ke peta
+    L.geoJSON(geoJsonData, {
+        onEachFeature: function(feature, layer) {
+            // Beri popup pada setiap marker
+            const popupContent = `<b>${feature.properties.nama}</b><br>(${feature.properties.ibu_kota})`;
+            layer.bindPopup(popupContent);
+            
+            // Simpan referensi layer berdasarkan nama unik
+            markerLayers[feature.properties.nama] = layer;
+        }
+    }).addTo(map);
+
+
+    // --- 3. Isi Dropdown <select> ---
+    $.each(lokasiData, function(index, lokasi) {
+        const $option = $('<option></option>')
+            .text(lokasi.nama) 
+            .attr('value', lokasi.nama) // 'value' akan digunakan untuk mencocokkan markerLayers
+            .data('lat', lokasi.lintang) 
+            .data('lon', lokasi.bujur);  
+        
+        $select.append($option);
+    });
+
+    // --- 4. Event Listener 'onchange' untuk <select> ---
+    $select.on('change', function() {
+        const $selectedOption = $(this).find('option:selected');
+        
+        const lat = $selectedOption.data('lat');
+        const lon = $selectedOption.data('lon');
+        const nama = $(this).val(); // Dapatkan nama dari value <select>
+
+        if (lat && lon && nama) {
+            // A. Panggil fungsi Nominatim (fungsi lama)
+            getReverseGeocode(lat, lon);
+
+            // B. Interaksi dengan Peta Leaflet
+            const targetLayer = markerLayers[nama];
+            if (targetLayer) {
+                // Pindahkan peta ke lokasi marker dengan animasi
+                map.flyTo(targetLayer.getLatLng(), 13); // Zoom lebih dekat (misal level 13)
+                
+                // Buka popup-nya
+                targetLayer.openPopup();
+            }
+        }
+    });
+
+    // --- 5. Fungsi Request ke API Nominatim (Tidak berubah) ---
+    function getReverseGeocode(lat, lon) {
+        const nominatimURL = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`;
+        $textarea.val('Mengambil data dari Nominatim...');
+
+        $.ajax({
+            url: nominatimURL,
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                console.log("Respons API Nominatim:", response);
+                $textarea.val(JSON.stringify(response, null, 2));
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                const errorMsg = `Gagal mengambil data: ${textStatus}\n${errorThrown}`;
+                console.error(errorMsg, jqXHR);
+                $textarea.val(errorMsg);
+            }
+        });
+    }
+});
+</script>
+
+</body>
+</html>
