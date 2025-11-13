@@ -96,7 +96,7 @@
 				</div>
 			</div>
 			<br>
-			<a class="btn btn-primary mt-3 w-100" href=""><i class="fas fa-sign-out-alt"></i>&nbsp;
+			<a class="btn btn-primary mt-3 w-100" href="<?= base_url("?p=" . base64_encode('login')) ?>"><i class="fas fa-sign-out-alt"></i>&nbsp;
 				Logout</a>
 		</div>
 	</aside>

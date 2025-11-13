@@ -12,9 +12,10 @@ class Lapor extends CI_Controller
         date_default_timezone_set("Asia/Jakarta");
     }
 
-    function forum_laporan(){
+    function forum_laporan()
+    {
         $this->load->view('head');
-		$this->load->view('forum/main.php');
+        $this->load->view('forum/main.php');
     }
 
     function data_lapor()
