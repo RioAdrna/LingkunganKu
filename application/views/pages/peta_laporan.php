@@ -7,30 +7,55 @@
                             <div class="row align-items-center">
                                 <div class="col-12 col-sm-8">
                                     <h6 class="mb-0">
-                                        <i class="fas fa-info-square"></i>&nbsp; Lapor Masalah
+                                    <i class="fas fa-route"></i>&nbsp; Peta Laporan
                                     </h6>
-                                </div>
-                                <div class="col-12 col-sm-4 text-sm-end text-center mt-2 mt-sm-0">
-                                    <button id="tambah_data" type="button" class="btn btn-warning shadow-sm"
-                                        data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                        <i class="fas fa-plus"></i>&nbsp; Tambah
-                                    </button>
                                 </div>
                             </div>
                         </div>
                          <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="tabel_lapor" class="table table-bordered table-striped align-middle" style="width:100%">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th style="width: 40px;"></th>
-                                        <th class="text-center" style="width: 60px;">NO</th>
-                                        <th class="text-center">Keluhan</th>
-                                        <th class="text-center" style="width: 120px;">Aksi</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
+                       <div id="map_laporan" style="height: 500px; width: 100%; border-radius: 8px;"></div>
+
+                            <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+                            <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+                            <script>
+
+                                var map = L.map('map_laporan').setView([-6.9175, 107.6191], 12); 
+
+                                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                    maxZoom: 19,
+                                    attribution: '© OpenStreetMap'
+                                }).addTo(map);
+
+                                var dataLaporan = [
+                                    {
+                                        kategori: "Banjir",
+                                        deskripsi: "Banjir setinggi 30 cm",
+                                        lat: -6.9175,
+                                        lng: 107.6191,
+                                        tanggal: "2025-01-11"
+                                    },
+                                    {
+                                        kategori: "Sampah",
+                                        deskripsi: "Tumpukan sampah di pinggir jalan",
+                                        lat: -6.9200,
+                                        lng: 107.6208,
+                                        tanggal: "2025-01-12"
+                                    }
+                                ];
+
+                                dataLaporan.forEach(function(item){
+                                    L.marker([item.lat, item.lng])
+                                        .addTo(map)
+                                        .bindPopup(
+                                            "<b>Kategori:</b> " + item.kategori +
+                                            "<br><b>Tanggal:</b> " + item.tanggal +
+                                            "<br><b>Deskripsi:</b> " + item.deskripsi
+                                        );
+                                });
+                            </script>
+
                          </div>
                         </div>
                     </div>
