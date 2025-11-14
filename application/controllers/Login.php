@@ -63,6 +63,7 @@ class Login extends CI_Controller
                     'email' => $user->email,
                     'no_hp' => $user->no_hp,
                     'alamat' => $user->alamat,
+                    'foto' => $user->foto,
                     'created_at' => $user->created_at,
                     'status' => 'login',
                     'level' => $level

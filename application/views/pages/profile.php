@@ -30,7 +30,17 @@
                                                         </div>
                                                         <div class="card-body shadow-sm">
                                                             <div class="d-flex flex-column align-items-center text-center">
-                                                                <img id="img_logo" src="<?= base_url("assets/img/no-image.png") ?>" alt="Admin" class="rounded-square" width="170" height="231">
+                                                                <img id="img_logo"
+                                                                    src="<?= base_url("assets/img/profile/" . ($this->session->userdata("foto") ?? "no-image.png")) ?>"
+                                                                    alt="Foto"
+                                                                    width="170"
+                                                                    height="231"
+                                                                    style="
+                                                                            object-fit: cover;
+                                                                            border-radius: 15px;
+                                                                            border: 2px solid #e0e0e0;
+                                                                            box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
+
                                                             </div>
                                                             <!-- <div class="card-body">
                     <div class="col-md-12">
@@ -52,7 +62,7 @@
                                                 <div class="col-md-9 mb-4">
                                                     <div class="card">
                                                         <div class="card-header">
-                                                            <h6 class="card-title"><i class="fas fa-exclamation"></i> Identitas </h6>
+                                                            <h6 class="card-title"><i class="fas fa-id-card"></i>&nbsp; Identitas </h6>
                                                         </div>
 
                                                         <div class="card-body shadow-sm">
@@ -100,12 +110,14 @@
                                                                         <hr>
 
                                                                         <div class="row mb-3">
-                                                                            <a href="<?= base_url("?p=" . base64_encode('profile_edit')) ?>" class="btn btn-primary float-end">
-                                                                                <i class="fa fa-edit"></i> Edit
-                                                                            </a>
-
-
+                                                                            <div class="col text-center">
+                                                                                <a href="<?= base_url("?p=" . base64_encode('profile_edit')) ?>"
+                                                                                    class="btn btn-primary w-auto">
+                                                                                    <i class="fa fa-edit"></i> Edit
+                                                                                </a>
+                                                                            </div>
                                                                         </div>
+
                                                                         <!-- BATAS RUANG IDENTITAS -->
 
                                                                     </div>
