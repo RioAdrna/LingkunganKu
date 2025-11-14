@@ -114,12 +114,6 @@
                     //Nanti we
                 }
 
-                let aleng = getFullAddressInfo(userLocation.latitude, userLocation.longitude);
-
-                if(!aleng){
-                    userLocation["alamat_lengkap"] = aleng;
-                }
-
                 $("#submitButton").prop("disabled", true).text("Mengirim...");
 
                 if (queuedFiles.length > 0) {
@@ -131,6 +125,11 @@
 
                     // Tangani jika sukses
                     myDropzone.on("successmultiple", function(files, response) {
+                        if(!(response.status >= 200 && response.status < 300)){
+                            alert("Laporan gagal dikirim");
+                            $("#submitButton").prop("disabled", false).text("Kirim Laporan");
+                            return;
+                        };
                         console.log("Server response:", response);
                         alert("Laporan Anda (dengan file) berhasil dikirim!");
                         // Reset form
@@ -244,6 +243,11 @@
                                     console.log("Titik berada di wilayah:", userLocation.KABKOT);
                                 } else {
                                     console.log("Titik tidak berada di wilayah mana pun");
+                                }
+
+                                let aleng = getFullAddressInfo(userLocation.latitude, userLocation.longitude);
+                                if (!aleng) {
+                                    userLocation["alamat_lengkap"] = aleng;
                                 }
                             });
                     },

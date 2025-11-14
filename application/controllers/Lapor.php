@@ -11,6 +11,9 @@ class Lapor extends CI_Controller
         $this->load->model("model_lapor");
         $this->load->model("model_kabkot");
         date_default_timezone_set("Asia/Jakarta");
+        $this->config->load('config');
+        $this->load->library('upload');
+        $this->load->helper('url');
     }
 
     function forum_laporan()
@@ -48,7 +51,7 @@ class Lapor extends CI_Controller
 
         //Store image
         if ($foto != null) {
-            $path = $foto['name'];
+            $path = $foto['name'][0];
             $ext = pathinfo($path, PATHINFO_EXTENSION);
             $filename = time() . "." . $ext;
 
@@ -56,11 +59,17 @@ class Lapor extends CI_Controller
             $config['allowed_types']        = 'jpeg|jpg|png';
             $config['max_size']             = 7000;
             $config['file_name']            = $filename;
-            $this->load->library('upload', $config);
 
+            $_FILES['foto']['name']     = $foto['name'][0];
+            $_FILES['foto']['type']     = $foto['type'][0];
+            $_FILES['foto']['tmp_name'] = $foto['tmp_name'][0];
+            $_FILES['foto']['error']    = $foto['error'][0];
+            $_FILES['foto']['size']     = $foto['size'][0];
+
+            $this->load->library('upload', $config);
             $this->upload->overwrite = true;
 
-            if (! $this->upload->do_upload('file_foto')) {
+            if (!$this->upload->do_upload("foto")) {
                 $data = [
                     'status' => 400,
                     'message' => 'Gagal upload file',
@@ -89,7 +98,7 @@ class Lapor extends CI_Controller
             "status" => "belum ditangani"
         ];
 
-        if($photo_path != null) $input["foto"] = $photo_path;
+        if ($photo_path != null) $input["foto"] = $photo_path;
 
         $insert = $this->model_lapor->insert_data($input);
 
@@ -301,7 +310,7 @@ class Lapor extends CI_Controller
         // 2. BANGUN PAYLOAD GEMINI (Sama seperti sebelumnya)
         // --------------------------------------------------------
 
-        $prompt_file_path = './prompts/gemini_report_template.txt';
+        $prompt_file_path = './assets/txt/gemini-prompt.txt';
 
         // Cek apakah file ada sebelum memproses
         if (!file_exists($prompt_file_path)) {
@@ -364,6 +373,8 @@ class Lapor extends CI_Controller
             $data = json_decode($response, true);
 
             $gemini_response_text = $data['candidates'][0]['content']['parts'][0]['text'];
+            $gemini_response_text = str_replace("```json\n", "", $gemini_response_text);
+            $gemini_response_text = str_replace("\n```", "", $gemini_response_text);
 
             $gemini_res = json_decode($gemini_response_text, true);
 

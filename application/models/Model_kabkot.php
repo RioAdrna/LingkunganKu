@@ -3,8 +3,8 @@
 class Model_kabkot extends CI_Model
 {
     //READ
-    function kabkot_id($kabkot)
+    function get_kabkot($kabkot)
     {
-        return $this->db->get_where("nama", $kabkot);
+        return $this->db->get_where("kabkot", array("nama" => $kabkot));
     }
 }

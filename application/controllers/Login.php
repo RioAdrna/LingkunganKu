@@ -34,7 +34,7 @@ class Login extends CI_Controller
             $user = $hasil->row();
 
             // Cek password
-            if (password_verify($password, $user->password)) {
+            if ($password == $user->password) { //Nyoba doang, nanti ganti aja lagi
 
                 // --- CEK STATUS USER ---
                 // Cek apakah kolom status_user ada
