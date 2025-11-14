@@ -15,7 +15,8 @@
 
 
 <body class="g-sidenav-show   bg-gray-100">
-	<div class="min-height-300 bg-dark position-absolute w-100"></div>
+	<div class="min-height-300 position-absolute w-100" style="background-color: #1A2A4F;">
+</div>
 	<aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
 		<div class="sidenav-header">
 			<i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -96,8 +97,8 @@
 				</div>
 			</div>
 			<br>
-			<a class="btn btn-primary mt-3 w-100" href="<?= base_url("?p=" . base64_encode('login')) ?>"><i class="fas fa-sign-out-alt"></i>&nbsp;
-				Logout</a>
+			<a class="btn btn-primary mt-3 w-100" href="<?= base_url('login/logout?req=logout') ?>"><i class="fas fa-sign-out-alt"></i>&nbsp;
+				Log Out</a>
 		</div>
 	</aside>
 	<main class="main-content position-relative border-radius-lg ">
@@ -120,10 +121,11 @@
 					</div>
 					<ul class="navbar-nav  justify-content-end">
 						<li class="nav-item d-flex align-items-center">
-							<a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
+							<a class="nav-link text-white font-weight-bold px-0" href="<?= base_url('login/logout?req=logout') ?>">
 								<i class="fa fa-sign-out-alt me-sm-1"></i>
 								<span class="d-sm-inline d-none">Log Out</span>
 							</a>
+
 						</li>
 						<li class="nav-item d-xl-none ps-3 d-flex align-items-center">
 							<a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
@@ -212,7 +214,52 @@
 		</div>
 	</main>
 	<div class="fixed-plugin">
-		<a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
+    <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
+
+<!-- Floating Chatbot Button -->
+		<div id="chatbot-btn" 
+			style="position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+					background:#4e73df; border-radius: 50%; display:flex; 
+					justify-content:center; align-items:center; cursor:pointer;
+					box-shadow:0 4px 10px rgba(0,0,0,0.3); z-index:9999;">
+			<i class="fa fa-comments" style="color:white; font-size:24px;"></i>
+		</div>
+
+		<!-- Chatbot Box -->
+		<div id="chatbot-box"
+			style="position: fixed; bottom: 110px; right: 30px; width: 420px; 
+					height: 420px; background:white; border-radius: 15px;
+					box-shadow:0 6px 20px rgba(0,0,0,0.25);
+					display:none; flex-direction:column; overflow:hidden; z-index:9999;
+					animation: fadeInUp 0.3s ease;">
+			
+			<div style="background:#4e73df; color:white; padding:15px; font-weight:bold;">
+				LingkunganKu AI Assistant
+			</div>
+
+			<div id="chat-content" style="padding:10px; height:300px; overflow-y:auto;">
+				<p><b>AI:</b> Halo! Ada yang bisa saya bantu?</p>
+			</div>
+
+			<div style="display:flex; border-top:1px solid #ddd; padding:8px; gap:8px; align-items:center;">
+			
+			<input id="chat-input" type="text" 
+				style="flex:1; border:1px solid #ccc; padding:10px 14px; border-radius:10px; outline:none;"
+				placeholder="Tulis pesan...">
+
+			<button id="send-btn"
+				style="width:50px; height:45px; border:none; border-radius:50%;
+					background:#016B61; color:white; display:flex; justify-content:center;
+					align-items:center; cursor:pointer; font-size:20px;
+					box-shadow:0 4px 12px rgba(0,0,0,0.25);">
+				<i class="fas fa-paper-plane"></i>
+			</button>
+
+		</div>
+
+		</div>
+
+
 			<i class="fa fa-cog py-2"> </i>
 		</a>
 		<div class="card shadow-lg">
@@ -285,6 +332,65 @@
 	</div>
 
 	<!--   Core JS Files   -->
+	<script>
+    const chatBtn = document.getElementById("chatbot-btn");
+    const chatBox = document.getElementById("chatbot-box");
+    const chatContent = document.getElementById("chat-content");
+    const chatInput = document.getElementById("chat-input");
+    const sendBtn = document.getElementById("send-btn");
+
+	chatBtn.addEventListener('click', () => {
+		chatBox.style.display = chatbox.style.display === 'none' ? 'block' : 'none';
+	});
+
+	document.addEventListener('click', (e) => {
+		if (!chatBox.contains(e.target) && !chatBtn.contains(e.target)) {
+			chatBox.style.display = 'none';
+		}
+	});
+
+    chatBtn.addEventListener("click", () => {
+        chatBox.style.display = chatBox.style.display === "none" ? "flex" : "none";
+    });
+
+    function sendMessage() {
+        const text = chatInput.value.trim();
+        if (text === "") return;
+
+        // Bubble user
+        const userBubble = document.createElement("div");
+        userBubble.className = "chat-bubble-user";
+        userBubble.textContent = text;
+        chatContent.appendChild(userBubble);
+
+        chatInput.value = "";
+        chatContent.scrollTop = chatContent.scrollHeight;
+
+        // Bot reply bubble
+        setTimeout(() => {
+            const botBubble = document.createElement("div");
+            botBubble.className = "chat-bubble-bot";
+            botBubble.textContent = "Baik, aku menerima: " + text;
+            chatContent.appendChild(botBubble);
+
+            chatContent.scrollTop = chatContent.scrollHeight;
+        }, 500);
+    }
+
+    sendBtn.addEventListener("click", sendMessage);
+    
+    chatInput.addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            sendMessage();
+        }
+    });
+
+	
+</script>
+
+
+
 	<script src="<?= base_url('assets/vendor/jquery/dist/jquery.min.js') ?>"></script>
 
 	<script src="<?= base_url('assets/js/core/popper.min.js') ?>"></script>
