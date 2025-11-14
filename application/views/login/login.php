@@ -313,9 +313,6 @@
 						password: password
 					},
 					beforeSend: function() {
-						$("#loading").css("display", "flex").hide().fadeIn(300);
-					},
-					beforeSend: function() {
 						$("#loading").css("display", "flex").hide().fadeIn(200); // fadeIn cepat
 					},
 					success: function(rsp) {
@@ -347,6 +344,9 @@
 					},
 
 					error: function() {
+						// **INI FIX NYA** → biar loading langsung hilang
+						$("#loading").fadeOut(200);
+
 						Swal.fire({
 							title: "Error!",
 							text: "Terjadi kesalahan koneksi ke server.",
