@@ -16,7 +16,7 @@ class Model_lapor extends CI_Model
     function insert_data($data)
     {
         return $this->db->insert("laporan", $data);
-    }
+    }               
 
     //DELETE
     function delete_data($where)

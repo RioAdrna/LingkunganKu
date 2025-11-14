@@ -8,7 +8,7 @@
     </title>
     <!--     Fonts and icons     -->
     <!-- DataTables + Bootstrap 5 -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css"> -->
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap5.min.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Nucleo Icons -->
@@ -16,13 +16,15 @@
     <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- Font Awesome Icons -->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <!-- CSS Files -->
     <link id="pagestyle" rel="stylesheet" href="<?= base_url('assets/css/argon-dashboard.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/nucleo-icons.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/nucleo-svg.css') ?>">
-    <!-- <link rel="stylesheet" href="<?= base_url('assets/vendor/DataTables/datatables.min.css') ?>"> -->
+    <link rel="stylesheet" href="<?= base_url('assets/vendor/DataTables/datatables.min.css') ?>">
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/plugins/select2/dist/css/select2.min.css') ?>" />
-    <link rel="stylesheet" type="text/css" href="<?= base_url("assets/plugins/filepond/dist/filepond.min.css") ?>">
-    <link rel="stylesheet" type="text/css" href="<?= base_url("assets/plugins/filepond/plugins/filepond-plugin-image-preview/filepond-plugin-image-preview.min.css") ?>">
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="<?= base_url("assets/vendor/libs/filepond/dist/filepond.min.css") ?>">
+    <link rel="stylesheet" type="text/css" href="<?= base_url("assets/vendor/libs/filepond/plugins/filepond-plugin-image-preview/filepond-plugin-image-preview.min.css") ?>">
+
 </head>

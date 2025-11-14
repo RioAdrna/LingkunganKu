@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 10 Nov 2025 pada 18.19
--- Versi server: 10.4.32-MariaDB
--- Versi PHP: 8.2.12
+-- Generation Time: Nov 12, 2025 at 05:05 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `laporan`
+-- Table structure for table `laporan`
 --
 
 CREATE TABLE `laporan` (
@@ -33,44 +33,45 @@ CREATE TABLE `laporan` (
   `kategori` enum('sampah','banjir') DEFAULT 'sampah',
   `deskripsi` text NOT NULL,
   `foto` varchar(255) DEFAULT NULL,
+  `koordinat` varchar(100) DEFAULT NULL,
   `tanggal_laporan` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `laporan`
+-- Dumping data for table `laporan`
 --
 
-INSERT INTO `laporan` (`id_laporan`, `user_id`, `kategori`, `deskripsi`, `foto`, `tanggal_laporan`) VALUES
-(1, 1, 'sampah', 'Tumpukan sampah di pinggir jalan utama menimbulkan bau tidak sedap.', 'uploads/sampah1.jpg', '2025-11-10 11:36:45'),
-(2, 2, 'banjir', 'Air meluap dari selokan membuat jalan tergenang air.', 'uploads/banjir1.jpg', '2025-11-10 11:36:45'),
-(3, 3, 'sampah', 'Asap tebal dari pabrik di kawasan industri.', 'uploads/polusi1.jpg', '2025-11-10 11:36:45'),
-(4, 1, 'banjir', 'Kebakaran kecil di area hutan Dago.', 'uploads/kebakaran1.jpg', '2025-11-10 11:36:45'),
-(5, 2, 'sampah', 'TPS sudah penuh dan warga mulai buang sampah di pinggir jalan.', 'uploads/sampah2.jpg', '2025-11-10 11:36:45'),
-(6, 1, 'sampah', 'Tumpukan sampah di area pasar mulai menumpuk dan mengganggu pengunjung.', 'uploads/sampah3.jpg', '2025-11-10 17:05:27'),
-(7, 2, 'banjir', 'Parit tersumbat menyebabkan banjir kecil setelah hujan deras.', 'uploads/banjir2.jpg', '2025-11-10 17:05:27'),
-(8, 3, 'sampah', 'Sampah plastik berserakan di lapangan sepak bola.', 'uploads/sampah4.jpg', '2025-11-10 17:05:27'),
-(9, 1, 'banjir', 'Sungai meluap ke pemukiman warga.', 'uploads/banjir3.jpg', '2025-11-10 17:05:27'),
-(10, 2, 'sampah', 'Bau menyengat dari tempat pembuangan sampah liar.', 'uploads/sampah5.jpg', '2025-11-10 17:05:27'),
-(11, 3, 'banjir', 'Drainase rusak sehingga air tidak mengalir dengan baik.', 'uploads/banjir4.jpg', '2025-11-10 17:05:27'),
-(12, 1, 'sampah', 'Tumpukan kardus dan plastik di area ruko.', 'uploads/sampah6.jpg', '2025-11-10 17:05:27'),
-(13, 2, 'banjir', 'Air menggenang di depan pintu rumah hingga setinggi mata kaki.', 'uploads/banjir5.jpg', '2025-11-10 17:05:27'),
-(14, 3, 'sampah', 'Sampah rumah tangga dibuang sembarangan di pinggir sungai.', 'uploads/sampah7.jpg', '2025-11-10 17:05:27'),
-(15, 1, 'banjir', 'Selokan mampet menyebabkan jalan licin dan berbahaya.', 'uploads/banjir6.jpg', '2025-11-10 17:05:27'),
-(16, 2, 'sampah', 'Botol dan gelas plastik berserakan setelah acara warga.', 'uploads/sampah8.jpg', '2025-11-10 17:05:27'),
-(17, 3, 'banjir', 'Air hujan tidak terserap karena kurangnya sumur resapan.', 'uploads/banjir7.jpg', '2025-11-10 17:05:27'),
-(18, 1, 'sampah', 'Sampah menumpuk di belakang gedung olahraga.', 'uploads/sampah9.jpg', '2025-11-10 17:05:27'),
-(19, 2, 'banjir', 'Air dari sungai meluap ke kebun dan merusak tanaman warga.', 'uploads/banjir8.jpg', '2025-11-10 17:05:27'),
-(20, 3, 'sampah', 'Warga membuang sampah ke area kosong dekat perumahan.', 'uploads/sampah10.jpg', '2025-11-10 17:05:27'),
-(21, 1, 'banjir', 'Banjir kembali terjadi setiap hujan deras.', 'uploads/banjir9.jpg', '2025-11-10 17:05:27'),
-(22, 2, 'sampah', 'Sampah daun dan ranting menyumbat aliran sungai kecil.', 'uploads/sampah11.jpg', '2025-11-10 17:05:27'),
-(23, 3, 'banjir', 'Pompa air tidak berfungsi sehingga air meluber ke jalan.', 'uploads/banjir10.jpg', '2025-11-10 17:05:27'),
-(24, 1, 'sampah', 'Banyak sampah plastik kecil beterbangan di area taman.', 'uploads/sampah12.jpg', '2025-11-10 17:05:27'),
-(25, 2, 'banjir', 'Air setinggi lutut menggenang di area pemukiman padat.', 'uploads/banjir11.jpg', '2025-11-10 17:05:27');
+INSERT INTO `laporan` (`id_laporan`, `user_id`, `kategori`, `deskripsi`, `foto`, `koordinat`, `tanggal_laporan`) VALUES
+(1, 1, 'sampah', 'Tumpukan sampah di pinggir jalan utama menimbulkan bau tidak sedap.', 'uploads/sampah1.jpg', NULL, '2025-11-10 11:36:45'),
+(2, 2, 'banjir', 'Air meluap dari selokan membuat jalan tergenang air.', 'uploads/banjir1.jpg', NULL, '2025-11-10 11:36:45'),
+(3, 3, 'sampah', 'Asap tebal dari pabrik di kawasan industri.', 'uploads/polusi1.jpg', NULL, '2025-11-10 11:36:45'),
+(4, 1, 'banjir', 'Kebakaran kecil di area hutan Dago.', 'uploads/kebakaran1.jpg', NULL, '2025-11-10 11:36:45'),
+(5, 2, 'sampah', 'TPS sudah penuh dan warga mulai buang sampah di pinggir jalan.', 'uploads/sampah2.jpg', NULL, '2025-11-10 11:36:45'),
+(6, 1, 'sampah', 'Tumpukan sampah di area pasar mulai menumpuk dan mengganggu pengunjung.', 'uploads/sampah3.jpg', NULL, '2025-11-10 17:05:27'),
+(7, 2, 'banjir', 'Parit tersumbat menyebabkan banjir kecil setelah hujan deras.', 'uploads/banjir2.jpg', NULL, '2025-11-10 17:05:27'),
+(8, 3, 'sampah', 'Sampah plastik berserakan di lapangan sepak bola.', 'uploads/sampah4.jpg', NULL, '2025-11-10 17:05:27'),
+(9, 1, 'banjir', 'Sungai meluap ke pemukiman warga.', 'uploads/banjir3.jpg', NULL, '2025-11-10 17:05:27'),
+(10, 2, 'sampah', 'Bau menyengat dari tempat pembuangan sampah liar.', 'uploads/sampah5.jpg', NULL, '2025-11-10 17:05:27'),
+(11, 3, 'banjir', 'Drainase rusak sehingga air tidak mengalir dengan baik.', 'uploads/banjir4.jpg', NULL, '2025-11-10 17:05:27'),
+(12, 1, 'sampah', 'Tumpukan kardus dan plastik di area ruko.', 'uploads/sampah6.jpg', NULL, '2025-11-10 17:05:27'),
+(13, 2, 'banjir', 'Air menggenang di depan pintu rumah hingga setinggi mata kaki.', 'uploads/banjir5.jpg', NULL, '2025-11-10 17:05:27'),
+(14, 3, 'sampah', 'Sampah rumah tangga dibuang sembarangan di pinggir sungai.', 'uploads/sampah7.jpg', NULL, '2025-11-10 17:05:27'),
+(15, 1, 'banjir', 'Selokan mampet menyebabkan jalan licin dan berbahaya.', 'uploads/banjir6.jpg', NULL, '2025-11-10 17:05:27'),
+(16, 2, 'sampah', 'Botol dan gelas plastik berserakan setelah acara warga.', 'uploads/sampah8.jpg', NULL, '2025-11-10 17:05:27'),
+(17, 3, 'banjir', 'Air hujan tidak terserap karena kurangnya sumur resapan.', 'uploads/banjir7.jpg', NULL, '2025-11-10 17:05:27'),
+(18, 1, 'sampah', 'Sampah menumpuk di belakang gedung olahraga.', 'uploads/sampah9.jpg', NULL, '2025-11-10 17:05:27'),
+(19, 2, 'banjir', 'Air dari sungai meluap ke kebun dan merusak tanaman warga.', 'uploads/banjir8.jpg', NULL, '2025-11-10 17:05:27'),
+(20, 3, 'sampah', 'Warga membuang sampah ke area kosong dekat perumahan.', 'uploads/sampah10.jpg', NULL, '2025-11-10 17:05:27'),
+(21, 1, 'banjir', 'Banjir kembali terjadi setiap hujan deras.', 'uploads/banjir9.jpg', NULL, '2025-11-10 17:05:27'),
+(22, 2, 'sampah', 'Sampah daun dan ranting menyumbat aliran sungai kecil.', 'uploads/sampah11.jpg', NULL, '2025-11-10 17:05:27'),
+(23, 3, 'banjir', 'Pompa air tidak berfungsi sehingga air meluber ke jalan.', 'uploads/banjir10.jpg', NULL, '2025-11-10 17:05:27'),
+(24, 1, 'sampah', 'Banyak sampah plastik kecil beterbangan di area taman.', 'uploads/sampah12.jpg', NULL, '2025-11-10 17:05:27'),
+(25, 2, 'banjir', 'Air setinggi lutut menggenang di area pemukiman padat.', 'uploads/banjir11.jpg', NULL, '2025-11-10 17:05:27');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `penanganan`
+-- Table structure for table `penanganan`
 --
 
 CREATE TABLE `penanganan` (
@@ -85,7 +86,7 @@ CREATE TABLE `penanganan` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -100,7 +101,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `nama`, `email`, `password`, `role`, `no_hp`, `alamat`, `created_at`) VALUES
@@ -115,14 +116,14 @@ INSERT INTO `users` (`id`, `nama`, `email`, `password`, `role`, `no_hp`, `alamat
 --
 
 --
--- Indeks untuk tabel `laporan`
+-- Indexes for table `laporan`
 --
 ALTER TABLE `laporan`
   ADD PRIMARY KEY (`id_laporan`),
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indeks untuk tabel `penanganan`
+-- Indexes for table `penanganan`
 --
 ALTER TABLE `penanganan`
   ADD PRIMARY KEY (`id`),
@@ -130,46 +131,46 @@ ALTER TABLE `penanganan`
   ADD KEY `id_laporan` (`id_laporan`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `laporan`
+-- AUTO_INCREMENT for table `laporan`
 --
 ALTER TABLE `laporan`
   MODIFY `id_laporan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT untuk tabel `penanganan`
+-- AUTO_INCREMENT for table `penanganan`
 --
 ALTER TABLE `penanganan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `laporan`
+-- Constraints for table `laporan`
 --
 ALTER TABLE `laporan`
   ADD CONSTRAINT `laporan_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `penanganan`
+-- Constraints for table `penanganan`
 --
 ALTER TABLE `penanganan`
   ADD CONSTRAINT `penanganan_ibfk_1` FOREIGN KEY (`id_laporan`) REFERENCES `laporan` (`id_laporan`) ON DELETE CASCADE,

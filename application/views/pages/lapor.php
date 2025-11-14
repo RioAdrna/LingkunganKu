@@ -13,11 +13,12 @@
                                 <div class="col-12 col-sm-4 text-sm-end text-center mt-2 mt-sm-0">
                                     <button id="tambah_data" type="button" class="btn btn-warning shadow-sm"
                                         data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                        <i class="fas fa-plus"></i>&nbsp; Tambah
+                                        <i class="fas fa-bullhorn"></i>&nbsp; Lapor
                                     </button>
                                 </div>
                             </div>
                         </div>
+<<<<<<< HEAD
                          <div class="card-body">
                         <div class="table-responsive">
                             <table id="tabel_lapor" class="table table-bordered table-striped align-middle" style="width:100%">
@@ -32,6 +33,21 @@
                             </table>
                         </div>
                          </div>
+=======
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="tabel_lapor" class="table table-stripped" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th class="text-center">NO</th>
+                                            <th class="text-center">Keluhan</th>
+                                            <th class="text-center">#</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+>>>>>>> b978fd66ba7c4ffcd5362c0a3fd21cf09fec3129
                         </div>
                     </div>
                 </div>
@@ -51,35 +67,54 @@
                     <div class="row mb-3">
                         <label for="kategori" class="col-sm-4 col-form-label">Kategori</label>
                         <div class="col-md-7 col-xs-6">
-                            <select class="form-control" id="kategori">
+                            <select class="form-select shadow-sm" id="kategori">
                                 <option value="banjir">Banjir</option>
                                 <option value="sampah">Sampah</option>
                             </select>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="deskripsi" class="col-sm-4 col-form-label">Deskripsi</label>
+                        <label for="file_foto" class="col-sm-4 col-form-label">Foto</label>
                         <div class="col-md-7 col-xs-6">
-                            <textarea class="form-control" id="deskripsi" style=" width:100%;max-height: 200px; overflow:scroll; height:150px"></textarea>
+                            <input
+                                type="file"
+                                class="filepond w-100 shadow-sm"
+                                id="file_foto"
+                                name="file_foto">
+                            <input type="hidden" id="nm_file">
+
+                            <div id="preview_foto" class="mt-2 text-center" style="display:none;">
+                                <img id="img_preview" src="" alt="Foto laporan" class="img-fluid" style="max-height:200px;">
+                            </div>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="foto" class="col-sm-4 col-form-label">Foto</label>
+                        <label for="deskripsi" class="col-sm-4 col-form-label">Deskripsi</label>
                         <div class="col-md-7 col-xs-6">
-                            <input type="file" class="form-control" id="foto" name="foto">
-                            <input type="hidden" id="nm_file">
+                            <input type="hidden" autocomplete="off" id="id_laporan">
+                            <textarea
+                                class="form-control shadow-sm border-1"
+                                id="deskripsi"
+                                placeholder="Tulis deskripsi laporan di sini..."
+                                style=" width: 100%;
+                                        min-height: 120px;
+                                        max-height: 350px;
+                                        resize: vertical;
+                                        border-radius: 8px;
+                                        transition: all 0.2s ease;"></textarea>
                         </div>
                     </div>
 
-                    <div class="mb-3 row">
+
+                    <!-- <div class="mb-3 row">
                         <label for="date" class="col-sm-4 col-form-label">Tanggal</label>
                         <div class="col-md-7 col-xs-8">
                             <input type="date" class="form-control" id="date" placeholder="Masukan Tanggal" required>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="modal-footer">
                         <button id="clear" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button id="simpan_laporan" type="button" class="btn btn-primary">Simpan</button>
+                        <button id="simpan" type="button" class="btn btn-primary">Simpan</button>
                     </div>
                 </div>
             </div>
