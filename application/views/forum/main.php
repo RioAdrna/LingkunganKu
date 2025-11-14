@@ -12,7 +12,7 @@
 
                             <div class="mb-3">
                                 <label for="teksLaporan" class="form-label fs-5">Isi Laporan Anda</label>
-                                <textarea class="form-control" id="teksLaporan" name="teksLaporan" rows="6"
+                                <textarea class="form-control" id="deskripsi" name="deskripsi" rows="6"
                                     placeholder="Tuliskan detail laporan Anda di sini..." required></textarea>
                                 <div class="invalid-feedback">
                                     Mohon isi laporan Anda.
@@ -48,6 +48,7 @@
     <script src="<?= base_url('assets/js/core/popper.min.js') ?>"></script>
     <script src="<?= base_url('assets/js/core/bootstrap.min.js"') ?>"></script>
     <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
 
     <script>
         let longitude;
@@ -55,19 +56,21 @@
 
         getUserGeo();
 
+        let userLocation = null;
+        let locationAvailable = true;
+        let endpoint = "<?= base_url("/lapor/proses_laporan") ?>";
+
         Dropzone.autoDiscover = false;
         $(document).ready(function() {
 
             // --- PENGATURAN DROPZONE ---
 
-            // 1. Matikan autoDiscover Dropzone agar kita bisa inisialisasi manual
-
             // 2. Inisialisasi Dropzone pada div #lampiranDropzone
             var myDropzone = new Dropzone("#lampiranDropzone", {
-                url: "<?= base_url("/lapor/proses_laporan") ?>", // <-- GANTI DENGAN URL ENDPOINT ANDA
-                paramName: "lampiran", // Nama parameter file di server
-                maxFilesize: 5, // Ukuran maks file (MB)
-                addRemoveLinks: true, // Tampilkan link hapus file
+                url: endpoint,
+                paramName: "foto",
+                maxFilesize: 5,
+                addRemoveLinks: true,
                 dictRemoveFile: "Hapus file",
 
                 // PENTING: Matikan autoProcessQueue
@@ -98,29 +101,32 @@
                 }
                 form.removeClass('was-validated');
 
-                // Nonaktifkan tombol submit untuk mencegah klik ganda
-                $("#submitButton").prop("disabled", true).text("Mengirim...");
-
                 // Buat objek FormData untuk mengumpulkan data form (termasuk file)
                 var formData = new FormData(this);
 
                 // Ambil file yang ada di antrian Dropzone
                 var queuedFiles = myDropzone.getQueuedFiles();
 
-                if (queuedFiles.length > 0) {
-                    // --- KASUS 1: ADA FILE YANG DIUNGGAH ---
-                    console.log(queuedFiles);
-                    // Dropzone tidak bisa langsung kirim data via FormData biasa,
-                    // jadi kita atur Dropzone untuk memproses antriannya.
+                if (!userLocation && locationAvailable) {
+                    alert("Mohon izinkan dulu akses lokasi");
+                    return;
+                } else {
+                    //Nanti we
+                }
 
-                    // Tambahkan data dari form (textarea) ke request Dropzone
-                    // yang akan dikirim saat .processQueue() dipanggil
+                let aleng = getFullAddressInfo(userLocation.latitude, userLocation.longitude);
+
+                if(!aleng){
+                    userLocation["alamat_lengkap"] = aleng;
+                }
+
+                $("#submitButton").prop("disabled", true).text("Mengirim...");
+
+                if (queuedFiles.length > 0) {
+                    console.log(queuedFiles);
                     myDropzone.on("sendingmultiple", function(files, xhr, dropzoneFormData) {
-                        // 'dropzoneFormData' adalah FormData yang digunakan oleh Dropzone
-                        // Kita tambahkan nilai textarea ke dalamnya
-                        dropzoneFormData.append("teksLaporan", $("#teksLaporan").val());
-                        // Anda bisa tambahkan data lain di sini jika perlu
-                        // dropzoneFormData.append("kategori", "urgent");
+                        dropzoneFormData.append("deskripsi", $("#deskripsi").val());
+                        dropzoneFormData.append("location_info", JSON.stringify(userLocation));
                     });
 
                     // Tangani jika sukses
@@ -143,17 +149,17 @@
                     myDropzone.processQueue();
 
                 } else {
-                    // --- KASUS 2: TIDAK ADA FILE (HANYA TEKS) ---
-
+                    // --- KASUS 2: TIDAK ADA FILE (HANYA TEKS) ---         
+                    formData.append("location_info", JSON.stringify(userLocation));
                     // Kita tidak perlu Dropzone, kirim form via AJAX jQuery biasa
                     console.log("Mengirim laporan tanpa file...");
-
+                    console.log(formData);
                     $.ajax({
-                        url: "https://httpbin.org/post", // <-- GANTI DENGAN URL ENDPOINT ANDA
+                        url: endpoint, // <-- GANTI DENGAN URL ENDPOINT ANDA
                         type: "POST",
-                        data: formData, // formData sudah berisi 'teksLaporan'
-                        processData: false, // Wajib false untuk FormData
-                        contentType: false, // Wajib false untuk FormData
+                        data: formData,
+                        processData: false,
+                        contentType: false,
                         success: function(response) {
                             console.log("Server response:", response);
                             alert("Laporan Anda (tanpa file) berhasil dikirim!");
@@ -180,22 +186,69 @@
 
         });
 
+        function getFullAddressInfo(lat, lon) {
+            const nominatimURL = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`;
+            console.log('Mengambil data dari Nominatim...');
+
+            $.ajax({
+                url: nominatimURL,
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    console.log("Respons API Nominatim:", response);
+                    return response.display_name ?? false;
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    const errorMsg = `Gagal mengambil data: ${textStatus}\n${errorThrown}`;
+                    console.error(errorMsg, jqXHR);
+                    return false;
+                }
+            });
+        }
+
         function getUserGeo() {
             // Cek apakah Geolocation didukung
             if ("geolocation" in navigator) {
                 // Panggil Geolocation API
                 navigator.geolocation.getCurrentPosition(
                     // --- FUNGSI SUKSES ---
-                    function(position) {
+                    position => {
                         // Lokasi berhasil didapat
                         console.log("Lokasi ditemukan:", position.coords.latitude, position.coords.longitude);
 
                         // Masukkan koordinat ke input tersembunyi
-                        longitude = position.coords.latitude;
-                        latitude = position.coords.longitude;
+                        longitude = position.coords.longitude;
+                        latitude = position.coords.latitude;
+
+                        fetch('<?= base_url("/assets/geojson/Jabar_By_Kab.geojson") ?>')
+                            .then(res => res.json())
+                            .then(geojson => {
+
+                                // titik yang ingin dicek
+                                const point = turf.point([longitude, latitude]); // format: [lng, lat]
+
+                                // loop semua fitur
+                                geojson.features.forEach(feature => {
+
+                                    if (turf.booleanPointInPolygon(point, feature)) {
+                                        userLocation = {
+                                            latitude: latitude,
+                                            longitude: longitude,
+                                            kabkot: feature.properties.KABKOT,
+                                            geojson_id: feature.properties.OBJECTID
+                                        };
+                                    }
+                                });
+
+                                if (userLocation) {
+                                    console.log("Titik berada di wilayah:", userLocation.KABKOT);
+                                } else {
+                                    console.log("Titik tidak berada di wilayah mana pun");
+                                }
+                            });
                     },
                     // --- FUNGSI ERROR ---
-                    function(error) {
+                    error => {
                         console.warn("Geolocation error:", error.message);
                         let userMessage = "";
                         switch (error.code) {
@@ -204,12 +257,13 @@
                                 break;
                             case error.POSITION_UNAVAILABLE:
                                 userMessage = "Informasi lokasi tidak tersedia. Mohon rinci saja lokasinya di laporan anda (misalnya di kota/ kab apa, kecamatan apa).";
+                                //Nanti disini opsi lain
                                 break;
                             case error.TIMEOUT:
                                 userMessage = "Waktu permintaan lokasi habis. Mohon coba lagi.";
                                 break;
                             default:
-                                userMessage = "Terjadi kesalahan lokasi. Mohon coba lagi nanti.";
+                                userMessage = "Terjadi kesalahan lokasi, Mohon coba lagi nanti. Anda dapat melaporkan kesalahan ke tim developer";
                         }
                         alert(userMessage);
                     }

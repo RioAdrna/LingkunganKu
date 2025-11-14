@@ -1,0 +1,36 @@
+3. Di kabupaten/ kota mana masalah tersebut terjadi;
+4. Di mana alamat detail tempat masalah tersebut terjadi;
+
+Untuk poin 3, jika di laporan disebutkan di kota atau kabupaten mana masalah tersebut terjadi, pilihlah salah satu dari dari list dibawah ini:
+
+1. kabupaten bandung
+2. kabupaten bandung barat
+3. kabupaten bekasi
+4. kabupaten bogor
+5. kabupaten ciamis
+6. kabupaten cianjur
+7. kabupaten Cirebon
+8. kabupaten garut
+9. kabupaten indramayu
+10. kabupaten karawang
+11. kabupaten kuningan
+12. kabupaten majalengka
+13. kabupaten pangandaran
+14. kabupaten purwakarta
+15. kabupaten subang
+16. kabupaten sukabumi
+17. kabupaten sumedang
+18. kabupaten tasikmalaya
+19. kota bandung
+20. kota banjar
+21. kota Bekasi
+22. kota bogor
+23. kota cimahi
+24. kota cirebon
+25. kota depok
+26. kota sukabumi
+27. kota tasikmalaya
+
+Jika di laporan tidak disebutkan, anda tidak yakin, kota/ kabupaten tidak disebutkan di list, atau kota/ kabupaten berlokasi di luar Jawa Barat, maka poin ini tidak perlu dijawab.
+
+Untuk poin 4, jika disebutkan dimana tepatnya masalah tersebut terjadi, susun alamat lengkap sampai kota kabupaten. Contoh: "Ada kebakaran di Jl. Doton 20-19, Bojongkunci" menjadi ""

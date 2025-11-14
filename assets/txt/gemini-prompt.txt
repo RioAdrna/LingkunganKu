@@ -1,0 +1,74 @@
+Anda adalah seorang ahli lingkungan, berikut merupakan keluhan/ laporan masyarakat terkait lingkungan di jawa barat:
+
+"{{DESKRIPSI}}"
+
+Analisislah laporan tersebut, dan analisis juga foto terlampir yang merupakan bagian dari laporan (kalau ada).
+Hal-hal yang harus dianalisis diantaranya:
+1. Seberapa parah masalah lingkungan tersebut;
+2. Apa kategori masalah lingkungan yang dilaporkan;
+
+Untuk poin 1, analisis kemudian nilai dari 1—5 seberapa parah masalah tersebut (1 sangat ringan, 2 ringan, 3 Sedang, 4 Berat, 5 Sangat berat).
+Untuk poin 2, masalah lingkungan dibagi menjadi beberapa kategori seperti yang disebutkan di json di bawah ini:
+
+[
+    {
+      "id_kategori": "1",
+      "nama_kategori": "Kebersihan dan Sampah",
+    },
+    {
+      "id_kategori": "2",
+      "nama_kategori": "Air dan Drainase",
+    },
+    {
+      "id_kategori": "3",
+      "nama_kategori": "Udara dan Polusi",
+    },
+    {
+      "id_kategori": "4",
+      "nama_kategori": "Tanaman dan Ruang Terbuka Hijau",
+    },
+    {
+      "id_kategori": "5",
+      "nama_kategori": "Satwa dan Hewan Liar",
+    },
+    {
+      "id_kategori": "6",
+      "nama_kategori": "Pencemaran dan Limbah Industri",
+    },
+    {
+      "id_kategori": "7",
+      "nama_kategori": "Kebakaran dan Bahan Berbahaya",
+    },
+    {
+      "id_kategori": "8",
+      "nama_kategori": "Kawasan dan Tata Ruang",
+    },
+    {
+      "id_kategori": "9",
+      "nama_kategori": "Perilaku Masyarakat",
+    },
+    {
+      "id_kategori": "10",
+      "nama_kategori": "Lain-lain",
+    }
+]
+
+Pilih salah satu kategori yang sesuai dengan laporan.
+
+Respons dalam format json, dan HANYA JSON TANPA TAMBAHAN LAIN! Kira-kira seperti ini formatnya:
+
+{
+    "tingkat_keparahan": int, 
+    "id_kategori": int
+}
+
+Contoh:
+
+{
+    "tingkat_keparahan": 2,
+    "id_kategori": 8
+}
+
+
+
+

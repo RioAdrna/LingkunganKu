@@ -3,107 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leaflet, GeoJSON, dan Nominatim</title>
-    
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-     integrity="sha256-p4NxAoJBhA9l+B47EAZSOmbiPAeJtA2sWzVnKjH/k+g="
-     crossorigin=""/>
-
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-     crossorigin=""></script>
-
+    <title>Reverse Geocoding Jawa Barat</title>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            margin: 0;
+            margin: 20px;
             background-color: #f4f4f4;
-            display: flex;
-            flex-wrap: wrap;
         }
         h2 {
             border-bottom: 2px solid #007bff;
             padding-bottom: 5px;
             color: #333;
-            width: 100%;
         }
         select, textarea {
             width: 100%;
+            max-width: 600px;
             padding: 10px;
             font-size: 16px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            box-sizing: border-box; 
+            box-sizing: border-box; /* Pastikan padding tidak mempengaruhi lebar */
         }
         textarea {
             margin-top: 15px;
-            height: 250px;
+            height: 400px;
             font-family: "Courier New", Courier, monospace;
             background-color: #fff;
             color: #222;
             resize: vertical;
         }
         .container {
-            width: 100%;
             max-width: 600px;
+            margin: auto;
             background: #fff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        
-        /* Tata letak fleksibel */
-        .left-panel {
-            flex: 1;
-            padding: 20px;
-            min-width: 320px;
-        }
-        .right-panel {
-            flex: 2;
-            padding: 20px;
-            min-width: 400px;
-        }
-
-        /* 4. Tentukan tinggi untuk div Peta */
-        #map { 
-            height: 500px; 
-            width: 100%;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-        @media (max-width: 768px) {
-            body {
-                flex-direction: column;
-            }
-            .right-panel {
-                /* Pindahkan peta ke atas di mode seluler */
-                order: -1; 
-            }
-        }
     </style>
 </head>
 <body>
 
-<div class="left-panel">
-    <div class="container">
-        <h2>Pilih Lokasi</h2>
-        <select id="lokasiSelect">
-            <option value="" disabled selected>-- Pilih Kabupaten/Kota --</option>
-        </select>
+<div class="container">
+    <h2>Pilih Lokasi di Jawa Barat</h2>
+    <select id="lokasiSelect">
+        <option value="" disabled selected>-- Pilih Kabupaten/Kota --</option>
+    </select>
 
-        <h2>Hasil Reverse Geocoding</h2>
-        <textarea id="hasilResponse" readonly placeholder="Hasil respons API akan ditampilkan di sini..."></textarea>
-    </div>
+    <h2>Hasil Reverse Geocoding (Nominatim)</h2>
+    <textarea id="hasilResponse" readonly placeholder="Hasil respons API akan ditampilkan di sini..."></textarea>
 </div>
-
-<div class="right-panel">
-    <h2>Peta Lokasi (Leaflet JS)</h2>
-    <div id="map"></div>
-</div>
-
 
 <script>
 // Data JSON yang Anda berikan
@@ -137,110 +87,63 @@ const lokasiData = [
   { "nama": "Kota Tasikmalaya", "jenis": "Kota", "ibu_kota": "Tasikmalaya", "lintang": -7.3364, "bujur": 108.2208 }
 ];
 
-// Menunggu dokumen siap
+// Menunggu dokumen siap (standar jQuery)
 $(document).ready(function() {
     
     const $select = $('#lokasiSelect');
     const $textarea = $('#hasilResponse');
-    
-    // Objek untuk menyimpan referensi ke layer marker Leaflet
-    const markerLayers = {};
 
-    // --- 1. Inisialisasi Peta Leaflet ---
-    // Pusat peta di Jawa Barat (tengah-tengah)
-    const map = L.map('map').setView([-6.9175, 107.6191], 9); // [Lat, Lon], Zoom
-
-    // Tambahkan layer 'tile' (latar belakang peta) dari OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
-
-    // --- 2. Konversi Data ke GeoJSON & Tambahkan ke Peta ---
-    
-    // Ubah data asli menjadi format GeoJSON FeatureCollection
-    const geoJsonData = {
-        type: "FeatureCollection",
-        features: lokasiData.map(lokasi => ({
-            type: "Feature",
-            geometry: {
-                type: "Point",
-                // GeoJSON menggunakan format [Longitude, Latitude]
-                coordinates: [lokasi.bujur, lokasi.lintang] 
-            },
-            properties: {
-                nama: lokasi.nama,
-                ibu_kota: lokasi.ibu_kota,
-                jenis: lokasi.jenis,
-                // simpan lat/lon asli untuk referensi
-                lat: lokasi.lintang,
-                lon: lokasi.bujur
-            }
-        }))
-    };
-
-    // Tambahkan layer GeoJSON ke peta
-    L.geoJSON(geoJsonData, {
-        onEachFeature: function(feature, layer) {
-            // Beri popup pada setiap marker
-            const popupContent = `<b>${feature.properties.nama}</b><br>(${feature.properties.ibu_kota})`;
-            layer.bindPopup(popupContent);
-            
-            // Simpan referensi layer berdasarkan nama unik
-            markerLayers[feature.properties.nama] = layer;
-        }
-    }).addTo(map);
-
-
-    // --- 3. Isi Dropdown <select> ---
+    // 1. Isi elemen <select> dengan data JSON
     $.each(lokasiData, function(index, lokasi) {
+        // Buat elemen <option> baru dengan jQuery
         const $option = $('<option></option>')
-            .text(lokasi.nama) 
-            .attr('value', lokasi.nama) // 'value' akan digunakan untuk mencocokkan markerLayers
-            .data('lat', lokasi.lintang) 
-            .data('lon', lokasi.bujur);  
+            .text(lokasi.nama) // Teks yang terlihat
+            .attr('value', lokasi.nama) // Nilai (bisa juga index, tapi nama lebih jelas)
+            .data('lat', lokasi.lintang) // Simpan lat di data attribute
+            .data('lon', lokasi.bujur);  // Simpan lon di data attribute
         
+        // Tambahkan option ke select
         $select.append($option);
     });
 
-    // --- 4. Event Listener 'onchange' untuk <select> ---
+    // 2. Tambahkan event listener 'onchange' ke <select>
     $select.on('change', function() {
+        // Dapatkan <option> yang sedang dipilih
         const $selectedOption = $(this).find('option:selected');
         
+        // Ambil data lat dan lon dari atribut data-*
         const lat = $selectedOption.data('lat');
         const lon = $selectedOption.data('lon');
-        const nama = $(this).val(); // Dapatkan nama dari value <select>
 
-        if (lat && lon && nama) {
-            // A. Panggil fungsi Nominatim (fungsi lama)
+        if (lat && lon) {
+            // Panggil fungsi untuk mengambil data geocoding
             getReverseGeocode(lat, lon);
-
-            // B. Interaksi dengan Peta Leaflet
-            const targetLayer = markerLayers[nama];
-            if (targetLayer) {
-                // Pindahkan peta ke lokasi marker dengan animasi
-                map.flyTo(targetLayer.getLatLng(), 13); // Zoom lebih dekat (misal level 13)
-                
-                // Buka popup-nya
-                targetLayer.openPopup();
-            }
         }
     });
 
-    // --- 5. Fungsi Request ke API Nominatim (Tidak berubah) ---
+    // 3. Fungsi untuk request ke API Nominatim
     function getReverseGeocode(lat, lon) {
+        // Format=jsonv2 lebih modern, tapi kita pakai format=json sesuai permintaan umum
         const nominatimURL = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`;
+
         $textarea.val('Mengambil data dari Nominatim...');
 
         $.ajax({
             url: nominatimURL,
             method: 'GET',
-            dataType: 'json',
+            dataType: 'json', // jQuery akan otomatis mem-parse JSON
             success: function(response) {
+                // 4. Tampilkan di console
                 console.log("Respons API Nominatim:", response);
+
+                // 5. Tampilkan di textarea
+                // JSON.stringify(obj, null, 2) untuk 'pretty-print'
                 $textarea.val(JSON.stringify(response, null, 2));
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 const errorMsg = `Gagal mengambil data: ${textStatus}\n${errorThrown}`;
+                
+                // Tampilkan error di console dan textarea
                 console.error(errorMsg, jqXHR);
                 $textarea.val(errorMsg);
             }
