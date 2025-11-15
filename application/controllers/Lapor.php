@@ -66,7 +66,7 @@ class Lapor extends CI_Controller
             $_FILES['foto']['error']    = $foto['error'][0];
             $_FILES['foto']['size']     = $foto['size'][0];
 
-            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
             $this->upload->overwrite = true;
 
             if (!$this->upload->do_upload("foto")) {
@@ -89,7 +89,7 @@ class Lapor extends CI_Controller
         $input = [
             "user_id" => $this->session->userdata("id_user"),
             "kategori_id" => $gemini_analysis["data"]["id_kategori"],
-            "kabkot" => $kabkot_id,
+            "kabkot_id" => $kabkot_id,
             "deskripsi" => $deskripsi,
             "latitude" => $location_info["latitude"],
             "longitude" => $location_info["longitude"],

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2025 at 05:24 PM
+-- Generation Time: Nov 15, 2025 at 02:41 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -149,7 +149,10 @@ INSERT INTO `laporan` (`id_laporan`, `user_id`, `kategori_id`, `kabkot_id`, `des
 (22, 2, 10, NULL, 'Sampah daun dan ranting menyumbat aliran sungai kecil.', 'uploads/sampah11.jpg', NULL, NULL, NULL, 1, 'belum ditangani', '2025-11-10 17:05:27', NULL),
 (23, 3, 10, NULL, 'Pompa air tidak berfungsi sehingga air meluber ke jalan.', 'uploads/banjir10.jpg', NULL, NULL, NULL, 1, 'belum ditangani', '2025-11-10 17:05:27', NULL),
 (24, 1, 10, NULL, 'Banyak sampah plastik kecil beterbangan di area taman.', 'uploads/sampah12.jpg', NULL, NULL, NULL, 1, 'belum ditangani', '2025-11-10 17:05:27', NULL),
-(25, 2, 10, NULL, 'Air setinggi lutut menggenang di area pemukiman padat.', 'uploads/banjir11.jpg', NULL, NULL, NULL, 1, 'belum ditangani', '2025-11-10 17:05:27', NULL);
+(25, 2, 10, NULL, 'Air setinggi lutut menggenang di area pemukiman padat.', 'uploads/banjir11.jpg', NULL, NULL, NULL, 1, 'belum ditangani', '2025-11-10 17:05:27', NULL),
+(26, 1, 5, 1, 'Ada badak masuk pemukiman, di tengah kota kok ada badak? lepas darimana?', '1763191101.jpg', -7.047194, 107.540911, NULL, 5, 'belum ditangani', '2025-11-15 07:18:21', NULL),
+(27, 1, 1, 1, 'Di pinggir jalan sekitaran leuweung kaleng ada tumpukan sampah, agak menggangu pemandangan, padahal kalo gak ada sampah pemandangan di sini indah.', '1763191642.jpg', -7.047194, 107.540911, NULL, 3, 'belum ditangani', '2025-11-15 07:27:22', NULL),
+(28, 1, 4, 1, 'di desa nagrak, sekitaran lapang futsal terbengkalai, ada pohon tumbang di jalan mau ke ladang', '1763194388.jpg', -7.047194, 107.540911, NULL, 3, 'belum ditangani', '2025-11-15 08:13:08', NULL);
 
 -- --------------------------------------------------------
 
@@ -255,7 +258,7 @@ ALTER TABLE `kategori_laporan`
 -- AUTO_INCREMENT for table `laporan`
 --
 ALTER TABLE `laporan`
-  MODIFY `id_laporan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_laporan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `penanganan`
