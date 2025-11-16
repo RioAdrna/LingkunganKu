@@ -18,22 +18,20 @@
                                 </div>
                             </div>
                         </div>
-<<<<<<< HEAD
-                         <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="tabel_lapor" class="table table-bordered table-striped align-middle" style="width:100%">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th style="width: 40px;"></th>
-                                        <th class="text-center" style="width: 60px;">NO</th>
-                                        <th class="text-center">Keluhan</th>
-                                        <th class="text-center" style="width: 120px;">Aksi</th>
-                                    </tr>
-                                </thead>
-                            </table>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="tabel_lapor" class="table table-bordered table-striped align-middle" style="width:100%">
+                                    <thead class="table-secondary">
+                                        <tr>
+                                            <th style="width: 40px;"></th>
+                                            <th class="text-center" style="width: 60px;">NO</th>
+                                            <th class="text-center">Keluhan</th>
+                                            <th class="text-center" style="width: 120px;">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
-                         </div>
-=======
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table id="tabel_lapor" class="table table-stripped" style="width:100%">
@@ -47,7 +45,6 @@
                                     </thead>
                                 </table>
                             </div>
->>>>>>> b978fd66ba7c4ffcd5362c0a3fd21cf09fec3129
                         </div>
                     </div>
                 </div>

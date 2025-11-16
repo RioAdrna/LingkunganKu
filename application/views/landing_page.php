@@ -1,0 +1,880 @@
+    <head>
+        <meta charset="utf-8">
+        <link rel="icon" type="image/png" href="<?= base_url('assets/img/logos/Logo_LingkunganKU-1.png') ?>">
+        <title>
+            LingkunganKu
+        </title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="" name="keywords">
+        <meta content="" name="description">
+
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
+
+        <!-- Icon Font Stylesheet -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+        <!-- Libraries Stylesheet -->
+        <link href="<?= base_url('assets/css/animate.min.css') ?>" rel="stylesheet">
+        <link href="<?= base_url('assets/css/lightbox.min.css') ?>" rel="stylesheet">
+        <link href="<?= base_url('assets/css/owl.carousel.min.css') ?>" rel="stylesheet">
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="<?= base_url('assets/css/bootstrap.min.css') ?>" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="<?= base_url('assets/css/style.css') ?>" rel="stylesheet">
+
+
+
+    </head>
+
+    <body>
+        <div id="spinner" class="show w-100 vh-100 bg-blue position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
+            <div class="spinner-grow text-primary" role="status"></div>
+        </div>
+
+        <div class="container-fluid border-bottom bg-white wow fadeIn" data-wow-delay="0.1s">
+            <div class="" style="border-radius: 0 40px">
+
+            </div>
+            <div class="container px-0">
+                <nav class="navbar navbar-light navbar-expand-xl py-3">
+                    <a class="navbar-brand d-flex align-items-center">
+                        <img src="<?= base_url('assets/img/logos/Logo_LingkunganKU-1.png') ?>"
+                            class="navbar-brand-img me-2"
+                            style="height: 100px;" alt="main_logo">
+
+                        <h1 class="display-6 text-primary m-0">
+                            <span class="text-secondary">Lingkunganku</span>
+                        </h1>
+                    </a>
+
+                    <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="fa fa-bars text-primary"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <div class="navbar-nav mx-auto">
+                            <a href="" class="nav-item nav-link active">Home</a>
+                            <a href="#about" class="nav-item nav-link">About</a>
+                            <!-- <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                                <div class="dropdown-menu m-0 bg-secondary rounded-0">
+                                    <a href="blog.html" class="dropdown-item">Our Blog</a>
+                                    <a href="team.html" class="dropdown-item">Our Team</a>
+                                    <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+                                    <a href="404.html" class="dropdown-item">404 Page</a>
+                                </div>
+                            </div> -->
+                            <a href="#contact" class="nav-item nav-link">Contact</a>
+                        </div>
+                        <div class="d-flex me-4">
+                            <div id="phone-tada" class="d-flex align-items-center justify-content-center">
+                                <a href="" class="position-relative wow tada" data-wow-delay=".9s">
+                                    <i class="fa fa-phone-alt text fa-2x me-4"></i>
+                                    <div class="position-absolute" style="top: -7px; left: 20px;">
+                                        <span><i class="fa fa-comment-dots text-secondary"></i></span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="d-flex flex-column pe-3 border-end border-primary">
+                                <!-- <span class="">Have any questions?</span> -->
+                                <a href="#"><span class="text-secondary">089655704544</span></a>
+                            </div>
+                        </div>
+                        <a href="<?= base_url('?p=' . base64_encode('login')) ?>"
+                            class="btn btn-primary nav-item nav-link">
+                            <i class="fas fa-sign-in-alt"></i>
+                        </a>
+
+                        <!-- <button class="btn-search btn btn-dark btn-md-square rounded-circle" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-white"></i></button> -->
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- Navbar End -->
+
+
+        <!-- Modal Search Start -->
+        <!-- <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content rounded-0">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center">
+                    <div class="input-group w-75 mx-auto d-flex">
+                        <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
+                        <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+        <!-- Modal Search End -->
+
+
+        <!-- Hero Start -->
+        <div class="container-fluid py-5 hero-header wow fadeIn" data-wow-delay="0.1s">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-lg-7 col-md-12">
+                        <!-- <h1 class="mb-3 text-white">We Care for Your Nature</h1> -->
+                        <h1 class="mb-5 display-1 text-white">Menjaga Alam Tetap Hijau, Bersih, dan Berkelanjutan</h1>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Hero End -->
+
+
+        <!-- About Start -->
+        <div class="container-fluid py-5 about bg-light">
+            <div class="container py-5">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
+                        <div class="video border">
+                            <button type="button" class="btn btn-play" data-bs-toggle="modal" data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-bs-target="#videoModal">
+                                <span></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="about" class="col-lg-7 wow fadeIn" data-wow-delay="0.3s">
+                        <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
+                            Tentang Kami
+                        </h4>
+
+                        <h1 class="text-dark mb-4 display-5">
+                            Platform Aspirasi Lingkungan untuk Masyarakat yang Peduli
+                        </h1>
+
+                        <p class="text-dark mb-4">
+                            Kami menyediakan ruang bagi masyarakat untuk menyampaikan laporan, keluhan, dan aspirasi terkait masalah lingkungan seperti sampah, banjir, pencemaran, dan kerusakan alam.
+                            Melalui teknologi dan partisipasi publik, kami membantu mempercepat tindakan nyata dan meningkatkan kesadaran menjaga lingkungan bersama.
+                        </p>
+
+                        <div class="row mb-4">
+                            <div class="col-lg-6">
+                                <h6 class="mb-3"><i class="fas fa-check-circle me-2"></i>Laporan Lingkungan Secara Online</h6>
+                                <h6 class="mb-3"><i class="fas fa-check-circle me-2 text-primary"></i>Pemetaan Titik Masalah Real-Time</h6>
+                                <h6 class="mb-3"><i class="fas fa-check-circle me-2 text-secondary"></i>Kolaborasi dengan Komunitas & Pemerintah</h6>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <h6 class="mb-3"><i class="fas fa-check-circle me-2"></i>Edukasi & Informasi Publik</h6>
+                                <h6 class="mb-3"><i class="fas fa-check-circle me-2 text-primary"></i>Transparansi Data Lingkungan</h6>
+                                <h6><i class="fas fa-check-circle me-2 text-secondary"></i>Respons Cepat & Tindak Lanjut</h6>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Video -->
+        <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content rounded-0">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Youtube Video</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- 16:9 aspect ratio -->
+                        <div class="ratio ratio-16x9">
+                            <iframe class="embed-responsive-item" src="" id="video" allowfullscreen allowscriptaccess="always"
+                                allow="autoplay"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- About End -->
+
+
+        <!-- Service Start -->
+        <div class="container-fluid service py-5">
+            <div class="container py-5">
+                <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 700px;">
+                    <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">Apa yang Kami Lakukan</h4>
+                    <h1 class="mb-5 display-3">Bersama Menjaga Lingkungan Lebih Bersih dan Aman</h1>
+                </div>
+
+                <div class="row g-5">
+
+                    <!-- Sampah Sungai -->
+                    <div class="col-md-6 col-lg-6 col-xl-3 wow fadeIn" data-wow-delay="0.1s">
+                        <div class="text-center border-primary border bg-white service-item">
+                            <div class="service-content d-flex align-items-center justify-content-center p-4">
+                                <div class="service-content-inner">
+                                    <div class="p-4"><i class="fas fa-recycle fa-6x text-primary"></i></div>
+                                    <a href="#" class="h4">Pengelolaan Sampah Sungai</a>
+                                    <p class="my-3">Pembersihan dan edukasi untuk mengurangi sampah plastik di sungai demi menjaga ekosistem air.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Daerah Rawan Banjir -->
+                    <div class="col-md-6 col-lg-6 col-xl-3 wow fadeIn" data-wow-delay="0.3s">
+                        <div class="text-center border-primary border bg-white service-item">
+                            <div class="service-content d-flex align-items-center justify-content-center p-4">
+                                <div class="service-content-inner">
+                                    <div class="p-4"><i class="fas fa-water fa-6x text-primary"></i></div>
+                                    <a href="#" class="h4">Pencegahan Daerah Rawan Banjir</a>
+                                    <p class="my-3">Edukasi dan penghijauan untuk mengurangi banjir serta meningkatkan penyerapan air.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kebakaran Hutan -->
+                    <div class="col-md-6 col-lg-6 col-xl-3 wow fadeIn" data-wow-delay="0.5s">
+                        <div class="text-center border-primary border bg-white service-item">
+                            <div class="service-content d-flex align-items-center justify-content-center p-4">
+                                <div class="service-content-inner">
+                                    <div class="p-4"><i class="fas fa-fire fa-6x text-primary"></i></div>
+                                    <a href="#" class="h4">Pencegahan Kebakaran Hutan</a>
+                                    <p class="my-3">Sosialisasi bahaya pembakaran liar dan pengawasan dini dalam mencegah kebakaran hutan.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Edukasi Lingkungan -->
+                    <div class="col-md-6 col-lg-6 col-xl-3 wow fadeIn" data-wow-delay="0.7s">
+                        <div class="text-center border-primary border bg-white service-item">
+                            <div class="service-content d-flex align-items-center justify-content-center p-4">
+                                <div class="service-content-inner">
+                                    <div class="p-4"><i class="fas fa-seedling fa-6x text-primary"></i></div>
+                                    <a href="#" class="h4">Edukasi Lingkungan</a>
+                                    <p class="my-3">Program daur ulang, pemilahan sampah, dan pembiasaan hidup ramah lingkungan sejak dini.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+        <!-- Service End -->
+
+
+        <!-- Programs Start -->
+        <div class="container-fluid program py-5">
+            <div class="container py-5">
+
+                <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 700px;">
+                    <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
+                        Program Lingkungan
+                    </h4>
+                    <h1 class="mb-5 display-3">Kami Menyediakan Wadah Mengenai Keresahan Lingkungan</h1>
+                </div>
+
+                <div class="row g-5 justify-content-center">
+
+                    <!-- Program 1: Kebersihan Sungai -->
+                    <div class="col-md-6 col-lg-6 col-xl-4 wow fadeIn" data-wow-delay="0.1s">
+                        <div class="program-item rounded">
+                            <div class="program-img position-relative">
+                                <div class="overflow-hidden img-border-radius">
+                                    <img src="<?= base_url('assets/img/landing/sungai.jpg') ?>" class="img-fluid w-100" alt="Kebersihan Sungai">
+                                </div>
+                            </div>
+
+                            <div class="program-text bg-white px-4 pb-3">
+                                <div class="program-text-inner">
+                                    <a href="#" class="h4"> Kebersihan Sungai</a>
+                                    <p class="mt-3 mb-0">
+                                        Edukasi dan kegiatan membersihkan sampah sungai untuk menjaga kualitas air dan ekosistem.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- <div class="program-teacher d-flex align-items-center border-top border-primary bg-white px-4 py-3">
+                        <img src="<?= base_url('assets/img/landing/program-teacher.jpg') ?>" class="img-fluid rounded-circle p-2 border border-primary bg-white" style="width: 70px; height: 70px;">
+                        <div class="ms-3">
+                            <h6 class="mb-0 text-primary">Relawan Lingkungan</h6>
+                            <small>Koordinator Program</small>
+                        </div>
+                    </div> -->
+
+                            <!-- <div class="d-flex justify-content-between px-4 py-2 bg-primary rounded-bottom">
+                        <small class="text-white"><i class="fas fa-users me-1"></i> 30 Peserta</small>
+                        <small class="text-white"><i class="fas fa-book me-1"></i> 10 Materi</small>
+                        <small class="text-white"><i class="fas fa-clock me-1"></i> 40 Jam</small>
+                    </div> -->
+                        </div>
+                    </div>
+
+
+                    <!-- Program 2: Penghijauan -->
+                    <div class="col-md-6 col-lg-6 col-xl-4 wow fadeIn" data-wow-delay="0.3s">
+                        <div class="program-item rounded">
+                            <div class="program-img position-relative">
+                                <div class="overflow-hidden img-border-radius">
+                                    <img src="<?= base_url('assets/img/landing/penanaman.jpg') ?>" class="img-fluid w-100" alt="Penghijauan">
+                                </div>
+                                \
+                            </div>
+
+                            <div class="program-text bg-white px-4 pb-3">
+                                <div class="program-text-inner">
+                                    <a href="#" class="h4">Penghijauan & Penanaman Pohon</a>
+                                    <p class="mt-3 mb-0">
+                                        Penanaman pohon, pembuatan ruang hijau, dan edukasi pentingnya vegetasi untuk mencegah banjir & polusi.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- <div class="program-teacher d-flex align-items-center border-top border-primary bg-white px-4 py-3">
+                        <img src="<?= base_url('assets/img/landing/program-teacher.jpg') ?>" class="img-fluid rounded-circle p-2 border border-primary bg-white" style="width: 70px; height: 70px;">
+                        <div class="ms-3">
+                            <h6 class="mb-0 text-primary">Relawan Lingkungan</h6>
+                            <small>Pemandu Lapangan</small>
+                        </div>
+                    </div> -->
+
+                            <!-- <div class="d-flex justify-content-between px-4 py-2 bg-primary rounded-bottom">
+                        <small class="text-white"><i class="fas fa-tree me-1"></i> 50 Pohon</small>
+                        <small class="text-white"><i class="fas fa-book me-1"></i> 8 Materi</small>
+                        <small class="text-white"><i class="fas fa-clock me-1"></i> 30 Jam</small>
+                    </div> -->
+                        </div>
+                    </div>
+
+
+                    <!-- Program 3: Daur Ulang -->
+                    <div class="col-md-6 col-lg-6 col-xl-4 wow fadeIn" data-wow-delay="0.5s">
+                        <div class="program-item rounded">
+                            <div class="program-img position-relative">
+                                <div class="overflow-hidden img-border-radius">
+                                    <img src="<?= base_url('assets/img/landing/sampah.jpg') ?>" class="img-fluid w-100" alt="Daur Ulang">
+                                </div>
+                            </div>
+
+                            <div class="program-text bg-white px-4 pb-3">
+                                <div class="program-text-inner">
+                                    <a href="#" class="h4">Daur Ulang & Pengelolaan Sampah</a>
+                                    <p class="mt-3 mb-0">
+                                        Mengajarkan pemilahan sampah, daur ulang, serta cara mengurangi sampah rumah tangga.
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- 
+                    <div class="program-teacher d-flex align-items-center border-top border-primary bg-white px-4 py-3">
+                        <img src="<?= base_url('assets/img/landing/program-teacher.jpg') ?>" class="img-fluid rounded-circle p-2 border border-primary bg-white" style="width: 70px; height: 70px;">
+                        <div class="ms-3">
+                            <h6 class="mb-0 text-primary">Relawan Lingkungan</h6>
+                            <small>Instruktur Edukasi</small>
+                        </div>
+                    </div> -->
+                            <!-- 
+                    <div class="d-flex justify-content-between px-4 py-2 bg-primary rounded-bottom">
+                        <small class="text-white"><i class="fas fa-recycle me-1"></i> 20 Proyek</small>
+                        <small class="text-white"><i class="fas fa-book me-1"></i> 12 Materi</small>
+                        <small class="text-white"><i class="fas fa-clock me-1"></i> 50 Jam</small>
+                    </div> -->
+                        </div>
+                    </div>
+
+                    <div class="d-inline-block text-center wow fadeIn" data-wow-delay="0.1s">
+                        <!-- <a href="#" class="btn btn-primary px-5 py-3 text-white btn-border-radius">Lihat Semua Program</a> -->
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- Program End -->
+
+
+        <!-- Events Start -->
+        <!-- <div class="container-fluid events py-5 bg-light">
+            <div class="container py-5">
+                <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 700px;">
+                    <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">Our Events</h4>
+                    <h1 class="mb-5 display-3">Our Upcoming Events</h1>
+                </div>
+                <div class="row g-5 justify-content-center">
+                    <div class="col-md-6 col-lg-6 col-xl-4 wow fadeIn" data-wow-delay="0.1s">
+                        <div class="events-item bg-primary rounded">
+                            <div class="events-inner position-relative">
+                                <div class="events-img overflow-hidden rounded-circle position-relative">
+                                    <img src="<?= base_url('assets/img/landing/event-1.jpg') ?>" class="img-fluid w-100 rounded-circle" alt="Image">
+                                    <div class="event-overlay">
+                                        <a href="<?= base_url('assets/img/landing/event-1.jpg') ?>" data-lightbox="event-1"><i class="fas fa-search-plus text-white fa-2x"></i></a>
+                                    </div>
+                                </div>
+                                <div class="px-4 py-2 bg-secondary text-white text-center events-rate">29 Nov</div>
+                                <div class="d-flex justify-content-between px-4 py-2 bg-secondary">
+                                    <small class="text-white"><i class="fas fa-calendar me-1 text-primary"></i> 10:00am - 12:00pm</small>
+                                    <small class="text-white"><i class="fas fa-map-marker-alt me-1 text-primary"></i> New York</small>
+                                </div>
+                            </div>
+                            <div class="events-text p-4 border border-primary bg-white border-top-0 rounded-bottom">
+                                <a href="#" class="h4">Music & drawing workshop</a>
+                                <p class="mb-0 mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed purus consectetur,</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-4 wow fadeIn" data-wow-delay="0.3s">
+                        <div class="events-item bg-primary rounded">
+                            <div class="events-inner position-relative">
+                                <div class="events-img overflow-hidden rounded-circle position-relative">
+                                    <img src="<?= base_url('assets/img/landing/event-2.jpg') ?>" class="img-fluid w-100 rounded-circle" alt="Image">
+                                    <div class="event-overlay">
+                                        <a href="<?= base_url('assets/img/landing/event-3.jpg') ?>" data-lightbox="event-1"><i class="fas fa-search-plus text-white fa-2x"></i></a>
+                                    </div>
+                                </div>
+                                <div class="px-4 py-2 bg-secondary text-white text-center events-rate">29 Nov</div>
+                                <div class="d-flex justify-content-between px-4 py-2 bg-secondary">
+                                    <small class="text-white"><i class="fas fa-calendar me-1 text-primary"></i> 10:00am - 12:00pm</small>
+                                    <small class="text-white"><i class="fas fa-map-marker-alt me-1 text-primary"></i> New York</small>
+                                </div>
+                            </div>
+                            <div class="events-text p-4 border border-primary bg-white border-top-0 rounded-bottom">
+                                <a href="#" class="h4">Why need study</a>
+                                <p class="mb-0 mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed purus consectetur,</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-4 wow fadeIn" data-wow-delay="0.5s">
+                        <div class="events-item bg-primary rounded">
+                            <div class="events-inner position-relative">
+                                <div class="events-img overflow-hidden rounded-circle position-relative">
+                                    <img src="<?= base_url('assets/img/landing/event-3.jpg') ?>" class="img-fluid w-100 rounded-circle" alt="Image">
+                                    <div class="event-overlay">
+                                        <a href="<?= base_url('assets/img/landing/event-3.jpg') ?>" data-lightbox="event-1"><i class="fas fa-search-plus text-white fa-2x"></i></a>
+                                    </div>
+                                </div>
+                                <div class="px-4 py-2 bg-secondary text-white text-center events-rate">29 Nov</div>
+                                <div class="d-flex justify-content-between px-4 py-2 bg-secondary">
+                                    <small class="text-white"><i class="fas fa-calendar me-1 text-primary"></i> 10:00am - 12:00pm</small>
+                                    <small class="text-white"><i class="fas fa-map-marker-alt me-1 text-primary"></i> New York</small>
+                                </div>
+                            </div>
+                            <div class="events-text p-4 border border-primary bg-white border-top-0 rounded-bottom">
+                                <a href="#" class="h4">Child health consciousness</a>
+                                <p class="mb-0 mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed purus consectetur,</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <!-- Events End-->
+
+
+        <!-- Blog Start-->
+        <!-- <div class="container-fluid blog py-5">
+            <div class="container py-5">
+                <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
+                    <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">Latest News & Blog</h4>
+                    <h1 class="mb-5 display-3">Read Our Latest News & Blog</h1>
+                </div>
+                <div class="row g-5 justify-content-center">
+                    <div class="col-md-6 col-lg-6 col-xl-4 wow fadeIn" data-wow-delay="0.1s">
+                        <div class="blog-item rounded-bottom">
+                            <div class="blog-img overflow-hidden position-relative img-border-radius">
+                                <img src="<?= base_url('assets/img/landing/blog-1.jpg') ?>" class="img-fluid w-100" alt="Image">
+                            </div>
+                            <div class="d-flex justify-content-between px-4 py-3 bg-light border-bottom border-primary blog-date-comments">
+                                <small class="text-dark"><i class="fas fa-calendar me-1 text-dark"></i> 29 Nov 2023</small>
+                                <small class="text-dark"><i class="fas fa-comment-alt me-1 text-dark"></i> Comments (15)</small>
+                            </div>
+                            <div class="blog-content d-flex align-items-center px-4 py-3 bg-light">
+                                <div class="overflow-hidden rounded-circle rounded-top border border-primary">
+                                    <img src="<?= base_url('assets/img/landing/program-teacher.jpg') ?>" class="img-fluid rounded-circle p-2 rounded-top" alt="Image" style="width: 70px; height: 70px; border-style: dotted; border-color: var(--bs-primary) !important;">
+                                </div>
+                                <div class="ms-3">
+                                    <h6 class="text-primary">Mary Mordern</h6>
+                                    <p class="text-muted">Baby Care</p>
+                                </div>
+                            </div>
+                            <div class="px-4 pb-4 bg-light rounded-bottom">
+                                <div class="blog-text-inner">
+                                    <a href="#" class="h4">How to pay attention to your child?</a>
+                                    <p class="mt-3 mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed purus</p>
+                                </div>
+                                <div class="text-center">
+                                    <a href="#" class="btn btn-primary text-white px-4 py-2 mb-3 btn-border-radius">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-4 wow fadeIn" data-wow-delay="0.3s">
+                        <div class="blog-item rounded-bottom">
+                            <div class="blog-img overflow-hidden position-relative img-border-radius">
+                                <img src="<?= base_url('assets/img/landing/blog-2.jpg') ?>" class="img-fluid w-100" alt="Image">
+                            </div>
+                            <div class="d-flex justify-content-between px-4 py-3 bg-light border-bottom border-primary blog-date-comments">
+                                <small class="text-dark"><i class="fas fa-calendar me-1 text-dark"></i> 29 Nov 2023</small>
+                                <small class="text-dark"><i class="fas fa-comment-alt me-1 text-dark"></i> Comments (15)</small>
+                            </div>
+                            <div class="blog-content d-flex align-items-center px-4 py-3 bg-light">
+                                <div class="overflow-hidden rounded-circle rounded-top border border-primary">
+                                    <img src="<?= base_url('assets/img/landing/program-teacher.jpg') ?>" class="img-fluid rounded-circle p-2 rounded-top" alt="" style="width: 70px; height: 70px; border-style: dotted; border-color: var(--bs-primary) !important;">
+                                </div>
+                                <div class="ms-3">
+                                    <h6 class="text-primary">Mary Mordern</h6>
+                                    <p class="text-muted">Baby Care</p>
+                                </div>
+                            </div>
+                            <div class="px-4 pb-4 bg-light rounded-bottom">
+                                <div class="blog-text-inner">
+                                    <a href="#" class="h4">Play outdoor sports with your child</a>
+                                    <p class="mt-3 mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed purus</p>
+                                </div>
+                                <div class="text-center">
+                                    <a href="#" class="btn btn-primary text-white px-4 py-2 mb-3 btn-border-radius">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-4 wow fadeIn" data-wow-delay="0.5s">
+                        <div class="blog-item rounded-bottom">
+                            <div class="blog-img overflow-hidden position-relative img-border-radius">
+                                <img src="<?= base_url('assets/img/landing/blog-3.jpg') ?>" class="img-fluid w-100" alt="Image">
+                            </div>
+                            <div class="d-flex justify-content-between px-4 py-3 bg-light border-bottom border-primary blog-date-comments">
+                                <small class="text-dark"><i class="fas fa-calendar me-1 text-dark"></i> 29 Nov 2023</small>
+                                <small class="text-dark"><i class="fas fa-comment-alt me-1 text-dark"></i> Comments (15)</small>
+                            </div>
+                            <div class="blog-content d-flex align-items-center px-4 py-3 bg-light">
+                                <div class="overflow-hidden rounded-circle rounded-top border border-primary">
+                                    <img src="<?= base_url('assets/img/landing/program-teacher.jpg') ?>" class="img-fluid rounded-circle p-2 rounded-top" alt="" style="width: 70px; height: 70px; border-style: dotted; border-color: var(--bs-primary) !important;">
+                                </div>
+                                <div class="ms-3">
+                                    <h6 class="text-primary">Mary Mordern</h6>
+                                    <p class="text-muted">Baby Care</p>
+                                </div>
+                            </div>
+                            <div class="px-4 pb-4 bg-light rounded-bottom">
+                                <div class="blog-text-inner">
+                                    <a href="#" class="h4">How to make time for your kids?</a>
+                                    <p class="mt-3 mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed purus</p>
+                                </div>
+                                <div class="text-center">
+                                    <a href="#" class="btn btn-primary text-white px-4 py-2 mb-3 btn-border-radius">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <!-- Blog End-->
+
+
+        <!-- Team Start-->
+        <!-- <div class="container-fluid team py-5">
+            <div class="container py-5">
+                <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
+                    <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">Our Team</h4>
+                    <h1 class="mb-5 display-3">Meet With Our Expert Teacher</h1>
+                </div>
+                <div class="row g-5 justify-content-center">
+                    <div class="col-md-6 col-lg-4 col-xl-3 wow fadeIn" data-wow-delay="0.1s">
+                        <div class="team-item border border-primary img-border-radius overflow-hidden">
+                            <img src="<?= base_url('assets/img/landing/team-1.jpg') ?>" class="img-fluid w-100" alt="">
+                            <div class="team-icon d-flex align-items-center justify-content-center">
+                                <a class="share btn btn-primary btn-md-square text-white rounded-circle me-3" href=""><i class="fas fa-share-alt"></i></a>
+                                <a class="share-link btn btn-primary btn-md-square text-white rounded-circle me-3" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="share-link btn btn-primary btn-md-square text-white rounded-circle me-3" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="share-link btn btn-primary btn-md-square text-white rounded-circle" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                            <div class="team-content text-center py-3">
+                                <h4 class="text-primary">Linda Carlson</h4>
+                                <p class="text-muted mb-2">English Teacher</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 col-xl-3 wow fadeIn" data-wow-delay="0.3s">
+                        <div class="team-item border border-primary img-border-radius overflow-hidden">
+                            <img src="<?= base_url('assets/img/landing/team-2.jpg') ?>" class="img-fluid w-100" alt="">
+                            <div class="team-icon d-flex align-items-center justify-content-center">
+                                <a class="share btn btn-primary btn-md-square text-white rounded-circle me-3" href=""><i class="fas fa-share-alt"></i></a>
+                                <a class="share-link btn btn-primary btn-md-square text-white rounded-circle me-3" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="share-link btn btn-primary btn-md-square text-white rounded-circle me-3" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="share-link btn btn-primary btn-md-square text-white rounded-circle" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                            <div class="team-content text-center py-3">
+                                <h4 class="text-primary">Linda Carlson</h4>
+                                <p class="text-muted mb-2">English Teacher</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 col-xl-3 wow fadeIn" data-wow-delay="0.5s">
+                        <div class="team-item border border-primary img-border-radius overflow-hidden">
+                            <img src="<?= base_url('assets/img/landing/team-3.jpg') ?>" class="img-fluid w-100" alt="">
+                            <div class="team-icon d-flex align-items-center justify-content-center">
+                                <a class="share btn btn-primary btn-md-square text-white rounded-circle me-3" href=""><i class="fas fa-share-alt"></i></a>
+                                <a class="share-link btn btn-primary btn-md-square text-white rounded-circle me-3" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="share-link btn btn-primary btn-md-square text-white rounded-circle me-3" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="share-link btn btn-primary btn-md-square text-white rounded-circle" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                            <div class="team-content text-center py-3">
+                                <h4 class="text-primary">Linda Carlson</h4>
+                                <p class="text-muted mb-2">English Teacher</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 col-xl-3 wow fadeIn" data-wow-delay="0.7s">
+                        <div class="team-item border border-primary img-border-radius overflow-hidden">
+                            <img src="<?= base_url('assets/img/landing/team-4.jpg') ?>" class="img-fluid w-100" alt="">
+                            <div class="team-icon d-flex align-items-center justify-content-center">
+                                <a class="share btn btn-primary btn-md-square text-white rounded-circle me-3" href=""><i class="fas fa-share-alt"></i></a>
+                                <a class="share-link btn btn-primary btn-md-square text-white rounded-circle me-3" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="share-link btn btn-primary btn-md-square text-white rounded-circle me-3" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="share-link btn btn-primary btn-md-square text-white rounded-circle" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                            <div class="team-content text-center py-3">
+                                <h4 class="text-primary">Linda Carlson</h4>
+                                <p class="text-muted mb-2">English Teacher</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <!-- Team End-->
+
+
+        <!-- Testimonial Start -->
+
+        <div class="owl-carousel testimonial-carousel wow fadeIn" data-wow-delay="0.3s">
+            <div class="testimonial-item img-border-radius bg-light border border-primary p-4">
+                <div class="p-4 position-relative">
+                    <i class="fa fa-quote-right fa-2x text-primary position-absolute" style="top: 15px; right: 15px;"></i>
+                    <div class="d-flex align-items-center">
+                        <div class="border border-primary bg-white rounded-circle">
+                            <img src="<?= base_url('assets/img/landing/testimonial-2.jpg') ?>" class="rounded-circle p-2" style="width: 80px; height: 80px; border-style: dotted; border-color: var(--bs-primary);" alt="">
+                        </div>
+                        <div class="ms-4">
+                            <h4 class="text-dark">Client Name</h4>
+                            <p class="m-0 pb-3">Profession</p>
+                            <div class="d-flex pe-5">
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-top border-primary mt-4 pt-3">
+                        <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-item img-border-radius bg-light border border-primary p-4">
+                <div class="p-4 position-relative">
+                    <i class="fa fa-quote-right fa-2x text-primary position-absolute" style="top: 15px; right: 15px;"></i>
+                    <div class="d-flex align-items-center">
+                        <div class="border border-primary bg-white rounded-circle">
+                            <img src="<?= base_url('assets/img/landing/testimonial-2.jpg') ?>" class="rounded-circle p-2" style="width: 80px; height: 80px; border-style: dotted; border-color: var(--bs-primary);" alt="">
+                        </div>
+                        <div class="ms-4">
+                            <h4 class="text-dark">Client Name</h4>
+                            <p class="m-0 pb-3">Profession</p>
+                            <div class="d-flex pe-5">
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-top border-primary mt-4 pt-3">
+                        <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-item img-border-radius bg-light border border-primary p-4">
+                <div class="p-4 position-relative">
+                    <i class="fa fa-quote-right fa-2x text-primary position-absolute" style="top: 15px; right: 15px;"></i>
+                    <div class="d-flex align-items-center">
+                        <div class="border border-primary bg-white rounded-circle">
+                            <img src="<?= base_url('assets/img/landing/testimonial-2.jpg') ?>" class="rounded-circle p-2" style="width: 80px; height: 80px; border-style: dotted; border-color: var(--bs-primary);" alt="">
+                        </div>
+                        <div class="ms-4">
+                            <h4 class="text-dark">Client Name</h4>
+                            <p class="m-0 pb-3">Profession</p>
+                            <div class="d-flex pe-5">
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                                <i class="fas fa-star text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-top border-primary mt-4 pt-3">
+                        <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+        <!-- Testimonial End -->
+
+
+        <!-- Footer Start -->
+
+        <!-- BRAND & NEWSLETTER -->
+        <div id="contact" class="container-fluid testimonial py-5">
+            <div class="container py-5">
+                <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 700px;">
+                    <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">Contact</h4>
+                    <h1 class="mb-5 display-3">Hubungi kami</h1>
+                </div>
+                <div class="container py-5">
+                    <div class="row g-5">
+
+                        <!-- BRAND & DESKRIPSI -->
+                        <div class="col-md-6 col-lg-4 col-xl-4">
+                            <div class="footer-item">
+                                <h2 class="fw-bold mb-3">
+                                    <span class="text-primary">Suara</span><span class="text-secondary">Lingkungan</span>
+                                </h2>
+                                <p class="mb-4">
+                                    Platform penyampaian aspirasi dan informasi masyarakat mengenai kondisi lingkungan,
+                                    kebersihan kota, pelestarian alam, serta pelaporan masalah lingkungan di sekitar Anda.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- JAM OPERASIONAL -->
+                        <div class="col-md-6 col-lg-4 col-xl-4">
+                            <div class="footer-item">
+                                <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
+                                    JAM LAYANAN
+                                </h4>
+                                <div class="d-flex flex-column p-4 ps-5 text-dark border border-primary"
+                                    style="border-radius: 50% 20% / 10% 40%;">
+                                    <p>Senin: 08.00 – 17.00</p>
+                                    <p>Selasa: 08.00 – 17.00</p>
+                                    <p>Rabu: 08.00 – 17.00</p>
+                                    <p>Kamis: 08.00 – 17.00</p>
+                                    <p>Jumat: 08.00 – 17.00</p>
+                                    <p>Sabtu: 08.00 – 13.00</p>
+                                    <p class="mb-0">Minggu: Libur</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- KONTAK -->
+                        <div class="col-md-6 col-lg-4 col-xl-4">
+                            <div class="footer-item">
+                                <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
+                                    KONTAK
+                                </h4>
+                                <div class="d-flex flex-column align-items-start">
+                                    <a href="#" class="text-body mb-4">
+                                        <i class="fa fa-map-marker-alt text-primary me-2"></i>
+                                        Jl. Lingkungan Hijau No. 27, Cimahi, Indonesia
+                                    </a>
+                                    <a href="#" class="text-body mb-4">
+                                        <i class="fa fa-phone-alt text-primary me-2"></i>
+                                        (+62) 812-3456-7890
+                                    </a>
+                                    <a href="#" class="text-body mb-4">
+                                        <i class="fas fa-envelope text-primary me-2"></i>
+                                        info@suara-lingkungan.com
+                                    </a>
+                                    <a href="#" class="text-body mb-4">
+                                        <i class="fa fa-clock text-primary me-2"></i>
+                                        Pengaduan 24 Jam
+                                    </a>
+
+                                    <div class="footer-icon d-flex">
+                                        <a class="btn btn-primary btn-sm-square me-3 rounded-circle text-white" href="#">
+                                            <i class="fab fa-facebook-f"></i>
+                                        </a>
+                                        <a class="btn btn-primary btn-sm-square me-3 rounded-circle text-white" href="#">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                        <a class="btn btn-primary btn-sm-square me-3 rounded-circle text-white" href="#">
+                                            <i class="fab fa-instagram"></i>
+                                        </a>
+                                        <a class="btn btn-primary btn-sm-square rounded-circle text-white" href="#">
+                                            <i class="fab fa-linkedin-in"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        </div>
+        </div>
+
+        <!-- Footer End -->
+
+
+        <!-- Copyright Start -->
+        <div class="container-fluid copyright bg-dark py-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    </div>
+                    <div class="col-md-6 my-auto text-center text-md-end text-white">
+                        <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
+                        <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
+                        <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
+                        Designed By <a class="border-bottom" href="https://htmlcodex.com"></a> Distributed By <a clas="border-bottom" href="https://themewagon.com">NEURO</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+        <?php if ($this->input->get('p')) { ?>
+            <script>
+                var origin = "<?= base_url() ?>";
+            </script>
+            <script src="<?= base_url("assets/js/pages/" . base64_decode($this->input->get('p')) . ".js") ?>"></script>
+        <?php } ?>
+        <!-- JavaScript Libraries -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="<?= base_url('assets/js/wow.min.js') ?>"></script>
+        <script src="<?= base_url('assets/js/easing.min.js') ?>"></script>
+        <script src="<?= base_url('assets/js/waypoints.min.js') ?>"></script>
+        <script src="<?= base_url('assets/js/lightbox.min.js') ?>"></script>
+        <script src="<?= base_url('assets/js/owl.carousel.min.js') ?>"></script>
+
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
+        <script>
+            window.onload = function() {
+                var spinner = document.getElementById("spinner");
+                if (spinner) spinner.classList.remove("show");
+            };
+        </script>
+
+    </body>

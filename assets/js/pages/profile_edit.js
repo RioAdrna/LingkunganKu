@@ -16,6 +16,8 @@ $("#btn_simpan").click(function() {
         return;
     }
 
+    $("#loading_overlay").fadeIn(200);
+
     $.ajax({
         url: origin + "/profile/update",
         type: "POST",
@@ -28,6 +30,9 @@ $("#btn_simpan").click(function() {
         dataType: "json",
 
         success: function(res) {
+
+            $("#loading_overlay").fadeOut(200);
+
             Swal.fire({
                 icon: res.sts == "1" ? "success" : "error",
                 title: res.msg,
@@ -39,6 +44,9 @@ $("#btn_simpan").click(function() {
         },
 
         error: function() {
+
+            $("#loading_overlay").fadeOut(200);
+
             Swal.fire({
                 icon: "error",
                 title: "Gagal!",
