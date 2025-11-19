@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 15, 2025 at 02:41 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Host: localhost
+-- Generation Time: Nov 20, 2025 at 12:55 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `kabkot` (
-  `id` int(11) NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `nama` varchar(100) NOT NULL,
   `jenis` enum('Kabupaten','Kota') NOT NULL,
   `ibu_kota` varchar(100) DEFAULT NULL,
@@ -79,24 +79,25 @@ INSERT INTO `kabkot` (`id`, `nama`, `jenis`, `ibu_kota`, `latitude`, `longitude`
 CREATE TABLE `kategori_laporan` (
   `id_kategori` int(10) UNSIGNED NOT NULL,
   `nama_kategori` varchar(100) NOT NULL,
-  `deskripsi` text DEFAULT NULL
+  `deskripsi` text DEFAULT NULL,
+  `icon` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `kategori_laporan`
 --
 
-INSERT INTO `kategori_laporan` (`id_kategori`, `nama_kategori`, `deskripsi`) VALUES
-(1, 'Kebersihan dan Sampah', 'Masalah pengelolaan sampah dan kebersihan lingkungan'),
-(2, 'Air dan Drainase', 'Masalah air bersih, saluran air, dan banjir'),
-(3, 'Udara dan Polusi', 'Masalah pencemaran udara dan kebisingan'),
-(4, 'Tanaman dan Ruang Terbuka Hijau', 'Masalah penghijauan, pohon, dan taman'),
-(5, 'Satwa dan Hewan Liar', 'Masalah hewan liar, penelantaran, atau gangguan hewan'),
-(6, 'Pencemaran dan Limbah Industri', 'Masalah limbah pabrik, bahan beracun, atau pencemaran industri'),
-(7, 'Kebakaran dan Bahan Berbahaya', 'Masalah pembakaran liar, tumpahan bahan kimia, atau bahaya ledakan'),
-(8, 'Kawasan dan Tata Ruang', 'Masalah penyalahgunaan lahan, pembangunan di area terlarang, atau penambangan liar'),
-(9, 'Perilaku Masyarakat', 'Tindakan masyarakat yang merusak atau mengganggu lingkungan'),
-(10, 'Lain-lain', 'Masalah lingkungan lainnya yang tidak termasuk kategori di atas');
+INSERT INTO `kategori_laporan` (`id_kategori`, `nama_kategori`, `deskripsi`, `icon`) VALUES
+(1, 'Kebersihan dan Sampah', 'Masalah pengelolaan sampah dan kebersihan lingkungan', 'kategori1-sampah.png'),
+(2, 'Air dan Drainase', 'Masalah air bersih, saluran air, dan banjir', 'kategori2-air.png'),
+(3, 'Udara dan Polusi', 'Masalah pencemaran udara dan kebisingan', 'kategori3-polusi.png'),
+(4, 'Tanaman dan Ruang Terbuka Hijau', 'Masalah penghijauan, pohon, dan taman', 'kategori4-tanaman.png'),
+(5, 'Satwa dan Hewan Liar', 'Masalah hewan liar, penelantaran, atau gangguan hewan', 'kategori5-hewan.png'),
+(6, 'Pencemaran dan Limbah Industri', 'Masalah limbah pabrik, bahan beracun, atau pencemaran industri', 'kategori6-limbah.png'),
+(7, 'Kebakaran dan Bahan Berbahaya', 'Masalah pembakaran liar, tumpahan bahan kimia, atau bahaya ledakan', 'kategori7-kebakaran.png'),
+(8, 'Kawasan dan Tata Ruang', 'Masalah penyalahgunaan lahan, pembangunan di area terlarang, atau penambangan liar', 'kategori8-kawasan.png'),
+(9, 'Perilaku Masyarakat', 'Tindakan masyarakat yang merusak atau mengganggu lingkungan', 'kategori9-perilaku.png'),
+(10, 'Lain-lain', 'Masalah lingkungan lainnya yang tidak termasuk kategori di atas', 'kategori10-lainnya.png');
 
 -- --------------------------------------------------------
 
@@ -143,16 +144,20 @@ INSERT INTO `laporan` (`id_laporan`, `user_id`, `kategori_id`, `kabkot_id`, `des
 (16, 2, 10, NULL, 'Botol dan gelas plastik berserakan setelah acara warga.', 'uploads/sampah8.jpg', NULL, NULL, NULL, 1, 'belum ditangani', '2025-11-10 17:05:27', NULL),
 (17, 3, 10, NULL, 'Air hujan tidak terserap karena kurangnya sumur resapan.', 'uploads/banjir7.jpg', NULL, NULL, NULL, 1, 'belum ditangani', '2025-11-10 17:05:27', NULL),
 (18, 1, 10, NULL, 'Sampah menumpuk di belakang gedung olahraga.', 'uploads/sampah9.jpg', NULL, NULL, NULL, 1, 'belum ditangani', '2025-11-10 17:05:27', NULL),
-(19, 2, 10, NULL, 'Air dari sungai meluap ke kebun dan merusak tanaman warga.', 'uploads/banjir8.jpg', NULL, NULL, NULL, 1, 'belum ditangani', '2025-11-10 17:05:27', NULL),
-(20, 3, 10, NULL, 'Warga membuang sampah ke area kosong dekat perumahan.', 'uploads/sampah10.jpg', NULL, NULL, NULL, 1, 'belum ditangani', '2025-11-10 17:05:27', NULL),
-(21, 1, 10, NULL, 'Banjir kembali terjadi setiap hujan deras.', 'uploads/banjir9.jpg', NULL, NULL, NULL, 1, 'belum ditangani', '2025-11-10 17:05:27', NULL),
-(22, 2, 10, NULL, 'Sampah daun dan ranting menyumbat aliran sungai kecil.', 'uploads/sampah11.jpg', NULL, NULL, NULL, 1, 'belum ditangani', '2025-11-10 17:05:27', NULL),
+(19, 2, 10, 2, 'Air dari sungai meluap ke kebun dan merusak tanaman warga.', 'uploads/banjir8.jpg', NULL, NULL, NULL, 1, 'belum ditangani', '2025-11-10 17:05:27', NULL),
+(20, 3, 10, 1, 'Warga membuang sampah ke area kosong dekat perumahan.', 'uploads/sampah10.jpg', NULL, NULL, NULL, 1, 'belum ditangani', '2025-11-01 17:05:27', NULL),
+(21, 1, 10, 6, 'Banjir kembali terjadi setiap hujan deras.', 'uploads/banjir9.jpg', NULL, NULL, NULL, 1, 'belum ditangani', '2025-11-10 17:05:27', NULL),
+(22, 2, 10, 11, 'Sampah daun dan ranting menyumbat aliran sungai kecil.', 'uploads/sampah11.jpg', NULL, NULL, NULL, 1, 'belum ditangani', '2025-11-10 17:05:27', NULL),
 (23, 3, 10, NULL, 'Pompa air tidak berfungsi sehingga air meluber ke jalan.', 'uploads/banjir10.jpg', NULL, NULL, NULL, 1, 'belum ditangani', '2025-11-10 17:05:27', NULL),
 (24, 1, 10, NULL, 'Banyak sampah plastik kecil beterbangan di area taman.', 'uploads/sampah12.jpg', NULL, NULL, NULL, 1, 'belum ditangani', '2025-11-10 17:05:27', NULL),
-(25, 2, 10, NULL, 'Air setinggi lutut menggenang di area pemukiman padat.', 'uploads/banjir11.jpg', NULL, NULL, NULL, 1, 'belum ditangani', '2025-11-10 17:05:27', NULL),
+(25, 2, 10, 12, 'Air setinggi lutut menggenang di area pemukiman padat.', 'uploads/banjir11.jpg', NULL, NULL, NULL, 1, 'belum ditangani', '2025-11-10 17:05:27', NULL),
 (26, 1, 5, 1, 'Ada badak masuk pemukiman, di tengah kota kok ada badak? lepas darimana?', '1763191101.jpg', -7.047194, 107.540911, NULL, 5, 'belum ditangani', '2025-11-15 07:18:21', NULL),
-(27, 1, 1, 1, 'Di pinggir jalan sekitaran leuweung kaleng ada tumpukan sampah, agak menggangu pemandangan, padahal kalo gak ada sampah pemandangan di sini indah.', '1763191642.jpg', -7.047194, 107.540911, NULL, 3, 'belum ditangani', '2025-11-15 07:27:22', NULL),
-(28, 1, 4, 1, 'di desa nagrak, sekitaran lapang futsal terbengkalai, ada pohon tumbang di jalan mau ke ladang', '1763194388.jpg', -7.047194, 107.540911, NULL, 3, 'belum ditangani', '2025-11-15 08:13:08', NULL);
+(27, 1, 1, 1, 'Di pinggir jalan sekitaran leuweung kaleng ada tumpukan sampah, agak menggangu pemandangan, padahal kalo gak ada sampah pemandangan di sini indah.', '1763191642.jpg', -7.047194, 108.540911, NULL, 3, 'belum ditangani', '2025-11-15 07:27:22', NULL),
+(28, 1, 4, 1, 'di desa nagrak, sekitaran lapang futsal terbengkalai, ada pohon tumbang di jalan mau ke ladang', '1763194388.jpg', -7.043400, 107.540923, NULL, 3, 'belum ditangani', '2025-11-15 08:13:08', NULL),
+(29, 1, 8, 1, 'punten, tangga di pasar baru ada yang patah gagangnya', '1763272600.jpg', -7.064993, 107.539432, NULL, 4, 'belum ditangani', '2025-11-16 05:56:40', NULL),
+(30, 1, 1, 8, 'Terkadang ada sampah berserakan di pintu masuk gang cenkly, tidak banyak sih sampahnya, bisa dibersihkan sendiri, tapi kalau muncul terus menggangu juga. Tolong dicari tahu siapa pelakunya', '1763277585.jpg', -7.220452, 107.886123, NULL, 3, 'belum ditangani', '2025-11-02 07:19:45', NULL),
+(31, NULL, 1, 8, 'Udah penuh nih, tong sampah pinggir jalan haji ismail.', '1763286590.jpg', -7.220243, 107.886432, NULL, 4, 'belum ditangani', '2025-11-01 09:49:50', NULL),
+(32, NULL, 9, 8, 'Aduh kumaha ieu, meresahkan kieu aya nu gelo amuk-amukan ka tengah jalan, lokasi sakitaran pantai santolo', '1763286756.jpg', -7.220500, 107.886000, NULL, 3, 'belum ditangani', '2025-11-16 09:52:36', NULL);
 
 -- --------------------------------------------------------
 
@@ -221,7 +226,8 @@ ALTER TABLE `kategori_laporan`
 ALTER TABLE `laporan`
   ADD PRIMARY KEY (`id_laporan`),
   ADD KEY `user_id` (`user_id`),
-  ADD KEY `kategori_id` (`kategori_id`);
+  ADD KEY `kategori_id` (`kategori_id`),
+  ADD KEY `kabkot_id` (`kabkot_id`);
 
 --
 -- Indexes for table `penanganan`
@@ -246,7 +252,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `kabkot`
 --
 ALTER TABLE `kabkot`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `kategori_laporan`
@@ -258,7 +264,7 @@ ALTER TABLE `kategori_laporan`
 -- AUTO_INCREMENT for table `laporan`
 --
 ALTER TABLE `laporan`
-  MODIFY `id_laporan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_laporan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `penanganan`
@@ -281,7 +287,8 @@ ALTER TABLE `users`
 --
 ALTER TABLE `laporan`
   ADD CONSTRAINT `laporan_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `laporan_ibfk_2` FOREIGN KEY (`kategori_id`) REFERENCES `kategori_laporan` (`id_kategori`);
+  ADD CONSTRAINT `laporan_ibfk_2` FOREIGN KEY (`kategori_id`) REFERENCES `kategori_laporan` (`id_kategori`),
+  ADD CONSTRAINT `laporan_ibfk_3` FOREIGN KEY (`kabkot_id`) REFERENCES `kabkot` (`id`);
 
 --
 -- Constraints for table `penanganan`
