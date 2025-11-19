@@ -41,7 +41,7 @@ class Map extends CI_Controller
 	public function show_pin()
 	{
 		$request = $this->input->post();
-		$res = $this->model_map->get_laporan_by_kategori($request["kategori_id"]);
+		$res = $this->model_map->get_laporan_by_kategori($request);
 		$data = [
 			'status' => 200,
 			'message' => 'Berhasil request',

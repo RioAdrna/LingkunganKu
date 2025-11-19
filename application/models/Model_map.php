@@ -34,9 +34,12 @@ class Model_map extends CI_Model
         return $query->result();
     }
 
-     public function get_laporan_by_kategori($arr)
+     public function get_laporan_by_kategori($data)
     {
-        $query = $this->db->where_in("kategori_id", $arr);
-        return $query->get('laporan')->result();
+        $this->db->where_in("kategori_id", $data["kategori_id"]);
+        if($data["tanggal_awal"] != "") $this->db->where("date(tanggal_laporan) >=", $data["tanggal_awal"]);
+        if($data["tanggal_akhir"] != "") $this->db->where("date(tanggal_laporan) <=", $data["tanggal_akhir"]);
+        $this->db->join('kategori_laporan', 'kategori_laporan.id_kategori = laporan.kategori_id');
+        return $this->db->get('laporan')->result();
     }
 }

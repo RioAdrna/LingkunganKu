@@ -29,10 +29,10 @@
         var map = L.map('map').setView([-6.9, 107.6], 11); // posisi awal (misal: Bandung)
 
         // Tambahkan basemap (OpenStreetMap)
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 18,
-            attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
+        L.tileLayer(
+            'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{x}/{y}',
+            { attribution: 'Tiles © Esri' }
+        ).addTo(map);
 
 
         // === 1. Data GeoJSON (contoh polygon sederhana untuk batas wilayah) ===
