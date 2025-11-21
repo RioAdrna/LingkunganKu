@@ -32,23 +32,32 @@
                             <div class="col-sm-4">
                                 <div class="mb-3">
                                     <label for="" class="form-label">Kategori</label>
-                                    <input type="text" style="cursor: pointer;" id="kategori_selector"
-                                        value="Tampilkan semua" class="form-control" readonly aria-describedby="helpId"
-                                        data-bs-toggle="modal" data-bs-target="#kategori-modal">
+                                    <div class="input-group">
+                                        <i class="input-group-text bi bi-tags"></i>
+                                        <input type="text" style="cursor: pointer;" id="kategori_selector"
+                                            value="Tampilkan semua" class="form-control" readonly aria-describedby="helpId"
+                                            data-bs-toggle="modal" data-bs-target="#kategori-modal">
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="mb-3">
                                     <label for="" class="form-label">Dari tanggal</label>
-                                    <input type="date" class="form-control" name="" id="tanggal_awal"
-                                        onchange="limitDate(this)" aria-describedby="helpId" />
+                                    <div class="input-group">
+                                        <i class="input-group-text bi bi-calendar"></i>
+                                        <input type="date" class="form-control" name="" id="tanggal_awal"
+                                            onchange="limitDate(this)" aria-describedby="helpId" />
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="mb-3">
                                     <label for="" class="form-label">Sampai tanggal</label>
-                                    <input type="date" class="form-control" name="" id="tanggal_akhir"
-                                        aria-describedby="helpId" />
+                                    <div class="input-group">
+                                        <i class="input-group-text bi bi-calendar-check"></i>
+                                        <input type="date" class="form-control" name="" id="tanggal_akhir"
+                                            aria-describedby="helpId" />
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm-2 d-grid place-items-center">
@@ -58,11 +67,62 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="mb-3">
-                                <label for="" class="form-label">Gaya Peta</label>
-                                <input type="text" style="cursor: pointer;" id="gaya_peta_selector" value="Humanitarian"
-                                    class="form-control" readonly aria-describedby="helpId" data-bs-toggle="modal"
-                                    data-bs-target="#gaya-peta-modal">
+                            <div class="col-sm-4">
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Kabupaten/ Kota</label>
+                                    <div class="input-group">
+                                        <i class="input-group-text bi bi-buildings"></i>
+                                        <select class="form-select" name="kabkot_id" id="kabkot_id">
+                                            <option value="">Semua Wilayah</option>
+                                            <?php foreach ($kabkot as $val) { ?>
+                                                <option value="<?= $val->id ?>"><?= $val->nama ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Tingkat Keparahan</label>
+                                    <div class="input-group">
+                                        <i class="input-group-text bi bi-bar-chart"></i>
+                                        <select class="form-select" name="tingkat_keparahan" id="tingkat_keparahan">
+                                            <option value="">Semua Tingkat</option>
+                                            <option value="1">Level 1</option>
+                                            <option value="2">Level 2</option>
+                                            <option value="3">Level 3</option>
+                                            <option value="4">Level 4</option>
+                                            <option value="5">Level 5</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Status</label>
+                                    <div class="input-group">
+                                        <i class="input-group-text bi bi-question-diamond"></i>
+                                        <select class="form-select" name="status" id="status">
+                                            <option value="">Tampilkan Semua</option>
+                                            <option value="belum ditangani">belum ditangani</option>
+                                            <option value="ditugaskan">ditugaskan</option>
+                                            <option value="sudah ditangani">sudah ditangani</option>
+                                            <option value="selesai">selesai</option>
+                                            <option value="ditolak">ditolak</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Gaya Peta</label>
+                                    <div class="input-group">
+                                        <i class="input-group-text bi bi-map "></i>
+                                        <input type="text" style="cursor: pointer;" id="gaya_peta_selector" value="Humanitarian"
+                                            class="form-control" readonly aria-describedby="helpId" data-bs-toggle="modal"
+                                            data-bs-target="#gaya-peta-modal">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -163,22 +223,22 @@
         // Semua daftar tile layer
         var baseLayers = {
             "osm": L.tileLayer(
-                'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                { attribution: '© OSM' }
+                'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OSM'
+                }
             ),
             "opentopomap": L.tileLayer(
-                'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
-                { attribution: '© OpenTopoMap' }
+                'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenTopoMap'
+                }
             ),
             "cyclosm": L.tileLayer(
-                'https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png',
-                {
+                'https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
                     maxZoom: 18,
                     attribution: '© OpenStreetMap contributors'
                 }),
             "humanitarian": L.tileLayer(
-                'https://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
-                {
+                'https://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
                     maxZoom: 18,
                     attribution: '© OpenStreetMap contributors'
                 })
@@ -214,6 +274,7 @@
 
                     // Tambahkan basemap baru sesuai pilihan
                     baseLayers[value].addTo(map);
+                    document.querySelector('#gaya_peta_selector').value = capitalizeFirstLetter(value);
                     break;
                 }
             }
@@ -269,24 +330,42 @@
                 data: {
                     kategori_id: showList,
                     tanggal_awal: document.getElementById("tanggal_awal").value,
-                    tanggal_akhir: document.getElementById("tanggal_akhir").value
+                    tanggal_akhir: document.getElementById("tanggal_akhir").value,
+                    kabkot_id: document.getElementById("kabkot_id").value,
+                    tingkat_keparahan: document.getElementById("tingkat_keparahan").value,
+                    status: document.getElementById("status").value,
                 },
                 dataType: "json",
-                success: function (response) {
+                success: function(response) {
                     markerGroup.clearLayers();
                     console.log(response);
-                    response.data.forEach(function (value, index) {
+                    response.data.forEach(function(value, index) {
                         if (value.latitude == null || value.longitude == null) return;
                         L.marker([value.latitude, value.longitude], {
-                            icon: coloredIcon(value.icon, value.tingkat_keparahan ?? 1)
-                        })
-                            .bindPopup(`${value.deskripsi}`)
+                                icon: coloredIcon(value.icon, value.tingkat_keparahan ?? 1)
+                            })
+                            .bindPopup(`
+                                <b style="font-size: 17px">${value.nama_kategori}</b><br>
+                                <table class="mb-2" style="font-size: 11px">
+                                    <tr>
+                                        <td>Level</td>
+                                        <td>: </td>
+                                        <td>${value.tingkat_keparahan}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Status</td>
+                                        <td>: </td>
+                                        <td>${value.status}</td>
+                                    </tr>
+                                </table>
+                                ${value.deskripsi}
+                            `)
                             .addTo(markerGroup);
                     });
                     map.addLayer(markerGroup);
                     // map.fitBounds(geoLayer.getBounds());
                 },
-                error: function (xhr, status, error) {
+                error: function(xhr, status, error) {
                     console.error("AJAX Error:", error);
                     alert("Terjadi kesalahan, coba lagi nanti");
                 }
@@ -334,7 +413,7 @@
 
         function coloredIcon(image, level) {
             const keparahan = [
-                "#2ECC71",
+                "#00eeffff",
                 "#A3E635",
                 "#FCD34D",
                 "#FB923C",
@@ -390,7 +469,7 @@
             .then(data => {
                 geoData = data;
                 L.geoJSON(data, {
-                    style: function (feature) {
+                    style: function(feature) {
                         const idx = feature.properties.OBJECTID - 1 || 0; // pastikan setiap feature punya id unik (0–26)
                         return {
                             color: "black",
@@ -404,7 +483,7 @@
             });
 
         let layer = L.geoJSON(null, {
-            style: function (feature) {
+            style: function(feature) {
                 const idx = feature.properties.OBJECTID - 1 || 0; // pastikan setiap feature punya id unik (0–26)
                 return {
                     color: "black",
@@ -493,11 +572,9 @@
 
             if (rata_rata_keparahan_7 < rata_rata_keparahan) {
                 arrow = '<i class="bi bi-arrow-down-right text-success"></i>'
-            }
-            else if (rata_rata_keparahan_7 > rata_rata_keparahan) {
+            } else if (rata_rata_keparahan_7 > rata_rata_keparahan) {
                 arrow = '<i class="bi bi-arrow-up-right text-danger"></i>'
-            }
-            else {
+            } else {
                 arrow = '<i class="bi bi-dash-lg text-success"></i>'
             }
 

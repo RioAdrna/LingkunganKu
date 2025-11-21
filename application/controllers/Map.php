@@ -24,6 +24,7 @@ class Map extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('model_map');
+		$this->load->model('model_kabkot');
 	}
 
 	public function index()
@@ -33,6 +34,8 @@ class Map extends CI_Controller
 		$data["jumlah_laporan_average_7"] = json_encode($this->model_map->jumlah_laporan_average_7());
 		$data["kategori_terbanyak_7"] = json_encode($this->model_map->kategori_terbanyak_7());
 		$data["kategori_laporan"] = $this->model_map->get_kategori();
+
+		$data["kabkot"] = $this->model_kabkot->get();
 
 		$this->load->view('head');
 		$this->load->view('map/main.php', $data);

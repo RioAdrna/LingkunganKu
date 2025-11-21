@@ -7,4 +7,9 @@ class Model_kabkot extends CI_Model
     {
         return $this->db->get_where("kabkot", array("nama" => $kabkot));
     }
+
+    function get()
+    {
+        return $this->db->get('kabkot')->result();
+    }
 }
