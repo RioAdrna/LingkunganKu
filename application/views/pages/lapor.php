@@ -1,3 +1,24 @@
+    <style>
+        #tabel_lapor td,
+        #tabel_lapor th {
+            white-space: normal !important;
+            word-wrap: break-word;
+        }
+
+        .text-wrap {
+            white-space: normal !important;
+        }
+
+        @media (max-width: 576px) {
+
+            #tabel_lapor td:nth-child(1),
+            #tabel_lapor th:nth-child(1),
+            #tabel_lapor td:nth-child(3),
+            #tabel_lapor th:nth-child(3) {
+                width: 40px !important;
+            }
+        }
+    </style>
     <div class="content">
         <div class="container-fluid">
             <div class="row">
@@ -20,27 +41,12 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="tabel_lapor" class="table table-bordered table-striped align-middle" style="width:100%">
-                                    <thead class="table-secondary">
-                                        <tr>
-                                            <th style="width: 40px;"></th>
-                                            <th class="text-center" style="width: 60px;">NO</th>
-                                            <th class="text-center">Keluhan</th>
-                                            <th class="text-center" style="width: 120px;">Aksi</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
                                 <table id="tabel_lapor" class="table table-stripped" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th></th>
                                             <th class="text-center">NO</th>
                                             <th class="text-center">Keluhan</th>
-                                            <th class="text-center">#</th>
+                                            <th>#</th>
                                         </tr>
                                     </thead>
                                 </table>

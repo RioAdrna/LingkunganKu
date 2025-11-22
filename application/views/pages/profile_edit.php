@@ -39,15 +39,17 @@
                                                             <div class="d-flex flex-column align-items-center text-center">
                                                                 <input type="hidden" id="old_foto" value="<?= $this->session->userdata("foto") ?>">
                                                                 <img id="img_logo"
-                                                                    src="<?= base_url("assets/img/profile/" . ($this->session->userdata("foto") ?? "no-image.png")) ?>"
+                                                                    src="<?= base_url('assets/img/profile/' . (!empty($this->session->userdata('foto')) ? $this->session->userdata('foto') : 'no-image.png')) ?>"
                                                                     alt="Foto"
                                                                     width="170"
                                                                     height="231"
                                                                     style="
-                                                                            object-fit: cover;
+                                                                            background: #f5f5f5;
                                                                             border-radius: 15px;
                                                                             border: 2px solid #e0e0e0;
-                                                                            box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
+                                                                            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+                                                                        ">
+
 
                                                                 <br>
 

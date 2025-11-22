@@ -34,29 +34,16 @@ class Login extends CI_Controller
             $user = $hasil->row();
 
             // Cek password
-            if (password_verify($password, $user->password)) { //Nyoba doang, nanti ganti aja lagi
+            if (password_verify($password, $user->password)) {
 
-                // --- CEK STATUS USER ---
-                // Cek apakah kolom status_user ada
-                if (property_exists($user, 'status_user')) {
-                    if ($user->status_user != "Y") {
-                        echo json_encode(["sts" => "0", "msg" => "Akun tidak aktif"]);
-                        return;
-                    }
-                }
-                // --- END CEK STATUS ---
+                // if (property_exists($user, 'status_user') && $user->status_user != "Y") {
+                //     echo json_encode(["sts" => "0", "msg" => "Akun tidak aktif"]);
+                //     return;
+                // }
 
-                // Tentukan role dari kolom id_ug (atau ubah sesuai struktur database)
-                $level = "user"; // default
-                if (isset($user->id_ug)) {
-                    if ($user->id_ug == "1") {
-                        $level = "admin";
-                    } elseif ($user->id_ug == "2") {
-                        $level = "petugas";
-                    }
-                }
+                // Ambil role dari database
+                $level = $user->role ?? "user";
 
-                // Set session
                 $data_session = [
                     'id_user' => $user->id,
                     'nama' => $user->nama,

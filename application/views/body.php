@@ -34,56 +34,67 @@
 				?>
 
 				<li class="nav-item">
-					<a class="nav-link <?= ($current_page == "dashboard") ? "active" : "" ?>" href="<?= base_url("?p=" . base64_encode('dashboard')) ?>">
+					<a class="nav-link <?= ($current_page == "dashboard") ? "active" : "" ?>"
+						href="<?= base_url("?p=" . base64_encode('dashboard')) ?>">
 						<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
 							<i class="fas fa-home text-dark text-sm opacity-10"></i>
 						</div>
 						<span class="nav-link-text ms-1">Dashboard</span>
 					</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link <?= ($current_page == "lapor") ? "active" : "" ?>" href="<?= base_url("?p=" . base64_encode('lapor')) ?>">
-						<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-							<i class="fas fa-bullhorn text-dark text-sm opacity-10"></i>
-						</div>
-						<span class="nav-link-text ms-1">Lapor</span>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link <?= ($current_page == "status_laporan") ? "active" : "" ?>" href="<?= base_url("?p=" . base64_encode('status_laporan')) ?>">
-						<div class=" icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-							<i class="fas fa-tasks text-dark text-sm opacity-10"></i>
-						</div>
-						<span class="nav-link-text ms-1">Status Laporan</span>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link <?= ($current_page == "peta_laporan") ? "active" : "" ?>" href="<?= base_url("?p=" . base64_encode('peta_laporan')) ?>">
-						<div class=" icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-							<i class="fas fa-map-marked-alt text-dark text-sm opacity-10"></i>
-						</div>
-						<span class="nav-link-text ms-1">Peta Laporan</span>
-					</a>
-				</li>
+
+				<?php if (in_array($this->session->userdata('level'), ["admin", "petugas", "user"])) { ?>
+					<!-- Menu Lapor -->
+					<li class="nav-item">
+						<a class="nav-link <?= ($current_page == "lapor") ? "active" : "" ?>"
+							href="<?= base_url("?p=" . base64_encode('lapor')) ?>">
+							<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+								<i class="fas fa-bullhorn text-dark text-sm opacity-10"></i>
+							</div>
+							<span class="nav-link-text ms-1">Lapor</span>
+						</a>
+					</li>
+
+					<!-- Menu Status Laporan (SEMUA ROLE) -->
+					<li class="nav-item">
+						<a class="nav-link <?= ($current_page == "status_laporan") ? "active" : "" ?>"
+							href="<?= base_url("?p=" . base64_encode('status_laporan')) ?>">
+							<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+								<i class="fas fa-tasks text-dark text-sm opacity-10"></i>
+							</div>
+							<span class="nav-link-text ms-1">Status Laporan</span>
+						</a>
+					</li>
+				<?php } ?>
+
+				<!-- Menu Peta Laporan (HANYA ADMIN & PETUGAS) -->
+				<?php if ($this->session->userdata('level') === "admin" || $this->session->userdata('level') === "petugas") { ?>
+					<li class="nav-item">
+						<a class="nav-link <?= ($current_page == "peta_laporan") ? "active" : "" ?>"
+							href="<?= base_url("?p=" . base64_encode('peta_laporan')) ?>">
+							<div class="icon ion-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+								<i class="fas fa-map-marked-alt text-dark text-sm opacity-10"></i>
+							</div>
+							<span class="nav-link-text ms-1">Peta Laporan</span>
+						</a>
+					</li>
+				<?php } ?>
+
+
 				<li class="nav-item mt-3">
-					<h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
+					<h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account Pages</h6>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link <?= ($current_page == "profile") ? "active" : "" ?>" href="<?= base_url("?p=" . base64_encode('profile')) ?>">
+					<a class="nav-link <?= ($current_page == "profile") ? "active" : "" ?>"
+						href="<?= base_url("?p=" . base64_encode('profile')) ?>">
 						<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
 							<i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
 						</div>
 						<span class="nav-link-text ms-1">Profile</span>
 					</a>
 				</li>
-				<!-- <li class="nav-item">
-					<a class="nav-link <?= ($current_page == "login") ? "active" : "" ?>" href="<?= base_url("?p=" . base64_encode('login')) ?>">
-						<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-							<i class="ni ni-single-copy-04 text-dark text-sm opacity-10"></i>
-						</div>
-						<span class="nav-link-text ms-1">Sign In</span>
-					</a> -->
-				</li>
+
+
 			</ul>
 		</div>
 		<div class="sidenav-footer mx-3 ">

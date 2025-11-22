@@ -24,6 +24,7 @@ class Utama extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model("model_lapor");
+		$this->load->model("model_login");
 	}
 
 	public function index()

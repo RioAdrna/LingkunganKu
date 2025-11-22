@@ -130,7 +130,7 @@ class Lapor extends CI_Controller
         $no = 1;
         foreach ($data_lapor->result() as $laporan):
             array_push($data['data'], array(
-                "",
+
                 $no++,
                 $laporan->deskripsi,
                 "<button onclick='detail(\"$laporan->id_laporan\")' class='btn btn-primary btn-sm'><i class='fas fa-search-plus'></i> Detail</button> &nbsp;"
@@ -206,18 +206,17 @@ class Lapor extends CI_Controller
         $ext = pathinfo($path, PATHINFO_EXTENSION);
         $filename = time() . "." . $ext;
 
-        $config['upload_path']          = './assets/img/dokumentasi/';
-        $config['allowed_types']        = 'jpeg|jpg|png';
-        $config['max_size']             = 7000;
-        $config['file_name']            = $filename;
+        $config['upload_path'] = FCPATH . 'assets/img/dokumentasi/';
+        $config['allowed_types'] = 'jpg|jpeg|png';
+        $config['max_size'] = 7000;
+        $config['file_name'] = $filename;
+        $config['overwrite'] = true;
+
         $this->load->library('upload', $config);
 
-        $this->upload->overwrite = true;
-
-        if (! $this->upload->do_upload('file_foto')) {
+        if (!$this->upload->do_upload('file_foto')) {
             $res = array('sts' => "0", 'msg' => $this->upload->display_errors());
         } else {
-            // $data = array('sts' => $this->upload->data());
             $res = array('sts' => '1', 'msg' => "SUKSES", "nm_file" => $filename);
         }
 

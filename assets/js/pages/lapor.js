@@ -1,13 +1,13 @@
 var proses;
 $(document).ready(function() {
 const dataTableConfig = {
-  responsive: {
-    details: { type: 'column' }
-  },
+  responsive: true,
+  autoWidth: false,
+  scrollX: false,
   columnDefs: [
-    { targets: 0, className: 'control', orderable: false }, 
-    { targets: 1, className: "text-center" },
-    { targets: 3, className: "text-center" },
+    { targets: 0, width: "50px", className: "text-center" },
+    { targets: 1, className: "text-wrap" },
+    { targets: 2, width: "80px", className: "text-center" }
   ],
   language: {
     paginate: {
@@ -16,12 +16,12 @@ const dataTableConfig = {
     },
     zeroRecords: "Laporan tidak ditemukan"
   },
-  autoWidth: false,
-  lengthChange: false,
+  lengthChange: true,
   searching: false,
   info: false,
   ajax: origin + "/lapor/data_lapor"
 };
+
 
 $(document).ready(function() {
   $("#tabel_lapor").DataTable(dataTableConfig);
