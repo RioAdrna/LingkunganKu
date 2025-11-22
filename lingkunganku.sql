@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 21, 2025 at 02:38 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Waktu pembuatan: 22 Nov 2025 pada 15.51
+-- Versi server: 10.4.32-MariaDB
+-- Versi PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kabkot`
+-- Struktur dari tabel `kabkot`
 --
 
 CREATE TABLE `kabkot` (
@@ -38,7 +38,7 @@ CREATE TABLE `kabkot` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `kabkot`
+-- Dumping data untuk tabel `kabkot`
 --
 
 INSERT INTO `kabkot` (`id`, `nama`, `jenis`, `ibu_kota`, `latitude`, `longitude`, `geojson_id`) VALUES
@@ -73,7 +73,7 @@ INSERT INTO `kabkot` (`id`, `nama`, `jenis`, `ibu_kota`, `latitude`, `longitude`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kategori_laporan`
+-- Struktur dari tabel `kategori_laporan`
 --
 
 CREATE TABLE `kategori_laporan` (
@@ -84,7 +84,7 @@ CREATE TABLE `kategori_laporan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `kategori_laporan`
+-- Dumping data untuk tabel `kategori_laporan`
 --
 
 INSERT INTO `kategori_laporan` (`id_kategori`, `nama_kategori`, `deskripsi`, `icon`) VALUES
@@ -102,7 +102,7 @@ INSERT INTO `kategori_laporan` (`id_kategori`, `nama_kategori`, `deskripsi`, `ic
 -- --------------------------------------------------------
 
 --
--- Table structure for table `laporan`
+-- Struktur dari tabel `laporan`
 --
 
 CREATE TABLE `laporan` (
@@ -122,7 +122,7 @@ CREATE TABLE `laporan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `laporan`
+-- Dumping data untuk tabel `laporan`
 --
 
 INSERT INTO `laporan` (`id_laporan`, `user_id`, `kategori_id`, `kabkot_id`, `deskripsi`, `foto`, `latitude`, `longitude`, `alamat_lengkap`, `tingkat_keparahan`, `status`, `tanggal_laporan`, `updated_at`) VALUES
@@ -489,7 +489,7 @@ INSERT INTO `laporan` (`id_laporan`, `user_id`, `kategori_id`, `kabkot_id`, `des
 -- --------------------------------------------------------
 
 --
--- Table structure for table `penanganan`
+-- Struktur dari tabel `penanganan`
 --
 
 CREATE TABLE `penanganan` (
@@ -504,7 +504,7 @@ CREATE TABLE `penanganan` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -515,26 +515,27 @@ CREATE TABLE `users` (
   `role` enum('user','admin','petugas') DEFAULT 'user',
   `no_hp` varchar(20) DEFAULT NULL,
   `alamat` text DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `foto` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id`, `nama`, `email`, `password`, `role`, `no_hp`, `alamat`, `created_at`) VALUES
-(1, 'Rio Adriana', 'rio@gmail.com', '$2y$10$etn5E1oHMdKvopgHVzFsy.i7NzzgFC0YJ1MNEKOVNfXmsHTOcV3Ou', 'user', '081234567890', 'Jl. Merdeka No. 45, Bandung', '2025-11-10 11:33:31'),
-(2, 'Siti Lestari', 'siti@gmail.com', '123456', 'user', '082145678912', 'Jl. Pasir Koja No. 12, Bandung', '2025-11-10 11:33:31'),
-(3, 'Budi Santoso', 'budi@gmail.com', '123456', 'user', '081345678901', 'Jl. Cipaganti No. 7, Bandung', '2025-11-10 11:33:31'),
-(4, 'Andika Putra', 'andika@gmail.com', '123456', 'petugas', '081234567001', 'Kantor DLH Bandung', '2025-11-10 11:33:31'),
-(5, 'Admin Lingkungan', 'admin@dlh.go.id', '123456', 'admin', '081234567002', 'Kantor Dinas Lingkungan Hidup', '2025-11-10 11:33:31');
+INSERT INTO `users` (`id`, `nama`, `email`, `password`, `role`, `no_hp`, `alamat`, `created_at`, `foto`) VALUES
+(1, 'Rio Adriana', 'rio@gmail.com', '$2y$10$i7Q0yfnvnohbrZCAw4ISKu3yMAmMfKMGz5/PtcbWT8wBGG0jI/P3O', 'admin', '083822085370', 'Ciumbuleuit', '2025-11-10 11:33:31', 'user_1_1763810781.jpg'),
+(2, 'Siti Lestari', 'siti@gmail.com', '$2y$10$i7Q0yfnvnohbrZCAw4ISKu3yMAmMfKMGz5/PtcbWT8wBGG0jI/P3O', 'user', '082145678912', 'Jl. Pasir Koja No. 12, Bandung', '2025-11-10 11:33:31', 'user_2_1763811211.jpg'),
+(3, 'Budi Santoso', 'budi@gmail.com', '$2y$10$i7Q0yfnvnohbrZCAw4ISKu3yMAmMfKMGz5/PtcbWT8wBGG0jI/P3O', 'petugas', '081345678901', 'Jl. Cipaganti No. 7, Bandung', '2025-11-10 11:33:31', 'user_3_1763811502.jpg'),
+(4, 'Andika Putra', 'andika@gmail.com', '123456', 'petugas', '081234567001', 'Kantor DLH Bandung', '2025-11-10 11:33:31', ''),
+(5, 'Admin Lingkungan', 'admin@dlh.go.id', '123456', 'admin', '081234567002', 'Kantor Dinas Lingkungan Hidup', '2025-11-10 11:33:31', '');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `kabkot`
+-- Indeks untuk tabel `kabkot`
 --
 ALTER TABLE `kabkot`
   ADD PRIMARY KEY (`id`),
@@ -542,13 +543,13 @@ ALTER TABLE `kabkot`
   ADD UNIQUE KEY `geojson_id` (`geojson_id`);
 
 --
--- Indexes for table `kategori_laporan`
+-- Indeks untuk tabel `kategori_laporan`
 --
 ALTER TABLE `kategori_laporan`
   ADD PRIMARY KEY (`id_kategori`);
 
 --
--- Indexes for table `laporan`
+-- Indeks untuk tabel `laporan`
 --
 ALTER TABLE `laporan`
   ADD PRIMARY KEY (`id_laporan`),
@@ -557,7 +558,7 @@ ALTER TABLE `laporan`
   ADD KEY `kabkot_id` (`kabkot_id`);
 
 --
--- Indexes for table `penanganan`
+-- Indeks untuk tabel `penanganan`
 --
 ALTER TABLE `penanganan`
   ADD PRIMARY KEY (`id`),
@@ -565,52 +566,52 @@ ALTER TABLE `penanganan`
   ADD KEY `id_laporan` (`id_laporan`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `kabkot`
+-- AUTO_INCREMENT untuk tabel `kabkot`
 --
 ALTER TABLE `kabkot`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
--- AUTO_INCREMENT for table `kategori_laporan`
+-- AUTO_INCREMENT untuk tabel `kategori_laporan`
 --
 ALTER TABLE `kategori_laporan`
   MODIFY `id_kategori` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `laporan`
+-- AUTO_INCREMENT untuk tabel `laporan`
 --
 ALTER TABLE `laporan`
   MODIFY `id_laporan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=384;
 
 --
--- AUTO_INCREMENT for table `penanganan`
+-- AUTO_INCREMENT untuk tabel `penanganan`
 --
 ALTER TABLE `penanganan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `laporan`
+-- Ketidakleluasaan untuk tabel `laporan`
 --
 ALTER TABLE `laporan`
   ADD CONSTRAINT `laporan_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
@@ -618,7 +619,7 @@ ALTER TABLE `laporan`
   ADD CONSTRAINT `laporan_ibfk_3` FOREIGN KEY (`kabkot_id`) REFERENCES `kabkot` (`id`);
 
 --
--- Constraints for table `penanganan`
+-- Ketidakleluasaan untuk tabel `penanganan`
 --
 ALTER TABLE `penanganan`
   ADD CONSTRAINT `penanganan_ibfk_1` FOREIGN KEY (`id_laporan`) REFERENCES `laporan` (`id_laporan`) ON DELETE CASCADE,
