@@ -414,7 +414,7 @@
         function coloredIcon(image, level) {
             const keparahan = [
                 "#00eeffff",
-                "#A3E635",
+                "#23e41cff",
                 "#FCD34D",
                 "#FB923C",
                 "#EF4444"

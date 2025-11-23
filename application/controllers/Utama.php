@@ -38,14 +38,33 @@ class Utama extends CI_Controller
 		}
 
 		if ($this->session->userdata('status') != "login") {
-
 			$data['title'] = 'Landing Page';
 			$this->load->view('landingpage/header', $data);
 			$this->load->view('landingpage/body', $data);
 		} else {
 			// Sudah login → dashboard
-			$this->load->view('head');
-			$this->load->view('body');
+			$data = [];
+			if (base64_decode($_GET['p']) == "peta_laporan") {
+				$this->load->model('model_map');
+				$this->load->model('model_kabkot');
+				$data["jumlah_laporan_average"] = json_encode($this->model_map->jumlah_laporan_average());
+				$data["kategori_terbanyak"] = json_encode($this->model_map->kategori_terbanyak());
+				$data["jumlah_laporan_average_7"] = json_encode($this->model_map->jumlah_laporan_average_7());
+				$data["kategori_terbanyak_7"] = json_encode($this->model_map->kategori_terbanyak_7());
+				$data["kategori_laporan"] = $this->model_map->get_kategori();
+
+				$data["kabkot"] = $this->model_kabkot->get();
+			}
+
+			if(base64_decode($_GET['p']) == "dashboard" && $this->session->userdata('level') === "admin"){
+				$data["jumlah_total"] = $this->model_lapor->dashboard_data();
+				$data["stat_per_bulan"] = $this->model_lapor->dashboard_stat();
+				$data["stat_kategori"] = $this->model_lapor->dashboard_stat2();
+				$data["stat_kabkot"] = $this->model_lapor->dashboard_stat3();
+
+			}
+			$this->load->view('head', $data);
+			$this->load->view('body', $data);
 		}
 	}
 }
