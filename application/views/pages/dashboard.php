@@ -3,13 +3,13 @@
 		<div class="card bg-light bg-gradient text-dark mb-4">
 			<div class="card-body">
 
-				<div class="d-flex flex-row justify-content-start align-items-center">
+				<div class="d-flex flex-column flex-md-row justify-content-start align-items-center">
 					<img src="<?= base_url('assets/img/logos/Logo_LingkunganKu-1.png') ?>"
 						alt="Logo" class="img-fluid custom-logo"
 						style="height: 75px;">
 
-					<div class="ms-3">
-						<h4>Halo <?= $this->session->userdata("nama") ?> ,</h4>
+					<div class="ms-md-3 mt-2 mt-md-0 welcome-text">
+							<h4>Halo <?= $this->session->userdata("nama") ?> ,</h4>
 						<h6>Selamat datang di LingkunganKu</h6>
 					</div>
 				</div>
@@ -35,7 +35,7 @@ if ($this->session->userdata('level') === "admin") {?>
 	];
 	for ($i = 0; $i < 6; $i++) {
 	?>
-		<div class="col-xl-3 col-sm-6 mb-4">
+		<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
 			<div class="card h-100">
 				<div class="card-body p-3">
 					<div class="row align-items-center">
@@ -62,9 +62,9 @@ if ($this->session->userdata('level') === "admin") {?>
 <!-- Laporan Masuk -->
 
 
-<div class="row mt-4 mb-4">
-	<div class="col-lg-6 mb-lg-0 mb-4 d-flex flex-column justify-content-between">
-		<div class="card z-index-2" style="height:46vh">
+<div class="row mt-4 mb-4 ">
+<div class="col-lg-6 mb-4 ">
+<div class="card z-index-2" style="height:auto;">
 			<div class="card-header pb-0 pt-3 bg-transparent">
 				<h6 class="text-capitalize">Jumlah Laporan Per Bulan</h6>
 				<!-- <p class="text-sm mb-0">
@@ -72,7 +72,7 @@ if ($this->session->userdata('level') === "admin") {?>
 					<span class="font-weight-bold">4% more</span> in 2021
 				</p> -->
 			</div>
-			<div class="card-body p-3">
+			<div class="card-body p-3 pb-5">
 				<div class="chart">
 					<canvas id="chart-line" class="chart-canvas" height="300"></canvas>
 				</div>
@@ -91,7 +91,7 @@ if ($this->session->userdata('level') === "admin") {?>
 	</div>
 
 	<div class="col-lg-6 mb-lg-0 mb-4">
-		<div class="card z-index-2 vh-100">
+		<div class="card z-index-2 h-auto">
 			<div class="card-header pb-0 pt-3 bg-transparent">
 				<h6 class="text-capitalize">Persentase Kategori Laporan</h6>
 				<!-- <p class="text-sm mb-0">
