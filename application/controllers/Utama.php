@@ -63,6 +63,11 @@ class Utama extends CI_Controller
 				$data["stat_kabkot"] = $this->model_lapor->dashboard_stat3();
 
 			}
+			
+			if(base64_decode($_GET['p']) == "cabang" && $this->session->userdata('level') === "admin"){
+				$this->load->model('model_kabkot');
+				$data["kabkot"] = $this->model_kabkot->get();
+			}
 			$this->load->view('head', $data);
 			$this->load->view('body', $data);
 		}

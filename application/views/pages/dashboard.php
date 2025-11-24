@@ -21,92 +21,92 @@
 <!-- CARD TEMPLATE RAPIH & SERAGAM -->
 
 <?php
-if ($this->session->userdata('level') === "admin") {?>
+if ($this->session->userdata('level') === "admin") { ?>
 
-<div class="row">
-	<?php
-	$nama_data = [
-		"Laporan Masuk",
-		"Laporan Terselesaikan",
-		"Laporan Masuk 7 Hari Terakhir",
-		"Laporan Terselesaikan 7 Hari Terakhir",
-		"Laporan Masuk Bulan Ini",
-		"Laporan Terselesaikan Bulan Ini"
-	];
-	for ($i = 0; $i < 6; $i++) {
-	?>
-		<div class="col-xl-3 col-sm-6 mb-4">
-			<div class="card h-100">
-				<div class="card-body p-3">
-					<div class="row align-items-center">
-						<div class="col-8">
-							<p class="text-sm mb-0 text-uppercase font-weight-bold"><?= $nama_data[$i] ?></p>
-							<h5 class="font-weight-bolder"><?= $jumlah_total[$i]->jumlah ?></h5>
-							<!-- <p class="mb-0">
+	<div class="row">
+		<?php
+		$nama_data = [
+			"Laporan Masuk",
+			"Laporan Terselesaikan",
+			"Laporan Masuk 7 Hari Terakhir",
+			"Laporan Terselesaikan 7 Hari Terakhir",
+			"Laporan Masuk Bulan Ini",
+			"Laporan Terselesaikan Bulan Ini"
+		];
+		for ($i = 0; $i < 6; $i++) {
+		?>
+			<div class="col-xl-3 col-sm-6 mb-4">
+				<div class="card h-100">
+					<div class="card-body p-3">
+						<div class="row align-items-center">
+							<div class="col-8">
+								<p class="text-sm mb-0 text-uppercase font-weight-bold"><?= $nama_data[$i] ?></p>
+								<h5 class="font-weight-bolder"><?= $jumlah_total[$i]->jumlah ?></h5>
+								<!-- <p class="mb-0">
 							<span class="text-success text-sm font-weight-bolder">+12%</span> minggu ini
 						</p> -->
-						</div>
-						<div class="col-4 text-end">
-							<div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-								<i class="ni ni-send text-lg opacity-10"></i>
+							</div>
+							<div class="col-4 text-end">
+								<div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+									<i class="ni ni-send text-lg opacity-10"></i>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	<?php
-	}
-	?>
-</div>
-<!-- Laporan Masuk -->
+		<?php
+		}
+		?>
+	</div>
+	<!-- Laporan Masuk -->
 
 
-<div class="row mt-4 mb-4">
-	<div class="col-lg-6 mb-lg-0 mb-4 d-flex flex-column justify-content-between">
-		<div class="card z-index-2" style="height:46vh">
-			<div class="card-header pb-0 pt-3 bg-transparent">
-				<h6 class="text-capitalize">Jumlah Laporan Per Bulan</h6>
-				<!-- <p class="text-sm mb-0">
+	<div class="row mt-4 mb-4">
+		<div class="col-lg-6 mb-lg-0 mb-4 d-flex flex-column justify-content-between">
+			<div class="card z-index-2" style="height:46vh">
+				<div class="card-header pb-0 pt-3 bg-transparent">
+					<h6 class="text-capitalize">Jumlah Laporan Per Bulan</h6>
+					<!-- <p class="text-sm mb-0">
 					<i class="fa fa-arrow-up text-success"></i>
 					<span class="font-weight-bold">4% more</span> in 2021
 				</p> -->
+				</div>
+				<div class="card-body p-3">
+					<div class="chart">
+						<canvas id="chart-line" class="chart-canvas" height="300"></canvas>
+					</div>
+				</div>
 			</div>
-			<div class="card-body p-3">
-				<div class="chart">
-					<canvas id="chart-line" class="chart-canvas" height="300"></canvas>
+			<div class="card z-index-2" style="height: 52vh">
+				<div class="card-header pb-0 pt-3 bg-transparent">
+					<h6 class="text-capitalize">Wilayah Pelapor Aktif</h6>
+				</div>
+				<div class="card-body p-3">
+					<div class="chart">
+						<canvas id="chart-bar" class="chart-canvas" height="150"></canvas>
+					</div>
 				</div>
 			</div>
 		</div>
-		<div class="card z-index-2" style="height: 52vh">
-			<div class="card-header pb-0 pt-3 bg-transparent">
-				<h6 class="text-capitalize">Wilayah Pelapor Aktif</h6>
-			</div>
-			<div class="card-body p-3">
-				<div class="chart">
-					<canvas id="chart-bar" class="chart-canvas" height="150"></canvas>
-				</div>
-			</div>
-		</div>
-	</div>
 
-	<div class="col-lg-6 mb-lg-0 mb-4">
-		<div class="card z-index-2 vh-100">
-			<div class="card-header pb-0 pt-3 bg-transparent">
-				<h6 class="text-capitalize">Persentase Kategori Laporan</h6>
-				<!-- <p class="text-sm mb-0">
+		<div class="col-lg-6 mb-lg-0 mb-4">
+			<div class="card z-index-2 vh-100">
+				<div class="card-header pb-0 pt-3 bg-transparent">
+					<h6 class="text-capitalize">Persentase Kategori Laporan</h6>
+					<!-- <p class="text-sm mb-0">
 					<i class="fa fa-arrow-up text-success"></i>
 					<span class="font-weight-bold">4% more</span> in 2021
 				</p> -->
-			</div>
-			<div class="card-body p-3">
-				<div class="chart">
-					<canvas id="chart-pie" class="chart-canvas" height="300"></canvas>
+				</div>
+				<div class="card-body p-3">
+					<div class="chart">
+						<canvas id="chart-pie" class="chart-canvas" height="300"></canvas>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- <div class="col-lg-5">
+		<!-- <div class="col-lg-5">
 		<div class="card card-carousel overflow-hidden h-100 p-0">
 			<div id="carouselExampleCaptions" class="carousel slide h-100" data-bs-ride="carousel">
 				<div class="carousel-inner border-radius-lg h-100">
@@ -153,88 +153,97 @@ if ($this->session->userdata('level') === "admin") {?>
 		</div>
 	</div>
 </div> -->
-</div>
+	</div>
 
-<?php }?>
-<!-- <div class="col-lg-5">
-		<div class="card">
-			<div class="card-header pb-0 p-3">
-				<h6 class="mb-0">Kategori Lingkungan</h6>
+<?php } else if ($this->session->userdata('level') === "petugas") {
+?>
+
+	<div class="row">
+		<?php
+		$nama_data = [
+			"Jumlah Tugas",
+			"Tugas Selesai Bulan Ini",
+		];
+		for ($i = 0; $i < 2; $i++) {
+		?>
+			<div class="col-xl-3 col-sm-6 mb-4">
+				<div class="card h-100">
+					<div class="card-body p-3">
+						<div class="row align-items-center">
+							<div class="col-8">
+								<p class="text-sm mb-0 text-uppercase font-weight-bold"><?= $nama_data[$i] ?></p>
+								<h5 class="font-weight-bolder">999</h5>
+								<!-- <p class="mb-0">
+							<span class="text-success text-sm font-weight-bolder">+12%</span> minggu ini
+						</p> -->
+							</div>
+							<div class="col-4 text-end">
+								<div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+									<i class="ni ni-send text-lg opacity-10"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="card-body p-3">
-				<ul class="list-group">
+		<?php
+		}
+		?>
 
-					<li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-						<div class="d-flex align-items-center">
-							<div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
-								<i class="ni ni-trash text-white opacity-10"></i>
-							</div>
-							<div class="d-flex flex-column">
-								<h6 class="mb-1 text-dark text-sm">Sampah Masuk</h6>
-								<span class="text-xs">250 laporan, <span class="font-weight-bold">346+ penanganan</span></span>
-							</div>
+		<div class="col-xl-6 col-sm-12 mb-4">
+			<div class="card h-100">
+				<div class="card-body p-3">
+					<div class="row align-items-center">
+						<div class="col-8">
+							<p class="text-sm mb-0 text-uppercase font-weight-bold">Cabang Tugas</p>
+							<h5 class="font-weight-bolder">Cabang Epsilon</h5>
+							<!-- <p class="mb-0">
+							<span class="text-success text-sm font-weight-bolder">+12%</span> minggu ini
+						</p> -->
 						</div>
-						<div class="d-flex">
-							<button class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto">
-								<i class="ni ni-bold-right"></i>
-							</button>
+						<div class="col-4 text-end">
+							<i class="bi bi-geo-alt" style="font-size: 35px; font-weight: bold;"></i>
 						</div>
-					</li>
-
-					<li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-						<div class="d-flex align-items-center">
-							<div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
-								<i class="ni ni-pin-3 text-white opacity-10"></i>
-							</div>
-							<div class="d-flex flex-column">
-								<h6 class="mb-1 text-dark text-sm">Titik Lokasi</h6>
-								<span class="text-xs">123 terdeteksi, <span class="font-weight-bold">15 baru</span></span>
-							</div>
-						</div>
-						<div class="d-flex">
-							<button class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto">
-								<i class="ni ni-bold-right"></i>
-							</button>
-						</div>
-					</li>
-					
-					<li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-						<div class="d-flex align-items-center">
-							<div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
-								<i class="ni ni-check-bold text-white opacity-10"></i>
-							</div>
-							<div class="d-flex flex-column">
-								<h6 class="mb-1 text-dark text-sm">Kebersihan Area</h6>
-								<span class="text-xs">1 area kotor, <span class="font-weight-bold">40 bersih</span></span>
-							</div>
-						</div>
-						<div class="d-flex">
-							<button class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto">
-								<i class="ni ni-bold-right"></i>
-							</button>
-						</div>
-					</li>
-					<li class="list-group-item border-0 d-flex justify-content-between ps-0 border-radius-lg">
-						<div class="d-flex align-items-center">
-							<div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
-								<i class="ni ni-check-circle text-white opacity-10"></i>
-							</div>
-							<div class="d-flex flex-column">
-								<h6 class="mb-1 text-dark text-sm">Laporan Terselesaikan</h6>
-								<span class="text-xs font-weight-bold">+ 430</span>
-							</div>
-						</div>
-						<div class="d-flex">
-							<button class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto">
-								<i class="ni ni-bold-right"></i>
-							</button>
-						</div>
-					</li>
-
-				</ul>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
+
+	<div class="row mt-2 mb-4">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header pb-0 p-3">
+					<h6 class="mb-0">Tugas Baru</h6>
+				</div>
+				<div class="card-body p-3">
+					<ul class="list-group">
+						<li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+							<div class="d-flex align-items-center">
+								<div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
+									<i class="ni ni-trash text-white opacity-10"></i>
+								</div>
+								<div class="d-flex flex-column">
+									<h6 class="mb-1 text-dark text-sm">Penanganan Laporan Masalah Air</h6>
+									<span class="text-xs">Klik untuk melihat lokasi</span></span>
+								</div>
+							</div>
+							<div class="d-flex">
+								<button class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto">
+									<i class="ni ni-bold-right"></i>
+								</button>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<?php
+}
+?>
+
 
 <?php
 if ($this->session->userdata('level') === "admin") {

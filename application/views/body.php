@@ -80,6 +80,19 @@
 					</li>
 				<?php } ?>
 
+				<!-- Pengelolaan Cabang (HANYA ADMIN) -->
+				<?php if ($this->session->userdata('level') === "admin") { ?>
+					<li class="nav-item">
+						<a class="nav-link <?= ($current_page == "cabang") ? "active" : "" ?>"
+							href="<?= base_url("?p=" . base64_encode('cabang')) ?>">
+							<div class="icon ion-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+								<i class="fas fa-map-pin text-dark text-sm opacity-10"></i>
+							</div>
+							<span class="nav-link-text ms-1">Cabang</span>
+						</a>
+					</li>
+				<?php } ?>
+
 
 				<li class="nav-item mt-3">
 					<h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account Pages</h6>

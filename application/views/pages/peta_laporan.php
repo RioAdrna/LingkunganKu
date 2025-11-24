@@ -223,6 +223,13 @@
                                 <script>
                                     $(document).ready(() => {
                                         confirmSelectionCheckboxes();
+
+										const params = new URLSearchParams(window.location.search);
+										const lat = params.get('latitude');
+										const long = params.get('longitude');
+										if(lat != null && long != null){
+										L.marker([lat, long]).addTo(map);
+										}
                                     });
 
                                     loadSample();
