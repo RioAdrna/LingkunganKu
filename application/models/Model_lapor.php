@@ -12,6 +12,13 @@ class Model_lapor extends CI_Model
 
         return $query;
     }
+
+    public function data_lapor_by_user($user_id)
+    {
+        $this->db->where('user_id', $user_id);
+        return $this->db->get('laporan');
+    }
+
     //CREATE
     function insert_data($data)
     {
