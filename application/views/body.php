@@ -42,43 +42,52 @@
 						<span class="nav-link-text ms-1">Dashboard</span>
 					</a>
 				</li>
+				<?php if (in_array($this->session->userdata('level'), ["user"])) { ?>
 
-				<?php if (in_array($this->session->userdata('level'), ["admin", "petugas", "user"])) { ?>
+				<li class="nav-item">
+					<a class="nav-link <?= ($current_page == "lapor") ? "active" : "" ?>"
+						href="<?= base_url("?p=" . base64_encode('lapor')) ?>">
+						<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+							<i class="fas fa-bullhorn text-dark text-sm opacity-10"></i>
+						</div>
+						<span class="nav-link-text ms-1">Lapor</span>
+					</a>
+				</li>
+				<?php } ?>
+
+				<?php if (in_array($this->session->userdata('level'), ["admin", "petugas"])) { ?>
 					<!-- Menu Lapor -->
 					<li class="nav-item">
-						<a class="nav-link <?= ($current_page == "lapor") ? "active" : "" ?>"
-							href="<?= base_url("?p=" . base64_encode('lapor')) ?>">
+						<a class="nav-link <?= ($current_page == "lapor_admin") ? "active" : "" ?>"
+							href="<?= base_url("?p=" . base64_encode('lapor_admin')) ?>">
 							<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
 								<i class="fas fa-bullhorn text-dark text-sm opacity-10"></i>
 							</div>
 							<span class="nav-link-text ms-1">Lapor</span>
 						</a>
 					</li>
-
-					<!-- Menu Status Laporan (SEMUA ROLE) -->
-					<li class="nav-item">
-						<a class="nav-link <?= ($current_page == "status_laporan") ? "active" : "" ?>"
-							href="<?= base_url("?p=" . base64_encode('status_laporan')) ?>">
-							<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-								<i class="fas fa-tasks text-dark text-sm opacity-10"></i>
-							</div>
-							<span class="nav-link-text ms-1">Status Laporan</span>
-						</a>
-					</li>
 				<?php } ?>
+				<!-- Menu Status Laporan (SEMUA ROLE) -->
+				<li class="nav-item">
+					<a class="nav-link <?= ($current_page == "status_laporan") ? "active" : "" ?>"
+						href="<?= base_url("?p=" . base64_encode('status_laporan')) ?>">
+						<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+							<i class="fas fa-tasks text-dark text-sm opacity-10"></i>
+						</div>
+						<span class="nav-link-text ms-1">Status Laporan</span>
+					</a>
+				</li>
 
 				<!-- Menu Peta Laporan (HANYA ADMIN & PETUGAS) -->
-				<?php if ($this->session->userdata('level') === "admin" || $this->session->userdata('level') === "petugas") { ?>
-					<li class="nav-item">
-						<a class="nav-link <?= ($current_page == "peta_laporan") ? "active" : "" ?>"
-							href="<?= base_url("?p=" . base64_encode('peta_laporan')) ?>">
-							<div class="icon ion-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-								<i class="fas fa-map-marked-alt text-dark text-sm opacity-10"></i>
-							</div>
-							<span class="nav-link-text ms-1">Peta Laporan</span>
-						</a>
-					</li>
-				<?php } ?>
+				<li class="nav-item">
+					<a class="nav-link <?= ($current_page == "peta_laporan") ? "active" : "" ?>"
+						href="<?= base_url("?p=" . base64_encode('peta_laporan')) ?>">
+						<div class="icon ion-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+							<i class="fas fa-map-marked-alt text-dark text-sm opacity-10"></i>
+						</div>
+						<span class="nav-link-text ms-1">Peta Laporan</span>
+					</a>
+				</li>
 
 
 				<li class="nav-item mt-3">
