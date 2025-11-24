@@ -785,17 +785,59 @@ h6:hover i,
 
     /* Background section diganti */
     .service {
-        background-color: #B4DEBD !important;
+        background-color: #5CB338 !important;
     }
 
-        .text-primary { color: #1A2A4F !important; }
+        .text-primary { color: #11274d !important; }
     .border-primary { border-color: #1A2A4F !important; }
     .btn-primary { background-color: #1A2A4F !important; border-color: #1A2A4F !important; }
     .btn-primary:hover { background-color: #142038 !important; border-color: #142038 !important; }
 
     /* Background optional (kalau mau sama dengan section sebelumnya) */
     .program {
-        background-color: #B4DEBD !important;
+        background-color: #5CB338 !important;
     }
 
 /*** Footer End ***/
+
+/* Logo responsif */
+.custom-logo {
+    height: 75px;
+}
+
+@media (max-width: 768px) {
+    .custom-logo {
+        height: 55px;
+    }
+
+    .welcome-text h4 {
+        font-size: 18px;
+    }
+
+    .welcome-text h6 {
+        font-size: 14px;
+    }
+}
+
+/* Tinggi card chart otomatis */
+.card .chart-canvas {
+    height: auto !important;
+}
+
+/* Perkecil padding untuk HP */
+@media (max-width: 576px) {
+    .card-body {
+        padding: 0.8rem !important;
+    }
+
+    .col-xl-3.col-sm-6 {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Atur tinggi chart agar tidak overflow di mobile */
+#chart-line,
+#chart-pie,
+#chart-bar {
+    max-height: 60vh;
+}

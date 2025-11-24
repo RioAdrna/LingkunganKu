@@ -37,7 +37,7 @@
 
                     <!-- Tombol Login di paling kanan -->
                     <div class="d-flex ms-auto">
-                        <a href="<?= base_url("?p=" . base64_encode('login')) ?>"
+                        <a href="<?= base_url("login") ?>"
                             class="btn btn-primary btn-lg rounded-3 px-4 py-2">
                             <i class="fas fa-sign-in-alt fa-lg"></i>
                         </a>
@@ -70,7 +70,7 @@
                         Laporkan keluhan lingkungan Anda dengan mudah—mulai dari sampah, kerusakan fasilitas umum, hingga pencemaran. Bersama, kita wujudkan lingkungan yang bersih, aman, dan lebih nyaman.
                     </p>
 
-                    <a href="<?= base_url("?p=" . base64_encode('login')) ?>" class="btn btn-success px-4 py-2 rounded-3">
+                    <a href="<?= base_url("login") ?>" class="btn btn-success">
                         <i class="fas fa-sign-in-alt"></i> Login
                     </a>
 
@@ -164,7 +164,7 @@
         <div class="container py-5">
             <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 700px;">
                 <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">Apa yang Kami Lakukan</h4>
-                <h1 class="mb-5 display-3">Bersama Menjaga Lingkungan Lebih Bersih dan Aman</h1>
+                <h1 class="mb-5 display-3" style="color: #F3F8F4;">Bersama Menjaga Lingkungan Lebih Bersih dan Aman</h1>
             </div>
 
             <div class="row g-5">
@@ -238,7 +238,7 @@
                 <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
                     Program Lingkungan
                 </h4>
-                <h1 class="mb-5 display-3">Kami Menyediakan Wadah Mengenai Keresahan Lingkungan</h1>
+                <h1 class="mb-5 display-3" style="color: #F3F8F4;">Kami Menyediakan Wadah Mengenai Keresahan Lingkungan</h1>
             </div>
 
             <div class="row g-5 justify-content-center">

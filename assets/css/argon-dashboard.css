@@ -100,7 +100,7 @@
 	--bs-tertiary-bg: #f8f9fa;
 	--bs-tertiary-bg-rgb: 248, 249, 250;
 	--bs-heading-color: #344767;
-	--bs-link-color: #016B61;
+	--bs-link-color: #f5365c;
 	--bs-link-color-rgb: 94, 114, 228;
 	--bs-link-decoration: none;
 	--bs-link-hover-color: rgb(35.2579787234, 61.375, 210.2420212766);
@@ -3895,7 +3895,7 @@ fieldset:disabled .btn {
 
 .btn-primary {
 	--bs-btn-color: #000;
-	--bs-btn-bg: #016B61;
+	--bs-btn-bg: #f5365c;
 	--bs-btn-border-color: #c1c6e1;
 	--bs-btn-hover-color: #000;
 	--bs-btn-hover-bg: rgb(118.15, 135.15, 232.05);
@@ -3906,8 +3906,8 @@ fieldset:disabled .btn {
 	--bs-btn-active-border-color: rgb(110.1, 128.1, 230.7);
 	--bs-btn-active-shadow: none;
 	--bs-btn-disabled-color: #000;
-	--bs-btn-disabled-bg: #016B61;
-	--bs-btn-disabled-border-color: #016B61;
+	--bs-btn-disabled-bg: #f5365c;
+	--bs-btn-disabled-border-color: #f5365c;
 }
 
 .btn-secondary {
@@ -29142,3 +29142,46 @@ pre[class*="language-"] {
 
 
 /*# sourceMappingURL=dashboard-free.css.map */
+
+/* Logo responsif */
+.custom-logo {
+    height: 75px;
+}
+
+@media (max-width: 768px) {
+    .custom-logo {
+        height: 55px;
+    }
+
+    .welcome-text h4 {
+        font-size: 18px;
+    }
+
+    .welcome-text h6 {
+        font-size: 14px;
+    }
+}
+
+/* Tinggi card chart otomatis */
+.card .chart-canvas {
+    height: auto !important;
+}
+
+/* Perkecil padding untuk HP */
+@media (max-width: 576px) {
+    .card-body {
+        padding: 0.8rem !important;
+    }
+
+    .col-xl-3.col-sm-6 {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Atur tinggi chart agar tidak overflow di mobile */
+#chart-line,
+#chart-pie,
+#chart-bar {
+    max-height: 60vh;
+}
+
