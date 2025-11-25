@@ -29186,9 +29186,9 @@ pre[class*="language-"] {
 }
 
 /* Kunci warna custom agar tidak berubah */
-.icon.icon-shape {
+/* .icon.icon-shape {
     background-color: #4D65F9 !important;
-}
+} */
 
 /* Mencegah berubah saat hover/click/focus */
 .icon.icon-shape:hover,
