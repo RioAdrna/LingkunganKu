@@ -29185,3 +29185,17 @@ pre[class*="language-"] {
     max-height: 60vh;
 }
 
+/* Kunci warna custom agar tidak berubah */
+.icon.icon-shape {
+    background-color: #4D65F9 !important;
+}
+
+/* Mencegah berubah saat hover/click/focus */
+.icon.icon-shape:hover,
+.icon.icon-shape:active,
+.icon.icon-shape:focus {
+    background-color: #4D65F9 !important;
+}
+
+
+

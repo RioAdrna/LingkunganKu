@@ -390,7 +390,7 @@
                     </div>
 
                     <!-- KONTAK -->
-                    <div class="col-md-6 col-lg-4 col-xl-4">
+                    <div class="col-md-6 col-lg-4 col-xl-4" >
                         <div class="footer-item">
                             <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
                                 KONTAK
@@ -444,14 +444,14 @@
 
     <!-- Copyright Start -->
     <div class="container-fluid copyright bg-dark py-4">
-        <div class="container copyright text-center mt-4">
-            <p class="text-white">© <span>Copyright</span> <strong class="px-1 sitename">PSAB NEURO</strong> <span>All Rights
+        <div class="container copyright text-center mt-4" >
+            <p class="text-white">© <span>Copyright</span> <strong class="px-1 sitename">LINGKUNGANKU NEURO</strong> <span>All Rights
                     Reserved</span>
             </p>
             <div class="credits text-white">
 
                 Designed & Developed by <a
-                    href="https://www.instagram.com/universitas_nurtanio?igsh=emZjampwMzZydWsx">Tim Neuro -
+                    href="https://www.instagram.com/universitas_nurtanio?igsh=emZjampwMzZydWsx" style="color: #5CB338;">Tim Neuro -
                     Universitas Nurtanio Bandung</a>
             </div>
         </div>

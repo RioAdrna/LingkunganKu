@@ -130,7 +130,7 @@
 				</div>
 			</div>
 			<br>
-			<a class="btn btn-primary mt-3 w-100" href="<?= base_url('login/logout') ?>"><i class="fas fa-sign-out-alt"></i>&nbsp;
+			<a class="btn btn-danger mt-3 w-100" href="<?= base_url('login/logout') ?>"><i class="fas fa-sign-out-alt"></i>&nbsp;
 				Logout</a>
 		</div>
 	</aside>
@@ -157,10 +157,10 @@
 						</li>
 
 						<!-- Profil -->
-						<li class="nav-item">
-							<a href="javascript:;" class="nav-link">
-								<div class="icon icon-shape bg-info shadow d-flex justify-content-center align-items-center"
-									style="width: 36px; height: 36px;">
+						<li class="nav-item">						
+							<a href="<?= base_url("?p=" . base64_encode('profile')) ?>" class="nav-link">
+								<div class="icon icon-shape shadow d-flex justify-content-center align-items-center"
+    								style="width: 36px; height: 36px; background-color: #4D65F9;">
 									<i class="fa fa-user text-white"></i>
 								</div>
 							</a>
