@@ -44,29 +44,35 @@ class Utama extends CI_Controller
 		} else {
 			// Sudah login → dashboard
 			$data = [];
-			if (base64_decode($_GET['p']) == "peta_laporan") {
-				$this->load->model('model_map');
-				$this->load->model('model_kabkot');
-				$data["jumlah_laporan_average"] = json_encode($this->model_map->jumlah_laporan_average());
-				$data["kategori_terbanyak"] = json_encode($this->model_map->kategori_terbanyak());
-				$data["jumlah_laporan_average_7"] = json_encode($this->model_map->jumlah_laporan_average_7());
-				$data["kategori_terbanyak_7"] = json_encode($this->model_map->kategori_terbanyak_7());
-				$data["kategori_laporan"] = $this->model_map->get_kategori();
+			if (isset($_GET['p'])) {
+				if (base64_decode($_GET['p']) == "peta_laporan") {
+					$this->load->model('model_map');
+					$this->load->model('model_kabkot');
+					$data["jumlah_laporan_average"] = json_encode($this->model_map->jumlah_laporan_average());
+					$data["kategori_terbanyak"] = json_encode($this->model_map->kategori_terbanyak());
+					$data["jumlah_laporan_average_7"] = json_encode($this->model_map->jumlah_laporan_average_7());
+					$data["kategori_terbanyak_7"] = json_encode($this->model_map->kategori_terbanyak_7());
+					$data["kategori_laporan"] = $this->model_map->get_kategori();
 
-				$data["kabkot"] = $this->model_kabkot->get();
-			}
+					$data["kabkot"] = $this->model_kabkot->get();
+				}
 
-			if(base64_decode($_GET['p']) == "dashboard" && $this->session->userdata('level') === "admin"){
+				if (base64_decode($_GET['p']) == "dashboard" && $this->session->userdata('level') === "admin") {
+					$data["jumlah_total"] = $this->model_lapor->dashboard_data();
+					$data["stat_per_bulan"] = $this->model_lapor->dashboard_stat();
+					$data["stat_kategori"] = $this->model_lapor->dashboard_stat2();
+					$data["stat_kabkot"] = $this->model_lapor->dashboard_stat3();
+				}
+
+				if (base64_decode($_GET['p']) == "cabang" && $this->session->userdata('level') === "admin") {
+					$this->load->model('model_kabkot');
+					$data["kabkot"] = $this->model_kabkot->get();
+				}
+			} else if ($this->session->userdata('level') === "admin") {
 				$data["jumlah_total"] = $this->model_lapor->dashboard_data();
 				$data["stat_per_bulan"] = $this->model_lapor->dashboard_stat();
 				$data["stat_kategori"] = $this->model_lapor->dashboard_stat2();
 				$data["stat_kabkot"] = $this->model_lapor->dashboard_stat3();
-
-			}
-			
-			if(base64_decode($_GET['p']) == "cabang" && $this->session->userdata('level') === "admin"){
-				$this->load->model('model_kabkot');
-				$data["kabkot"] = $this->model_kabkot->get();
 			}
 			$this->load->view('head', $data);
 			$this->load->view('body', $data);
