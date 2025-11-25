@@ -21,11 +21,22 @@
     }
 
     /* Map area responsive */
-    #map {
+    #map-container {
       width: 100%;
       min-height: 300px;
       height: 70vh;
+      overflow: hidden;
       /* fleksibel */
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+
+    #map-detail{
+      margin: -500px;
+      transition: margin 0.4s ease-in-out ;
     }
 
     /* control area */
@@ -97,19 +108,19 @@
 
     /* responsive height adjustments */
     @media (max-width: 992px) {
-      #map {
+      #map-container {
         height: 60vh;
       }
     }
 
     @media (max-width: 768px) {
-      #map {
+      #map-container {
         height: 50vh;
       }
     }
 
     @media (max-width: 576px) {
-      #map {
+      #map-container {
         height: 45vh;
       }
     }
@@ -229,7 +240,53 @@
             <hr />
 
             <!-- MAP -->
-            <div id="map"></div>
+            <div id="map-container" class="d-flex align-items-center">
+              <div id="map"></div>
+              <div class="card text-start" id="map-detail" style="background: rgba(255, 255, 255, 0.8); width:250px; max-height: 65vh; overflow: auto; position: absolute; z-index: 1000; right: 40px">
+                <div class="card-body">
+                  <div class="d-flex flex-row justify-content-between">
+                    <h5 class="card-title" id="title-kabkot">Title</h5>
+                    <button type="button" class="btn-close" onclick="$('#map-detail').css('margin-right', '-500px')"></button>
+                  </div>
+                  <b>Keseluruhan</b><br>
+                  <table style="font-size:12px">
+                    <tr>
+                      <td>Jumlah laporan</td>
+                      <td> : </td>
+                      <td id="detail-jumlah_laporan"></td>
+                    </tr>
+                    <tr>
+                      <td>Tingkat keparahan</td>
+                      <td> : </td>
+                      <td id="detail-rata_rata_keparahan"></td>
+                    </tr>
+                    <tr>
+                      <td>Kategori terbanyak</td>
+                      <td> : </td>
+                      <td id="detail-kategori_terbanyak"></td>
+                    </tr>
+                  </table><br>
+                  <b>Tujuh hari terakhir</b><br>
+                  <table style="font-size:12px">
+                    <tr>
+                      <td>Jumlah laporan</td>
+                      <td> : </td>
+                      <td id="detail-jumlah_laporan_7"></td>
+                    </tr>
+                    <tr>
+                      <td>Tingkat keparahan</td>
+                      <td> : </td>
+                      <td id="detail-rata_rata_keparahan_7"></td>
+                    </tr>
+                    <tr>
+                      <td>Kategori terbanyak</td>
+                      <td> : </td>
+                      <td id="detail-kategori_terbanyak_7"></td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
 
             <!-- MODALS (kategori + gaya peta) kept mostly same structure -->
             <div class="modal fade" id="kategori-modal" tabindex="-1" aria-hidden="true">
@@ -297,7 +354,6 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       confirmSelectionCheckboxes();
-      loadSample();
 
       // If URL contains lat/long put marker
       const params = new URLSearchParams(window.location.search);
@@ -315,7 +371,7 @@
         setTimeout(() => map.invalidateSize(), 200);
       });
     });
-    
+
     $(document).ready(() => {
       confirmSelectionCheckboxes();
     });
@@ -673,54 +729,33 @@
       }
 
       const info = `
-                        <div style="width:200px">
-                            <h5>${nama}</h5>
-                            <b>Keseluruhan</b><br>
-                            <table style="font-size:13px">
-                                <tr>
-                                    <td>Jumlah laporan</td>
-                                    <td> : </td>
-                                    <td>${jumlah_laporan}</td>
-                                </tr>
-                                <tr>
-                                    <td>Tingkat keparahan</td>
-                                    <td> : </td>
-                                    <td>${rata_rata_keparahan}</td>
-                                </tr>
-                                <tr>
-                                    <td>Kategori terbanyak</td>
-                                    <td> : </td>
-                                    <td>${kategori_terbanyak}</td>
-                                </tr>
-                            </table><br>
-                            <b>Tujuh hari terakhir</b><br>
-                            <table style="font-size:13px">
-                                <tr>
-                                    <td>Jumlah laporan</td>
-                                    <td> : </td>
-                                    <td>${jumlah_laporan_7}</td>
-                                </tr>
-                                <tr>
-                                    <td>Tingkat keparahan</td>
-                                    <td> : </td>
-                                    <td>${rata_rata_keparahan_7} ${arrow}</td>
-                                </tr>
-                                 <tr>
-                                    <td>Kategori terbanyak</td>
-                                    <td> : </td>
-                                    <td>${kategori_terbanyak_7}</td>
-                                </tr>
-                            </table>
+                        <div>
+                            <h6>${nama}</h6>
+                            <a href="#summon" onclick="$('#map-detail').css('margin-right', '0px')">Klik untuk melihat detail</a>                     
                         </div>
                         `;
 
+      $("#title-kabkot").html(nama);
+      $("#detail-jumlah_laporan").html(jumlah_laporan);
+      $("#detail-rata_rata_keparahan").html(rata_rata_keparahan);
+      $("#detail-kategori_terbanyak").html(kategori_terbanyak);
+
+      $("#detail-jumlah_laporan_7").html(jumlah_laporan_7);
+      $("#detail-rata_rata_keparahan_7").html(rata_rata_keparahan_7 + arrow);
+      $("#detail-kategori_terbanyak_7").html(kategori_terbanyak_7);
+
       var centroid = turf.center(feature).geometry.coordinates;
+
+
 
       L.popup()
         .setLatLng([centroid[1], centroid[0]])
         .setContent(info)
         .openOn(map);
-      map.fitBounds(layer.getBounds());
+
+      let bond = layer.getBounds();
+      map.fitBounds(bond);
+
     });
   </script>
 </body>
