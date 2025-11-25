@@ -295,6 +295,27 @@
   <script src="https://unpkg.com/leaflet.vectorgrid@latest/dist/Leaflet.VectorGrid.js"></script>
 
   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      confirmSelectionCheckboxes();
+      loadSample();
+
+      // If URL contains lat/long put marker
+      const params = new URLSearchParams(window.location.search);
+      const lat = params.get('latitude');
+      const long = params.get('longitude');
+      if (lat && long) {
+        // wait map init
+        setTimeout(() => {
+          L.marker([lat, long]).addTo(map);
+        }, 500);
+      }
+
+      // invalidateSize on resize so leaflet redraws correctly
+      window.addEventListener('resize', () => {
+        setTimeout(() => map.invalidateSize(), 200);
+      });
+    });
+    
     $(document).ready(() => {
       confirmSelectionCheckboxes();
     });

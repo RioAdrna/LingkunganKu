@@ -131,7 +131,7 @@ $("#simpan").click(function () {
 					title: res.judul,
 					icon: res.icon,
 				}).then(function () {
-					if(res.icon == "error") return;
+					if (res.icon == "error") return;
 					id_cabang = "";
 					$("#exampleModal").modal("hide");
 					table.ajax.reload();
@@ -190,6 +190,9 @@ $(document).ready(function () {
 						`">
                                 Lihat Lokasi
                             </a>
+							<a class="btn btn-sm btn-secondary" href="https://www.google.com/maps?q=${row.latitude},${row.longitude}">
+								Buka di Google Maps
+							</a>
                         `
 					);
 				},
@@ -368,11 +371,11 @@ $(document).ready(function () {
 
 						console.log(
 							"STATUS: " +
-								status +
-								", PESAN: " +
-								pesan +
-								" nama file: " +
-								nm_file
+							status +
+							", PESAN: " +
+							pesan +
+							" nama file: " +
+							nm_file
 						);
 						if (status == "1")
 							Swal.fire({
@@ -440,92 +443,92 @@ $(document).ready(function () {
 });
 
 function edit(btn, id) {
-    // 1. Ambil data dari baris tabel DataTables
-    var tr = $(btn).closest('tr');
-    var table = $('#tabel_lapor').DataTable();
-    var row = table.row(tr);
-    var data = row.data();
+	// 1. Ambil data dari baris tabel DataTables
+	var tr = $(btn).closest('tr');
+	var table = $('#tabel_lapor').DataTable();
+	var row = table.row(tr);
+	var data = row.data();
 
-    if (!data) {
-        console.error("Data tidak ditemukan");
-        return;
-    }
+	if (!data) {
+		console.error("Data tidak ditemukan");
+		return;
+	}
 
-    id_cabang = data.id; 
+	id_cabang = data.id;
 
-    $("#exampleModalLabel").html('<i class="fas fa-edit"></i>&nbsp; Edit Cabang');
-    
-    // Isi input text dan select
-    $("#nama_cabang").val(data.nama_cabang).removeClass("is-invalid");
-    
-    // Pastikan value yang diisi sesuai dengan ID kabkot (bukan nama kabkot)
-    // Asumsi: row.data() mengandung 'kabkot_id'. Jika tidak, pastikan respon JSON controller menyertakannya.
-    $("#kabkot_id").val(data.kabkot_id).removeClass("is-invalid"); 
+	$("#exampleModalLabel").html('<i class="fas fa-edit"></i>&nbsp; Edit Cabang');
 
-    // 4. Handle Lokasi & Peta
-    if (data.latitude && data.longitude) {
-        // Update variabel global lat & lng
-        lat = data.latitude;
-        lng = data.longitude;
-        
-        var position = new L.LatLng(parseFloat(lat), parseFloat(lng));
-        
-        // Panggil fungsi setMarker yang sudah ada di script Anda
-        setMarker(position);
-        
-        // Pusatkan peta ke lokasi marker
-        map.setView(position, 15); 
-    } else {
-        // Jika data lokasi kosong, reset marker
-        if (currentMarker) {
-            map.removeLayer(currentMarker);
-            currentMarker = null;
-        }
-        lat = null;
-        lng = null;
-        map.setView([-6.9, 107.6], 8);
-    }
+	// Isi input text dan select
+	$("#nama_cabang").val(data.nama_cabang).removeClass("is-invalid");
 
-    // 5. Tampilkan Modal
-    $("#exampleModal").modal("show");
+	// Pastikan value yang diisi sesuai dengan ID kabkot (bukan nama kabkot)
+	// Asumsi: row.data() mengandung 'kabkot_id'. Jika tidak, pastikan respon JSON controller menyertakannya.
+	$("#kabkot_id").val(data.kabkot_id).removeClass("is-invalid");
 
-    // 6. Fix render peta (Peta seringkali error/abu-abu jika dirender saat modal hidden)
-    setTimeout(function() {
-        map.invalidateSize();
-        if (lat && lng) {
-            map.panTo(new L.LatLng(lat, lng));
-        }
-    }, 300);
+	// 4. Handle Lokasi & Peta
+	if (data.latitude && data.longitude) {
+		// Update variabel global lat & lng
+		lat = data.latitude;
+		lng = data.longitude;
+
+		var position = new L.LatLng(parseFloat(lat), parseFloat(lng));
+
+		// Panggil fungsi setMarker yang sudah ada di script Anda
+		setMarker(position);
+
+		// Pusatkan peta ke lokasi marker
+		map.setView(position, 15);
+	} else {
+		// Jika data lokasi kosong, reset marker
+		if (currentMarker) {
+			map.removeLayer(currentMarker);
+			currentMarker = null;
+		}
+		lat = null;
+		lng = null;
+		map.setView([-6.9, 107.6], 8);
+	}
+
+	// 5. Tampilkan Modal
+	$("#exampleModal").modal("show");
+
+	// 6. Fix render peta (Peta seringkali error/abu-abu jika dirender saat modal hidden)
+	setTimeout(function () {
+		map.invalidateSize();
+		if (lat && lng) {
+			map.panTo(new L.LatLng(lat, lng));
+		}
+	}, 300);
 };
 
 function clearForm() {
-    // 1. Reset Global Variable
-    id_cabang = "";
-    lat = null;
-    lng = null;
+	// 1. Reset Global Variable
+	id_cabang = "";
+	lat = null;
+	lng = null;
 
-    // 2. Reset Input Form
-    $("#nama_cabang").val("");
-    $("#kabkot_id").val(""); // Reset dropdown select
+	// 2. Reset Input Form
+	$("#nama_cabang").val("");
+	$("#kabkot_id").val(""); // Reset dropdown select
 
-    // 3. Hapus Class Validasi (Error Merah)
-    $("#nama_cabang").removeClass("is-invalid");
-    $("#kabkot_id").removeClass("is-invalid");
+	// 3. Hapus Class Validasi (Error Merah)
+	$("#nama_cabang").removeClass("is-invalid");
+	$("#kabkot_id").removeClass("is-invalid");
 
-    // 4. Reset Judul Modal ke "Tambah"
-    $("#exampleModalLabel").html('<i class="fas fa-plus"></i>&nbsp; Tambah Cabang');
+	// 4. Reset Judul Modal ke "Tambah"
+	$("#exampleModalLabel").html('<i class="fas fa-plus"></i>&nbsp; Tambah Cabang');
 
-    // 5. Hapus Marker dari Peta
-    if (currentMarker) {
-        map.removeLayer(currentMarker);
-        currentMarker = null;
-    }
+	// 5. Hapus Marker dari Peta
+	if (currentMarker) {
+		map.removeLayer(currentMarker);
+		currentMarker = null;
+	}
 
-    // 6. Reset View Peta ke Default (Jawa Barat)
-    map.setView([-6.9, 107.6], 8);
-    
-    // Refresh ukuran peta agar tidak error saat modal dibuka
-    setTimeout(() => {
-        map.invalidateSize();
-    }, 200);
+	// 6. Reset View Peta ke Default (Jawa Barat)
+	map.setView([-6.9, 107.6], 8);
+
+	// Refresh ukuran peta agar tidak error saat modal dibuka
+	setTimeout(() => {
+		map.invalidateSize();
+	}, 200);
 }
