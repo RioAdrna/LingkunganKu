@@ -206,9 +206,7 @@ $(document).ready(function () {
                             <button class="btn btn-sm btn-warning" onclick="edit(this, '${row.kabkot_id}')">
                             	<i class="bi bi-pencil"></i>
                             </button>
-                            <button class="btn btn-sm btn-danger" onclick="deleteM(` +
-						data +
-						`)">
+                            <button class="btn btn-sm btn-danger" onclick="deleteM(this)">
                             	<i class="bi bi-trash"></i>
                             </button>
                         `
@@ -531,4 +529,56 @@ function clearForm() {
 	setTimeout(() => {
 		map.invalidateSize();
 	}, 200);
+}
+
+
+function deleteM(btn) {
+	var tr = $(btn).closest('tr');
+	var table = $('#tabel_lapor').DataTable();
+	var row = table.row(tr);
+	var data = row.data();
+	if (!data) {
+		console.error("Data tidak ditemukan");
+		return;
+	}
+	id_cabang = data.id;
+	const swalWithBootstrapButtons = Swal.mixin({
+		customClass: {
+			confirmButton: "btn btn-success ms-1",
+			cancelButton: "btn btn-danger"
+		},
+		buttonsStyling: false
+	});
+	swalWithBootstrapButtons.fire({
+		title: 'Perhatian?',
+		text: 'Apakah anda yakin ingin menghapus data ini?',
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonText: 'Ya, hapus',
+		cancelButtonText: 'Tidak',
+		buttons: true,
+		dangerMode: true,
+		reverseButtons: true
+	}).then((willDelete) => {
+		if (!willDelete.isConfirmed) return;
+		$.ajax({
+			url: origin + "cabang/hapus_cabang",
+			method: "post",
+			data: {
+				id: data.id
+			},
+			dataType: "json",
+			success: function (res) {
+				Swal.fire({
+					title: res.judul,
+					icon: res.icon,
+				}).then(function () {
+					if (res.icon == "error") return;
+					id_cabang = "";
+					$("#exampleModal").modal("hide");
+					table.ajax.reload();
+				});
+			},
+		});
+	});
 }

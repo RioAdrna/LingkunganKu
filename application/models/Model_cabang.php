@@ -58,4 +58,11 @@ class Model_cabang extends CI_Model
         $this->db->where($where);
         return $this->db->update("cabang");
     }
+
+	function delete_data($id)
+    {
+        $this->db->where("id", $id);
+        return $this->db->delete("cabang");
+    }
+
 }

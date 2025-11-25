@@ -11,7 +11,7 @@ class Cabang extends CI_Controller
         $this->load->model('model_cabang');
     }
 
-	private function __datatablesRequest()
+    private function __datatablesRequest()
     {
         $resp = new stdClass();
         $order = $_GET['order'] ?? null;
@@ -23,24 +23,25 @@ class Cabang extends CI_Controller
         return $resp;
     }
 
-	public function data_cabang(){
-		$dt = $this->__datatablesRequest();
+    public function data_cabang()
+    {
+        $dt = $this->__datatablesRequest();
         $res = $this->model_cabang->read($dt);
         $total = $this->model_cabang->count();
         $data = [
-			'status' => 200,
-			'message' => 'Berhasil request',
-			"recordsFiltered" => $total,
+            'status' => 200,
+            'message' => 'Berhasil request',
+            "recordsFiltered" => $total,
             "recordsTotal" => $total,
-			'data' => $res
-		];
-		$this->output
-			->set_content_type('application/json')
-			->set_output(json_encode($data));
-		return;
-	}
+            'data' => $res
+        ];
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($data));
+        return;
+    }
 
-	 public function tambah_cabang()
+    public function tambah_cabang()
     {
         $nama_cabang        = $this->input->post("nama_cabang");
         $kabkot_id       = $this->input->post("kabkot_id");
@@ -50,10 +51,10 @@ class Cabang extends CI_Controller
 
         if ($status == "insert") {
             $data = array(
-                "nama_cabang"	=> $nama_cabang,
-                "kabkot_id"		=> $kabkot_id,
-                "longitude"		=> $longitude,
-                "latitude"		=> $latitude,
+                "nama_cabang"    => $nama_cabang,
+                "kabkot_id"        => $kabkot_id,
+                "longitude"        => $longitude,
+                "latitude"        => $latitude,
             );
 
             $insert = $this->model_cabang->insert_data($data);
@@ -71,10 +72,10 @@ class Cabang extends CI_Controller
         } else if ($status == "update") {
             $id_laporan = $this->input->post("id");
             $data = array(
-                "nama_cabang"	=> $nama_cabang,
-                "kabkot_id"		=> $kabkot_id,
-                "longitude"		=> $longitude,
-                "latitude"		=> $latitude,
+                "nama_cabang"    => $nama_cabang,
+                "kabkot_id"        => $kabkot_id,
+                "longitude"        => $longitude,
+                "latitude"        => $latitude,
             );
 
             $where  = array("id" => $id_laporan);
@@ -91,5 +92,22 @@ class Cabang extends CI_Controller
                     "judul" => "Gagal Di Ubah"
                 ));
         }
+    }
+
+    public function hapus_cabang()
+    {
+
+        $delete = $this->model_cabang->delete_data($this->input->post("id"));
+
+        if ($delete)
+            echo json_encode(array(
+                "icon"  => "success",
+                "judul" => "Berhasil dihapus"
+            ));
+        else
+            echo json_encode(array(
+                "icon"  => "error",
+                "judul" => "Gagal dihapus"
+            ));
     }
 }
