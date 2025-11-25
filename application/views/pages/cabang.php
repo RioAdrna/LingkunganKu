@@ -84,7 +84,7 @@
     				</div>
     				<div class="row mb-3">
     					<div class="col-12">
-    						<label for="deskripsi" class="col-sm-4 col-form-label">Lokasi</label>
+    						<label for="deskripsi" class="col-sm-4 col-form-label">Pilih Lokasi</label>
     						<div id="map"></div>
     					</div>
     				</div>
