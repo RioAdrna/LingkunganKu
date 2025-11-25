@@ -50,15 +50,15 @@ class Status_laporan extends CI_Controller
                     break;
 
                 case 'DITUGASKAN':
-                    $status_badge = '<span class="badge bg-primary">' . $laporan->status . '</span>';
+                    $status_badge = '<span class="badge bg-warning">' . $laporan->status . '</span>';
                     break;
 
                 case 'SUDAH DITANGANI':
-                    $status_badge = '<span class="badge bg-success">' . $laporan->status . '</span>';
+                    $status_badge = '<span class="badge bg-info">' . $laporan->status . '</span>';
                     break;
 
                 case 'SELESAI':
-                    $status_badge = '<span class="badge bg-info">' . $laporan->status . '</span>';
+                    $status_badge = '<span class="badge bg-success">' . $laporan->status . '</span>';
                     break;
 
                 case 'DITOLAK':
@@ -80,5 +80,13 @@ class Status_laporan extends CI_Controller
 
 
         echo json_encode($data);
+    }
+
+    public function detail_status()
+    {
+        $id_laporan = $this->input->post('id');
+        $data_lapor = $this->model_lapor->data_lapor($id_laporan)->row();
+
+        echo json_encode($data_lapor);
     }
 }

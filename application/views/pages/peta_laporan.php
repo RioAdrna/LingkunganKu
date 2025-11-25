@@ -237,7 +237,7 @@
 
             </div>
 
-            <hr />
+            <hr/>
 
             <!-- MAP -->
             <div id="map-container" class="d-flex align-items-center">
