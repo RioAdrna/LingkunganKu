@@ -11,6 +11,18 @@ class Cabang extends CI_Controller
         $this->load->model('model_cabang');
     }
 
+	private function __datatablesRequest()
+    {
+        $resp = new stdClass();
+        $order = $_GET['order'] ?? null;
+        $resp->search = $_GET['search']['value'];
+        $resp->start = ((int)$_GET['start']);
+        $resp->length = $_GET['length'];
+        $resp->column = $order[0]['column'] ?? "0";
+        $resp->dir = $order[0]['dir'] ?? "asc";
+        return $resp;
+    }
+
 	public function data_cabang(){
 		$dt = $this->__datatablesRequest();
         $res = $this->model_cabang->read($dt);
@@ -28,77 +40,56 @@ class Cabang extends CI_Controller
 		return;
 	}
 
-	private function __datatablesRequest()
+	 public function tambah_cabang()
     {
-        $resp = new stdClass();
-        $order = $_GET['order'] ?? null;
-        $resp->search = $_GET['search']['value'];
-        $resp->start = ((int)$_GET['start']);
-        $resp->length = $_GET['length'];
-        $resp->column = $order[0]['column'] ?? "0";
-        $resp->dir = $order[0]['dir'] ?? "asc";
-        return $resp;
-    }
+        $nama_cabang        = $this->input->post("nama_cabang");
+        $kabkot_id       = $this->input->post("kabkot_id");
+        $latitude       = $this->input->post("latitude");
+        $longitude       = $this->input->post("longitude");
+        $status          = $this->input->post("status");
 
-    public function index()
-    {
-        if ($this->session->userdata('status') == "login" && $this->input->get('req') != "logout") {
-            // Kalau sudah login, langsung ke dashboard utama
-            redirect(base_url());
-        } else {
-            // Kalau belum login, tampilkan halaman login
-            $this->load->view('login/login');
+        if ($status == "insert") {
+            $data = array(
+                "nama_cabang"	=> $nama_cabang,
+                "kabkot_id"		=> $kabkot_id,
+                "longitude"		=> $longitude,
+                "latitude"		=> $latitude,
+            );
+
+            $insert = $this->model_cabang->insert_data($data);
+
+            if ($insert)
+                echo json_encode(array(
+                    "icon"  => "success",
+                    "judul" => "Berhasil Di Upload"
+                ));
+            else
+                echo json_encode(array(
+                    "icon"  => "error",
+                    "judul" => "Gagal Di Upload"
+                ));
+        } else if ($status == "update") {
+            $id_laporan = $this->input->post("id");
+            $data = array(
+                "nama_cabang"	=> $nama_cabang,
+                "kabkot_id"		=> $kabkot_id,
+                "longitude"		=> $longitude,
+                "latitude"		=> $latitude,
+            );
+
+            $where  = array("id" => $id_laporan);
+            $update = $this->model_cabang->update_data($data, $where);
+
+            if ($update)
+                echo json_encode(array(
+                    "icon"  => "success",
+                    "judul" => "Berhasil Di Ubah"
+                ));
+            else
+                echo json_encode(array(
+                    "icon"  => "error",
+                    "judul" => "Gagal Di Ubah"
+                ));
         }
-    }
-
-
-    public function cek_login()
-    {
-        $email = $this->input->post('email', TRUE);
-        $password = $this->input->post('password', TRUE);
-
-        // Ambil data user berdasarkan email
-        $hasil = $this->Model_login->cek_user(['email' => $email]);
-
-        if ($hasil->num_rows() == 1) {
-            $user = $hasil->row();
-
-            // Cek password
-            if (password_verify($password, $user->password)) {
-
-                // if (property_exists($user, 'status_user') && $user->status_user != "Y") {
-                //     echo json_encode(["sts" => "0", "msg" => "Akun tidak aktif"]);
-                //     return;
-                // }
-
-                // Ambil role dari database
-                $level = $user->role ?? "user";
-
-                $data_session = [
-                    'id_user' => $user->id,
-                    'nama' => $user->nama,
-                    'email' => $user->email,
-                    'no_hp' => $user->no_hp,
-                    'alamat' => $user->alamat,
-                    'foto' => $user->foto,
-                    'created_at' => $user->created_at,
-                    'status' => 'login',
-                    'level' => $level
-                ];
-                $this->session->set_userdata($data_session);
-
-                echo json_encode(["sts" => "1", "msg" => "Login berhasil!"]);
-            } else {
-                echo json_encode(["sts" => "0", "msg" => "Password salah"]);
-            }
-        } else {
-            echo json_encode(["sts" => "0", "msg" => "Email tidak ditemukan"]);
-        }
-    }
-
-    public function logout()
-    {
-        $this->session->sess_destroy();
-        redirect(base_url());
     }
 }

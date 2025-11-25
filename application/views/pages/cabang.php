@@ -18,6 +18,11 @@
     			width: 40px !important;
     		}
     	}
+
+    	#map {
+    		height: 300px;
+    		width: 100%;
+    	}
     </style>
     <div class="content">
     	<div class="container-fluid">
@@ -33,7 +38,7 @@
     							</div>
     							<div class="col-12 col-sm-4 text-sm-end text-center mt-2 mt-sm-0">
     								<button id="tambah_data" type="button" class="btn btn-primary shadow-sm"
-    									data-bs-toggle="modal" data-bs-target="#exampleModal">
+    									data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="clearForm()">
     									<i class="fas fa-add"></i>&nbsp; Tambah Cabang
     								</button>
     							</div>
@@ -80,7 +85,7 @@
     				<div class="row mb-3">
     					<div class="col-12">
     						<label for="deskripsi" class="col-sm-4 col-form-label">Lokasi</label>
-
+    						<div id="map"></div>
     					</div>
     				</div>
 

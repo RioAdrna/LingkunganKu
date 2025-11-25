@@ -31,6 +31,7 @@ class Model_cabang extends CI_Model
 		$this->db->select('cabang.latitude as latitude');
 		$this->db->select('cabang.longitude as longitude');
 		$this->db->select('cabang.created_at as created_at');
+		$this->db->select('cabang.kabkot_id as kabkot_id');
 
 		$this->__search($data->search);
 		$this->db->join('kabkot', 'cabang.kabkot_id = kabkot.id');
@@ -45,4 +46,16 @@ class Model_cabang extends CI_Model
 		$query = $this->db->query("SELECT count(id) as total from cabang;");
 		return $query->result()[0]->total;
 	}
+
+	function insert_data($data)
+    {
+        return $this->db->insert("cabang", $data);
+    }
+
+	function update_data($data, $where)
+    {
+        $this->db->set($data);
+        $this->db->where($where);
+        return $this->db->update("cabang");
+    }
 }

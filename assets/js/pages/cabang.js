@@ -1,15 +1,39 @@
 var proses;
 ["id", "nama_cabang", "kabkot", "latitude", "longitude", "created_at"];
 
-let lat
+let lat = null,
+	lng = null;
+let id_cabang = "";
+let table;
 
-const centerJabar = [-6.9174639, 107.6191238]; // Bandung
-const map = L.map("map").setView(centerJabar, 8);
+var map = L.map("map").setView([-6.9, 107.6], 8);
 
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-	maxZoom: 19,
 	attribution: "&copy; OpenStreetMap contributors",
 }).addTo(map);
+
+$("#tambah_data").on("click", function () {
+	setTimeout(() => {
+		map.invalidateSize();
+	}, 200);
+});
+
+fetch(`${origin}/assets/geojson/Jabar_By_Kab.geojson`)
+	.then((response) => response.json())
+	.then((data) => {
+		geoData = data;
+		L.geoJSON(data, {
+			style: function (feature) {
+				const idx = feature.properties.OBJECTID - 1 || 0; // pastikan setiap feature punya id unik (0–26)
+				return {
+					color: "black",
+					weight: 0,
+					fillColor: "#00c8faff",
+					fillOpacity: 0.15,
+				};
+			},
+		}).addTo(map);
+	});
 
 let currentMarker = null;
 
@@ -24,20 +48,103 @@ function setMarker(latlng) {
 	currentMarker = L.marker(latlng, { draggable: true }).addTo(map);
 
 	// Update input
-	$("#lat").val(latlng.lat.toFixed(7));
-	$("#lng").val(latlng.lng.toFixed(7));
+	lat = latlng.lat.toFixed(7);
+	lng = latlng.lng.toFixed(7);
 
 	// Saat marker di-drag, perbarui input
 	currentMarker.on("dragend", function (e) {
 		const p = e.target.getLatLng();
-		$("#lat").val(p.lat.toFixed(7));
-		$("#lng").val(p.lng.toFixed(7));
+		lat = p.lat.toFixed(7);
+		lng = p.lng.toFixed(7);
 	});
 }
 
 // Klik pada map -> set marker
 map.on("click", function (e) {
 	setMarker(e.latlng);
+});
+
+//Submit
+$("#tambah_data").click(function () {
+	$("#exampleModalLabel").html(
+		'<i class="fas fa-plus"></i>&nbsp; Tambah Laporan'
+	);
+	$("#kategori").prop("disabled", false);
+	$("#deskripsi").prop("disabled", false);
+	$("#file_foto").prop("disabled", false);
+	$("#simpan").show();
+
+	$("#kategori").val("");
+	$("#deskripsi").val("");
+	$("#id_laporan").val("");
+	$("#nm_file").val("");
+
+	$(".filepond--root").show();
+	$("#preview_foto").hide();
+
+	pond.removeFiles();
+});
+
+$("#simpan").click(function () {
+	var nama_cabang = $("#nama_cabang").val();
+	var kabkot_id = $("#kabkot_id").val();
+
+	var data;
+
+	if (nama_cabang.length < 1) $("#nama_cabang").addClass("is-invalid");
+	else $("#nama_cabang").removeClass("is-invalid");
+
+	if (kabkot_id.length < 1) $("#kabkot_id").addClass("is-invalid");
+	else $("#kabkot_id").removeClass("is-invalid");
+
+	if (id_cabang.length > 0)
+		data = {
+			status: "update",
+			id: id_cabang,
+			nama_cabang: nama_cabang,
+			kabkot_id: kabkot_id,
+			latitude: lat,
+			longitude: lng,
+		};
+	else
+		data = {
+			status: "insert",
+			nama_cabang: nama_cabang,
+			kabkot_id: kabkot_id,
+			latitude: lat,
+			longitude: lng,
+		};
+
+	if (
+		nama_cabang.length > 0 &&
+		kabkot_id.length > 0 &&
+		lat != null &&
+		lng != null
+	) {
+		$.ajax({
+			url: origin + "cabang/tambah_cabang",
+			method: "post",
+			data: data,
+			dataType: "json",
+			success: function (res) {
+				Swal.fire({
+					title: res.judul,
+					icon: res.icon,
+				}).then(function () {
+					if(res.icon == "error") return;
+					id_cabang = "";
+					$("#exampleModal").modal("hide");
+					table.ajax.reload();
+				});
+			},
+		});
+	} else {
+		Swal.fire({
+			title: "Warning",
+			icon: "warning",
+			text: "Mohon isi form dengan lengkap terlebih dahulu!!!"
+		});
+	}
 });
 
 $(document).ready(function () {
@@ -72,6 +179,8 @@ $(document).ready(function () {
 				render: function (data, type, row, meta) {
 					return (
 						`
+						<input type="hidden" id="longitude" value="${row.longitude}">
+						<input type="hidden" id="latitude" value="${row.latitude}">
                             <a class="btn btn-sm btn-primary" href="` +
 						url_map +
 						`&longitude=` +
@@ -91,7 +200,7 @@ $(document).ready(function () {
 				render: function (data, type, row, meta) {
 					return (
 						`
-                            <button class="btn btn-sm btn-warning" onclick="edit(this)">
+                            <button class="btn btn-sm btn-warning" onclick="edit(this, '${row.kabkot_id}')">
                             	<i class="bi bi-pencil"></i>
                             </button>
                             <button class="btn btn-sm btn-danger" onclick="deleteM(` +
@@ -107,7 +216,7 @@ $(document).ready(function () {
 	};
 
 	$(document).ready(function () {
-		$("#tabel_lapor").DataTable(dataTableConfig);
+		table = $("#tabel_lapor").DataTable(dataTableConfig);
 	});
 
 	$("#tambah_data").click(function () {
@@ -329,3 +438,94 @@ $(document).ready(function () {
 	});
 	//END Filepond
 });
+
+function edit(btn, id) {
+    // 1. Ambil data dari baris tabel DataTables
+    var tr = $(btn).closest('tr');
+    var table = $('#tabel_lapor').DataTable();
+    var row = table.row(tr);
+    var data = row.data();
+
+    if (!data) {
+        console.error("Data tidak ditemukan");
+        return;
+    }
+
+    id_cabang = data.id; 
+
+    $("#exampleModalLabel").html('<i class="fas fa-edit"></i>&nbsp; Edit Cabang');
+    
+    // Isi input text dan select
+    $("#nama_cabang").val(data.nama_cabang).removeClass("is-invalid");
+    
+    // Pastikan value yang diisi sesuai dengan ID kabkot (bukan nama kabkot)
+    // Asumsi: row.data() mengandung 'kabkot_id'. Jika tidak, pastikan respon JSON controller menyertakannya.
+    $("#kabkot_id").val(data.kabkot_id).removeClass("is-invalid"); 
+
+    // 4. Handle Lokasi & Peta
+    if (data.latitude && data.longitude) {
+        // Update variabel global lat & lng
+        lat = data.latitude;
+        lng = data.longitude;
+        
+        var position = new L.LatLng(parseFloat(lat), parseFloat(lng));
+        
+        // Panggil fungsi setMarker yang sudah ada di script Anda
+        setMarker(position);
+        
+        // Pusatkan peta ke lokasi marker
+        map.setView(position, 15); 
+    } else {
+        // Jika data lokasi kosong, reset marker
+        if (currentMarker) {
+            map.removeLayer(currentMarker);
+            currentMarker = null;
+        }
+        lat = null;
+        lng = null;
+        map.setView([-6.9, 107.6], 8);
+    }
+
+    // 5. Tampilkan Modal
+    $("#exampleModal").modal("show");
+
+    // 6. Fix render peta (Peta seringkali error/abu-abu jika dirender saat modal hidden)
+    setTimeout(function() {
+        map.invalidateSize();
+        if (lat && lng) {
+            map.panTo(new L.LatLng(lat, lng));
+        }
+    }, 300);
+};
+
+function clearForm() {
+    // 1. Reset Global Variable
+    id_cabang = "";
+    lat = null;
+    lng = null;
+
+    // 2. Reset Input Form
+    $("#nama_cabang").val("");
+    $("#kabkot_id").val(""); // Reset dropdown select
+
+    // 3. Hapus Class Validasi (Error Merah)
+    $("#nama_cabang").removeClass("is-invalid");
+    $("#kabkot_id").removeClass("is-invalid");
+
+    // 4. Reset Judul Modal ke "Tambah"
+    $("#exampleModalLabel").html('<i class="fas fa-plus"></i>&nbsp; Tambah Cabang');
+
+    // 5. Hapus Marker dari Peta
+    if (currentMarker) {
+        map.removeLayer(currentMarker);
+        currentMarker = null;
+    }
+
+    // 6. Reset View Peta ke Default (Jawa Barat)
+    map.setView([-6.9, 107.6], 8);
+    
+    // Refresh ukuran peta agar tidak error saat modal dibuka
+    setTimeout(() => {
+        map.invalidateSize();
+    }, 200);
+}
