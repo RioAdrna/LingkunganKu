@@ -284,6 +284,7 @@
 						Belum punya akun? Register
 					</a>
 				</div>
+
 			</form>
 		</div>
 		<!-- GAMBAR KANAN -->
@@ -344,7 +345,6 @@
 					},
 
 					error: function() {
-						// **INI FIX NYA** → biar loading langsung hilang
 						$("#loading").fadeOut(200);
 
 						Swal.fire({
@@ -375,6 +375,14 @@
 				input.addEventListener("blur", remcl);
 			});
 		});
+	</script>
+	<script>
+	document.getElementById("form-login").addEventListener("keydown", function (e) {
+		if (e.key === "Enter") {
+			e.preventDefault(); // supaya tidak reload otomatis
+			document.getElementById("login").click(); // jalankan button login
+		}
+	});
 	</script>
 </body>
 

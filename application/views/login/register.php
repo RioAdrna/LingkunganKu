@@ -40,6 +40,7 @@
 			display: flex;
 			justify-content: center; 
 			align-items: center;
+			margin-left: 190px;
 		}
 
 		.img img {
@@ -51,7 +52,8 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            margin-top: -70px; /* ⬅️ tambahan */
+            margin-top: -70px;
+			margin-right: 220px;
         }
 
 
@@ -60,6 +62,7 @@
 		}
 
 		.login-content img {
+			
 			height: 150px;
 		}
 
