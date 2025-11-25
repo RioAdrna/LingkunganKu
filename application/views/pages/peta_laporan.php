@@ -226,7 +226,7 @@
 
             </div>
 
-            <hr />
+            <hr/>
 
             <!-- MAP -->
             <div id="map"></div>

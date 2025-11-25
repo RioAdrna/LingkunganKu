@@ -33,7 +33,7 @@
                                                 <div class="col-md-3 mb-3">
                                                     <div class="card">
                                                         <div class="card-header">
-                                                            <h6 class="card-title"><i class="fas fa-images"></i>&nbsp;FOTO</h6>
+                                                            <h6 class="card-title"><i class="fas fa-images"></i>&nbsp;</h6>
                                                         </div>
                                                         <div class="card-body shadow-sm">
                                                             <div class="d-flex flex-column align-items-center text-center">
@@ -81,7 +81,7 @@
                                                 <div class="col-md-9 mb-4">
                                                     <div class="card">
                                                         <div class="card-header">
-                                                            <h6 class="card-title"><i class="fas fa-id-card"></i>&nbsp; Identitas </h6>
+                                                            <h6 class="card-title"><i class="fas fa-id-card"></i>&nbsp;</h6>
                                                         </div>
 
                                                         <div class="card-body shadow-sm">
@@ -95,27 +95,32 @@
 
                                                                         <div class="row border-start border-end align-items-center mb-3">
                                                                             <div class="col-sm-4">
-                                                                                <h6 class="mb-0 text-primary">Nama Lengkap</h6>
+                                                                                <h6 class="mb-0 text-dark">Nama Lengkap</h6>
                                                                             </div>
                                                                             <div class="col-sm-8 border-start">
                                                                                 <input type="text" class="form-control" id="nama"
                                                                                     value="<?= $this->session->userdata('nama') ?>">
                                                                             </div>
                                                                         </div>
-
                                                                         <div class="row border-start border-end align-items-center mb-3">
                                                                             <div class="col-sm-4">
-                                                                                <h6 class="mb-0 text-primary">Email</h6>
+                                                                                <h6 class="mb-0 text-dark">Email</h6>
                                                                             </div>
                                                                             <div class="col-sm-8 border-start">
-                                                                                <input type="email" class="form-control" id="email"
-                                                                                    value="<?= $this->session->userdata('email') ?>" readonly>
+                                                                                <input
+                                                                                    type="email"
+                                                                                    class="form-control"
+                                                                                    id="email"
+                                                                                    value="<?= $this->session->userdata('email') ?>"
+                                                                                    readonly
+                                                                                    style="pointer-events: none; background-color: #e9ecef;"
+                                                                                    tabindex="-1">
                                                                             </div>
                                                                         </div>
 
                                                                         <div class="row border-start border-end align-items-center mb-3">
                                                                             <div class="col-sm-4">
-                                                                                <h6 class="mb-0 text-primary">Telp/HP</h6>
+                                                                                <h6 class="mb-0 text-dark">Telp/HP</h6>
                                                                             </div>
                                                                             <div class="col-sm-8 border-start">
                                                                                 <input type="text" class="form-control" id="no_hp"
@@ -125,7 +130,7 @@
 
                                                                         <div class="row border-start border-end align-items-center mb-3">
                                                                             <div class="col-sm-4">
-                                                                                <h6 class="mb-0 text-primary">Alamat</h6>
+                                                                                <h6 class="mb-0 text-dark">Alamat</h6>
                                                                             </div>
                                                                             <div class="col-sm-8 border-start">
                                                                                 <textarea class="form-control" id="alamat" rows="2"><?= $this->session->userdata('alamat') ?></textarea>
@@ -134,13 +139,20 @@
 
                                                                         <div class="row border-start border-end align-items-center mb-3">
                                                                             <div class="col-sm-4">
-                                                                                <h6 class="mb-0 text-primary">Bergabung Sejak</h6>
+                                                                                <h6 class="mb-0 text-dark">Bergabung Sejak</h6>
                                                                             </div>
                                                                             <div class="col-sm-8 border-start">
-                                                                                <input type="text" class="form-control" id="created_at"
-                                                                                    value="<?= $this->session->userdata('created_at') ?>" readonly>
+                                                                                <input
+                                                                                    type="text"
+                                                                                    class="form-control"
+                                                                                    id="created_at"
+                                                                                    value="<?= date('d F Y', strtotime($this->session->userdata('created_at'))) ?>"
+                                                                                    readonly
+                                                                                    style="pointer-events: none; background-color: #e9ecef;"
+                                                                                    tabindex="-1">
                                                                             </div>
                                                                         </div>
+
                                                                         <div class="row mb-3">
                                                                             <div class="col text-center">
                                                                                 <button class="btn btn-success w-auto" id="btn_simpan">

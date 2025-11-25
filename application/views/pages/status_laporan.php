@@ -27,9 +27,9 @@
                         <div class="card-header border-2">
                             <div class="row align-items-center">
                                 <div class="col-12 col-sm-8">
-                                    <!-- <h6 class="mb-0">
-                                        <i class="fas fa-info-square"></i>&nbsp; Lapor Masalah
-                                    </h6> -->
+                                    <h6 class="mb-0">
+                                        <i class="fas fa-info-square"></i>&nbsp; Status Laporan
+                                    </h6>
                                 </div>
                                 <div class="col-12 col-sm-4 text-sm-end text-center mt-2 mt-sm-0">
                                     <!-- <button id="tambah_data" type="button" class="btn btn-warning shadow-sm"
@@ -61,7 +61,7 @@
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-plus"></i>&nbsp; Tambah Laporan</h5>
@@ -69,29 +69,15 @@
                 </div>
                 <div class="modal-body">
                     <div class="row mb-3">
-                        <label for="kategori" class="col-sm-4 col-form-label">Kategori</label>
-                        <div class="col-md-7 col-xs-6">
-                            <select class="form-select shadow-sm" id="kategori">
-                                <option value="banjir">Banjir</option>
-                                <option value="sampah">Sampah</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="file_foto" class="col-sm-4 col-form-label">Foto</label>
-                        <div class="col-md-7 col-xs-6">
-                            <input
-                                type="file"
-                                class="filepond w-100 shadow-sm"
-                                id="file_foto"
-                                name="file_foto">
-                            <input type="hidden" id="nm_file">
+                        <label class="col-sm-4 col-form-label">Foto</label>
 
-                            <div id="preview_foto" class="mt-2 text-center" style="display:none;">
-                                <img id="img_preview" src="" alt="Foto laporan" class="img-fluid" style="max-height:200px;">
+                        <div class="col-md-7 col-xs-6">
+                            <div class="text-center">
+                                <img id="img_preview" src="" class="img-fluid" style="max-height:200px;">
                             </div>
                         </div>
                     </div>
+
                     <div class="row mb-3">
                         <label for="deskripsi" class="col-sm-4 col-form-label">Deskripsi</label>
                         <div class="col-md-7 col-xs-6">

@@ -44,15 +44,15 @@
 				</li>
 				<?php if (in_array($this->session->userdata('level'), ["user"])) { ?>
 
-				<li class="nav-item">
-					<a class="nav-link <?= ($current_page == "lapor") ? "active" : "" ?>"
-						href="<?= base_url("?p=" . base64_encode('lapor')) ?>">
-						<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-							<i class="fas fa-bullhorn text-dark text-sm opacity-10"></i>
-						</div>
-						<span class="nav-link-text ms-1">Lapor</span>
-					</a>
-				</li>
+					<li class="nav-item">
+						<a class="nav-link <?= ($current_page == "lapor") ? "active" : "" ?>"
+							href="<?= base_url("?p=" . base64_encode('lapor')) ?>">
+							<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+								<i class="fas fa-bullhorn text-dark text-sm opacity-10"></i>
+							</div>
+							<span class="nav-link-text ms-1">Lapor</span>
+						</a>
+					</li>
 				<?php } ?>
 
 				<?php if (in_array($this->session->userdata('level'), ["admin", "petugas"])) { ?>
@@ -148,7 +148,7 @@
 
 						<!-- Notifikasi -->
 						<li class="nav-item">
-							<a href="javascript:;" class="nav-link">
+							<a href="<?= base_url("?p=" . base64_encode('notifikasi')) ?>" class="nav-link">
 								<div class="icon icon-shape bg-warning shadow d-flex justify-content-center align-items-center"
 									style="width: 36px; height: 36px;">
 									<i class="fa fa-bell text-white"></i>
@@ -157,10 +157,10 @@
 						</li>
 
 						<!-- Profil -->
-						<li class="nav-item">						
+						<li class="nav-item">
 							<a href="<?= base_url("?p=" . base64_encode('profile')) ?>" class="nav-link">
-								<div class="icon icon-shape shadow d-flex justify-content-center align-items-center"
-    								style="width: 36px; height: 36px; background-color: #4D65F9;">
+								<div class="icon icon-shape bg-info shadow d-flex justify-content-center align-items-center"
+									style="width: 36px; height: 36px;">
 									<i class="fa fa-user text-white"></i>
 								</div>
 							</a>
