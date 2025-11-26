@@ -110,4 +110,37 @@ class Cabang extends CI_Controller
                 "judul" => "Gagal dihapus"
             ));
     }
+
+	public function get_cabang(){
+        // Accept query from Select2: usually 'q' or 'term'
+        $term = $this->input->get('q');
+        if ($term === null) $term = $this->input->get('term');
+		if ($term === null) $term = '';
+
+        // Use provided helper to fetch raw cabang rows
+        $rows = $this->model_cabang->src($term);
+
+        $out = [];
+        if (is_array($rows) || is_object($rows)) {
+            foreach ($rows as $r) {
+                // determine id and name fields flexibly
+                $id = isset($r->id) ? $r->id : (isset($r->id_cabang) ? $r->id_cabang : null);
+                $nama = isset($r->nama) ? $r->nama : (isset($r->nama_cabang) ? $r->nama_cabang : '');
+
+                if ($term) {
+                    if (stripos($nama, $term) !== false || stripos((string)$id, $term) !== false) {
+                        $out[] = ['id' => $id, 'nama' => $nama];
+                    }
+                } else {
+                    $out[] = ['id' => $id, 'nama' => $nama];
+                }
+            }
+        }
+
+        // Return JSON array (client-side maps to {id,text} as needed)
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($out));
+        return;
+    }
 }

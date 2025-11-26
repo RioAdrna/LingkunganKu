@@ -1,6 +1,6 @@
 <?php
 
-class Model_cabang extends CI_Model
+class Model_petugas extends CI_Model
 {
 	private $columns = [
 		"id",
@@ -49,7 +49,7 @@ class Model_cabang extends CI_Model
 
 	function insert_data($data)
     {
-        return $this->db->insert("cabang", $data);
+        return $this->db->insert("users", $data);
     }
 
 	function update_data($data, $where)
@@ -64,17 +64,5 @@ class Model_cabang extends CI_Model
         $this->db->where("id", $id);
         return $this->db->delete("cabang");
     }
-
-	public function src($q)
-	{
-		$this->db->select('cabang.id as id');
-		$this->db->select('CONCAT(cabang.nama_cabang, " - ", kabkot.nama) as nama');
-
-		$this->db->like('cabang.nama_cabang', $q);
-		$this->db->or_like('kabkot.nama', $q);
-		$this->db->join('kabkot', 'cabang.kabkot_id = kabkot.id');
-		$this->db->limit(10, 0);
-		return $this->db->get('cabang')->result();
-	}
 
 }
