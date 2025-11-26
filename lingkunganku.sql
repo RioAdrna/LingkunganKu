@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2025 at 09:58 AM
+-- Generation Time: Nov 26, 2025 at 05:47 PM
 -- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,7 +41,8 @@ CREATE TABLE `cabang` (
 --
 
 INSERT INTO `cabang` (`id`, `nama_cabang`, `kabkot_id`, `latitude`, `longitude`, `created_at`) VALUES
-(1, 'Delta Trash', 3, -6.818300, 107.138900, '2025-11-24 07:16:59');
+(3, 'Pandawara', 1, -6.794342, 107.534180, '2025-11-26 14:11:42'),
+(4, 'Garuda Corps', 5, -7.101957, 106.984863, '2025-11-26 14:12:40');
 
 -- --------------------------------------------------------
 
@@ -543,6 +544,7 @@ CREATE TABLE `penanganan` (
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `cabang_petugas_id` int(10) UNSIGNED DEFAULT NULL,
+  `nik` varchar(20) DEFAULT NULL,
   `nama` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -550,19 +552,19 @@ CREATE TABLE `users` (
   `no_hp` varchar(20) DEFAULT NULL,
   `alamat` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `foto` varchar(255) NOT NULL
+  `foto` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `cabang_petugas_id`, `nama`, `email`, `password`, `role`, `no_hp`, `alamat`, `created_at`, `foto`) VALUES
-(1, NULL, 'Rio Adriana', 'rio@gmail.com', '$2y$10$i7Q0yfnvnohbrZCAw4ISKu3yMAmMfKMGz5/PtcbWT8wBGG0jI/P3O', 'admin', '083822085370', 'Ciumbuleuit', '2025-11-10 11:33:31', 'user_1_1763810781.jpg'),
-(2, NULL, 'Siti Lestari', 'siti@gmail.com', '$2y$10$i7Q0yfnvnohbrZCAw4ISKu3yMAmMfKMGz5/PtcbWT8wBGG0jI/P3O', 'user', '082145678912', 'Jl. Pasir Koja No. 12, Bandung', '2025-11-10 11:33:31', 'user_2_1763811211.jpg'),
-(3, NULL, 'Budi Santoso', 'budi@gmail.com', '$2y$10$i7Q0yfnvnohbrZCAw4ISKu3yMAmMfKMGz5/PtcbWT8wBGG0jI/P3O', 'petugas', '081345678901', 'Jl. Cipaganti No. 7, Bandung', '2025-11-10 11:33:31', 'user_3_1763811502.jpg'),
-(4, NULL, 'Andika Putra', 'andika@gmail.com', '123456', 'petugas', '081234567001', 'Kantor DLH Bandung', '2025-11-10 11:33:31', ''),
-(5, NULL, 'Admin Lingkungan', 'admin@dlh.go.id', '123456', 'admin', '081234567002', 'Kantor Dinas Lingkungan Hidup', '2025-11-10 11:33:31', '');
+INSERT INTO `users` (`id`, `cabang_petugas_id`, `nik`, `nama`, `email`, `password`, `role`, `no_hp`, `alamat`, `created_at`, `foto`) VALUES
+(1, NULL, NULL, 'Rio Adriana', 'rio@gmail.com', '$2y$10$i7Q0yfnvnohbrZCAw4ISKu3yMAmMfKMGz5/PtcbWT8wBGG0jI/P3O', 'admin', '083822085370', 'Ciumbuleuit', '2025-11-10 11:33:31', 'user_1_1763810781.jpg'),
+(2, NULL, NULL, 'Siti Lestari', 'siti@gmail.com', '$2y$10$i7Q0yfnvnohbrZCAw4ISKu3yMAmMfKMGz5/PtcbWT8wBGG0jI/P3O', 'user', '082145678912', 'Jl. Pasir Koja No. 12, Bandung', '2025-11-10 11:33:31', 'user_2_1763811211.jpg'),
+(3, 4, NULL, 'Budi Santoso', 'budi@gmail.com', '$2y$10$i7Q0yfnvnohbrZCAw4ISKu3yMAmMfKMGz5/PtcbWT8wBGG0jI/P3O', 'petugas', '081345678901', 'Jl. Cipaganti No. 7, Bandung', '2025-11-10 11:33:31', 'user_3_1763811502.jpg'),
+(5, NULL, NULL, 'Admin Lingkungan', 'admin@dlh.go.id', '123456', 'admin', '081234567002', 'Kantor Dinas Lingkungan Hidup', '2025-11-10 11:33:31', ''),
+(6, 3, '3273221905060111', 'Kumis Aster', 'ufwhuifwehfu@mm.com', '$2y$10$XoWCyn/mGGw9IQc6yApqreMHE0zf3bpbBg9ywSXSkt0xR62ERJzcG', 'petugas', '08298381362', 'feuhweufhwe', '2025-11-26 16:30:57', NULL);
 
 --
 -- Indexes for dumped tables
@@ -619,6 +621,7 @@ ALTER TABLE `penanganan`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `nik` (`nik`),
   ADD KEY `cabang_petugas_id` (`cabang_petugas_id`);
 
 --
@@ -629,7 +632,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cabang`
 --
 ALTER TABLE `cabang`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `kabkot`
@@ -665,7 +668,7 @@ ALTER TABLE `penanganan`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables

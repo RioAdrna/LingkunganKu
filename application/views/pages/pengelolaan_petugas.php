@@ -135,6 +135,64 @@
     	</div>
     </div>
 
+    <!-- Detail Modal -->
+    <div class="modal fade" id="detailModal" aria-labelledby="detailModalLabel" aria-hidden="true">
+    	<div class="modal-dialog modal-lg">
+    		<div class="modal-content">
+    			<div class="modal-header">
+    				<h5 class="modal-title" id="detailModalLabel"><i class="fas fa-user"></i>&nbsp; Detail Petugas</h5>
+    				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+    			</div>
+    			<div class="modal-body">
+    				<div class="row">
+    					<!-- Foto Section (Left) -->
+    					<div class="col-md-4 text-center mb-3 mb-md-0">
+    						<img id="detail_foto" src="" alt="Foto Petugas" style="max-width:100%;height:auto;border:1px solid #ddd;padding:8px;border-radius:8px;display:none;" />
+    						<div id="no_foto" style="display:none;padding:20px;background-color:#f0f0f0;border-radius:8px;color:#999;">
+    							<i class="fas fa-image" style="font-size:48px;"></i>
+    							<p class="mt-2">Tidak ada foto</p>
+    						</div>
+    					</div>
+    					<!-- Information Section (Right) -->
+    					<div class="col-md-8">
+    						<div class="detail-item mb-3">
+    							<label class="detail-label fw-bold">ID:</label>
+    							<span id="detail_id" class="detail-value">-</span>
+    						</div>
+    						<div class="detail-item mb-3">
+    							<label class="detail-label fw-bold">NIK:</label>
+    							<span id="detail_nik" class="detail-value">-</span>
+    						</div>
+    						<div class="detail-item mb-3">
+    							<label class="detail-label fw-bold">Nama:</label>
+    							<span id="detail_nama" class="detail-value">-</span>
+    						</div>
+    						<div class="detail-item mb-3">
+    							<label class="detail-label fw-bold">Email:</label>
+    							<span id="detail_email" class="detail-value">-</span>
+    						</div>
+    						<div class="detail-item mb-3">
+    							<label class="detail-label fw-bold">No. HP:</label>
+    							<span id="detail_no_hp" class="detail-value">-</span>
+    						</div>
+    						<div class="detail-item mb-3">
+    							<label class="detail-label fw-bold">Alamat:</label>
+    							<span id="detail_alamat" class="detail-value">-</span>
+    						</div>
+    						<div class="detail-item mb-3">
+    							<label class="detail-label fw-bold">Cabang:</label>
+    							<span id="detail_cabang" class="detail-value">-</span>
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+    			<div class="modal-footer">
+    				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+
     <!-- Select2 assets and initialization -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- Select2 Bootstrap 5 theme -->
@@ -143,6 +201,8 @@
 
     <script>
     	(function($) {
+    		let id_petugas = "";
+
     		$(document).ready(function() {
     			// Initialize select2 for cabang with AJAX source
     			$('#cabang').select2({
@@ -192,7 +252,12 @@
     				var $btn = $('#simpan');
     				var fd = new FormData(form);
 
-    				fd.append("status", "insert");
+    				if (id_petugas != "") {
+    					fd.append("id", id_petugas);
+    					fd.append("status", "update");
+    				} else {
+    					fd.append("status", "insert");
+    				}
 
     				// Disable button to prevent duplicate submits
     				$btn.prop('disabled', true).text('Menyimpan...');
@@ -203,7 +268,7 @@
     					data: fd,
     					processData: false,
     					contentType: false,
-						dataType: 'json'
+    					dataType: 'json'
     				}).done(function(resp) {
     					// Expecting JSON like { icon: 'success'|'error', judul: '...', message: '...' }
     					var ok = false;
@@ -238,8 +303,7 @@
     							if ($('#cabang').data('select2')) $('#cabang').val(null).trigger('change');
 
     							// optional: refresh table if function exists
-    							if (typeof window.refresh_table === 'function') window.refresh_table();
-    							if (typeof window.load_table === 'function') window.load_table();
+    							table.ajax.reload();
     						});
     					} else {
     						Swal.fire({
@@ -261,14 +325,185 @@
 
     			// Clear form function used by the button that opens the modal
     			window.clearForm = function() {
+    				id_petugas = "";
     				$('#form_petugas')[0].reset();
     				$('#preview_foto').hide().attr('src', '');
     				if ($('#cabang').data('select2')) {
     					$('#cabang').val(null).trigger('change');
     				}
+    				$('#password').attr('placeholder', 'Buat password');
+    				$('#exampleModalLabel').html('<i class="fas fa-plus"></i>&nbsp; Tambah Petugas');
+    				$('#nik').closest('.mb-3').show();
+    				$('#nik').attr('required', true);
+    			};
+
+    			// Edit function to populate form from table row
+    			window.edit = function(btn) {
+    				var row = table.row($(btn).closest('tr')).data();
+    				if (!row) return;
+
+    				id_petugas = row.id;
+    				$('#nik').val(row.nik || '');
+    				$('#nama').val(row.nama || '');
+    				$('#email').val(row.email || '');
+    				$('#no_hp').val(row.no_hp || '');
+    				$('#alamat').val(row.alamat || '');
+
+    				// Hide NIK field in edit mode
+    				$('#nik').closest('.mb-3').hide();
+    				$('#nik').attr('required', false);
+
+    				// Set password placeholder for edit mode
+    				$('#password').attr('placeholder', 'Kosongkan jika tidak ingin mengubah password');
+
+    				// Update modal title
+    				$('#exampleModalLabel').html('<i class="fas fa-edit"></i>&nbsp; Edit Petugas');
+
+    				// Set cabang if available
+    				if (row.id_cabang) {
+    					var option = new Option(row.nama_cabang, row.id_cabang, true, true);
+    					$('#cabang').append(option).trigger('change');
+    				}
+
+    				// Show photo preview if exists
+    				if (row.foto) {
+    					$('#preview_foto').attr('src', origin + 'assets/img/profile/' + row.foto).show();
+    				}
+
+    				// Open modal
+    				var modalEl = document.getElementById('exampleModal');
+    				var bsModal = new bootstrap.Modal(modalEl);
+    				bsModal.show();
+    			};
+
+    			// Detail function to display petugas information
+    			window.detail = function(btn) {
+    				var row = table.row($(btn).closest('tr')).data();
+    				if (!row) return;
+
+    				console.log(row);
+
+    				// Populate detail fields
+    				$('#detail_id').text(row.id || '-');
+    				$('#detail_nik').text(row.nik || '-');
+    				$('#detail_nama').text(row.nama || '-');
+    				$('#detail_email').text(row.email || '-');
+    				$('#detail_no_hp').text(row.no_hp || '-');
+    				$('#detail_alamat').text(row.alamat || '-');
+    				$('#detail_cabang').text(row.nama_cabang || '-');
+
+    				// Handle photo display
+    				if (row.foto) {
+    					$('#detail_foto').attr('src', origin + 'assets/img/profile/' + row.foto).show();
+    					$('#no_foto').hide();
+    				} else {
+    					$('#detail_foto').hide();
+    					$('#no_foto').show();
+    				}
+
+    				// Open detail modal
+    				var modalEl = document.getElementById('detailModal');
+    				var bsModal = new bootstrap.Modal(modalEl);
+    				bsModal.show();
     			};
     		});
     	})(window.jQuery || window.$ || function(fn) {
     		fn();
     	});
+    	$(document).ready(function() {
+    		dataTableConfig = {
+    			serverSide: true,
+    			ajax: {
+    				url: origin + "petugas/read",
+    				dataSrc: "data",
+    			},
+    			order: [0, "desc"],
+    			columnDefs: [{
+    				width: "20%",
+    				targets: 1,
+    			}, ],
+    			columns: [{
+    					title: "ID",
+    					data: "id",
+    				},
+    				{
+    					title: "Cabang",
+    					data: "nama_cabang",
+    				},
+    				{
+    					title: "Nama",
+    					data: "nama",
+    				},
+    				{
+    					title: "Action",
+    					render: function(data, type, row, meta) {
+    						return (
+    							`
+                            <button class="btn btn-sm btn-info" onclick="detail(this)" title="Detail">
+                            	<i class="bi bi-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-warning" onclick="edit(this)" title="Edit">
+                            	<i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteM(this)" title="Hapus">
+                            	<i class="bi bi-trash"></i>
+                            </button>
+                        `
+    						);
+    					},
+    				},
+    			],
+    		};
+    		table = $("#tabel_lapor").DataTable(dataTableConfig);
+    	});
+
+    	function deleteM(btn) {
+    		var tr = $(btn).closest('tr');
+    		var table = $('#tabel_lapor').DataTable();
+    		var row = table.row(tr);
+    		var data = row.data();
+    		if (!data) {
+    			console.error("Data tidak ditemukan");
+    			return;
+    		}
+    		const swalWithBootstrapButtons = Swal.mixin({
+    			customClass: {
+    				confirmButton: "btn btn-success ms-1",
+    				cancelButton: "btn btn-danger"
+    			},
+    			buttonsStyling: false
+    		});
+    		swalWithBootstrapButtons.fire({
+    			title: 'Perhatian?',
+    			text: 'Apakah anda yakin ingin menghapus data ini?',
+    			icon: 'warning',
+    			showCancelButton: true,
+    			confirmButtonText: 'Ya, hapus',
+    			cancelButtonText: 'Tidak',
+    			buttons: true,
+    			dangerMode: true,
+    			reverseButtons: true
+    		}).then((willDelete) => {
+    			if (!willDelete.isConfirmed) return;
+    			$.ajax({
+    				url: origin + "petugas/hapus_petugas",
+    				method: "post",
+    				data: {
+    					id: data.id
+    				},
+    				dataType: "json",
+    				success: function(res) {
+    					Swal.fire({
+    						title: res.judul,
+    						icon: res.icon,
+    					}).then(function() {
+    						if (res.icon == "error") return;
+    						id_cabang = "";
+    						$("#exampleModal").modal("hide");
+    						table.ajax.reload();
+    					});
+    				},
+    			});
+    		});
+    	}
     </script>

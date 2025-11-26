@@ -36,7 +36,6 @@ class Model_cabang extends CI_Model
 		$this->__search($data->search);
 		$this->db->join('kabkot', 'cabang.kabkot_id = kabkot.id');
 		$this->db->order_by($this->columns[$data->column], $data->dir);
-		$this->db->group_by("id");
 		$this->db->limit($data->length, $data->start);
 		return $this->db->get('cabang')->result();
 	}

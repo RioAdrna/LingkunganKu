@@ -10,6 +10,36 @@ class Petugas extends CI_Controller
         $this->load->model("model_petugas");
     }
 
+    private function __datatablesRequest()
+    {
+        $resp = new stdClass();
+        $order = $_GET['order'] ?? null;
+        $resp->search = $_GET['search']['value'];
+        $resp->start = ((int)$_GET['start']);
+        $resp->length = $_GET['length'];
+        $resp->column = $order[0]['column'] ?? "0";
+        $resp->dir = $order[0]['dir'] ?? "asc";
+        return $resp;
+    }
+
+    public function read()
+    {
+        $dt = $this->__datatablesRequest();
+        $res = $this->model_petugas->read($dt);
+        $total = $this->model_petugas->count();
+        $data = [
+            'status' => 200,
+            'message' => 'Berhasil request',
+            "recordsFiltered" => $total,
+            "recordsTotal" => $total,
+            'data' => $res
+        ];
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($data));
+        return;
+    }
+
     public function kelola_petugas()
     {
         $nik        = $this->input->post("nik");
@@ -29,13 +59,13 @@ class Petugas extends CI_Controller
             $this->form_validation->set_rules('nik', 'NIK', 'required');
             $this->form_validation->set_rules('nama', 'Nama', 'required');
             $this->form_validation->set_rules('password', 'Password', 'required');
-            $this->form_validation->set_rules('cabang', 'Cabang', 'required');
+            // $this->form_validation->set_rules('cabang', 'Cabang', 'required');
             $this->form_validation->set_rules('email', 'Email', 'valid_email');
         } else {
-            // update: password and foto optional
+            // update: nik, password, foto optional
             $this->form_validation->set_rules('nama', 'Nama', 'required');
             $this->form_validation->set_rules('email', 'Email', 'valid_email');
-            $this->form_validation->set_rules('cabang', 'Cabang', 'required');
+            // $this->form_validation->set_rules('cabang', 'Cabang', 'required');
         }
 
         if ($this->form_validation->run() == FALSE) {
@@ -50,7 +80,7 @@ class Petugas extends CI_Controller
         // Handle file upload if provided
         $foto_name = null;
 
-		// var_dump($_FILES['foto']); die;
+        // var_dump($_FILES['foto']); die;
         if (isset($_FILES['foto']) && !empty($_FILES['foto']['name'])) {
             $config['upload_path']   = './assets/img/profile/';
             $config['allowed_types'] = 'jpg|jpeg|png|webp|gif';
@@ -86,9 +116,12 @@ class Petugas extends CI_Controller
                 "email"         => $email,
                 "password"      => password_hash($password, PASSWORD_BCRYPT),
                 "no_hp"         => $no_hp,
-                "alamat"        => $alamat,
-                "cabang_petugas_id" => $id_cabang,
+                "alamat"        => $alamat
             );
+
+            if (!empty($id_cabang)) {
+                $data['cabang_petugas_id'] = $id_cabang;
+            }
 
             if ($foto_name) $data['foto'] = $foto_name;
 
@@ -114,9 +147,12 @@ class Petugas extends CI_Controller
                 "nama"          => $nama,
                 "email"         => $email,
                 "no_hp"         => $no_hp,
-                "alamat"        => $alamat,
-                "cabang_petugas_id" => $id_cabang,
+                "alamat"        => $alamat
             );
+
+            if (!empty($id_cabang)) {
+                $data['cabang_petugas_id'] = $id_cabang;
+            }
 
             if (!empty($password)) {
                 $data['password'] = password_hash($password, PASSWORD_BCRYPT);
@@ -145,5 +181,22 @@ class Petugas extends CI_Controller
                     "judul" => "Gagal Di Ubah"
                 ));
         }
+    }
+
+    public function hapus_petugas()
+    {
+
+        $delete = $this->model_petugas->delete_data($this->input->post("id"));
+
+        if ($delete)
+            echo json_encode(array(
+                "icon"  => "success",
+                "judul" => "Berhasil dihapus"
+            ));
+        else
+            echo json_encode(array(
+                "icon"  => "error",
+                "judul" => "Gagal dihapus"
+            ));
     }
 }

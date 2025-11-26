@@ -541,7 +541,6 @@ function deleteM(btn) {
 		console.error("Data tidak ditemukan");
 		return;
 	}
-	id_cabang = data.id;
 	const swalWithBootstrapButtons = Swal.mixin({
 		customClass: {
 			confirmButton: "btn btn-success ms-1",
@@ -562,7 +561,7 @@ function deleteM(btn) {
 	}).then((willDelete) => {
 		if (!willDelete.isConfirmed) return;
 		$.ajax({
-			url: origin + "cabang/hapus_cabang",
+			url: origin + "petugas/hapus_petugas",
 			method: "post",
 			data: {
 				id: data.id
