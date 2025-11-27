@@ -426,13 +426,13 @@
     					title: "ID",
     					data: "id",
     				},
+					{
+    					title: "Nama",
+    					data: "nama",
+    				},
     				{
     					title: "Cabang",
     					data: "nama_cabang",
-    				},
-    				{
-    					title: "Nama",
-    					data: "nama",
     				},
     				{
     					title: "Action",

@@ -102,8 +102,8 @@
     					<div class="mb-3 row">
     						<label for="nik" class="col-sm-4 col-form-label">Petugas</label>
     						<div class="col-md-7 col-xs-8">
-    							<button id="tambah_data" type="button" class="btn btn-success shadow-sm"
-    								data-bs-toggle="modal" data-bs-target="#modal">
+    							<button id="pilih-petugas" type="button" class="btn btn-primary shadow-sm"
+    								data-bs-toggle="modal" data-bs-target="#modal" onclick="searchPetugas(document.getElementById('search-petugas'))">
     								<i class="fas fa-add"></i>&nbsp; Pilih Petugas
     							</button>
     						</div>
@@ -112,12 +112,15 @@
     					<div class="mb-3 row">
     						<label class="col-sm-4 col-form-label">Laporan</label>
     						<div class="col-md-7 col-xs-8">
-    							<button id="tambah_data" type="button" class="btn btn-success shadow-sm"
-    								data-bs-toggle="modal" data-bs-target="#exampleModal">
+    							<button id="pilih-laporan" type="button" class="btn btn-primary shadow-sm"
+    								data-bs-toggle="modal" data-bs-target="#modal2" onclick="searchLaporan(document.getElementById('search-laporan'))">
     								<i class="fas fa-add"></i>&nbsp; Tambahkan Laporan
     							</button>
+								<!-- Selected laporan list will be injected here -->
     						</div>
     					</div>
+
+						<div id="selected-laporan-list" class="mt-2"></div>
     				</div>
 
     				<div class="modal-footer">
@@ -128,6 +131,7 @@
     		</div>
     	</div>
     </div>
+
 
     <!-- Detail Modal -->
     <div class="modal fade" id="detailModal" aria-labelledby="detailModalLabel" aria-hidden="true">
@@ -200,16 +204,13 @@
     			<div class="modal-body">
     				<div id="select-petugas-page-1">
     					<div class="row" style="width: 100%;">
-    						<div class="col-sm-9">
+    						<div class="col-sm-12">
     							<div class="input-group">
     								<span class="input-group-text" id="basic-addon1">
     									<i class="bi bi-search"></i>
     								</span>
     								<input id="search-petugas" type="search" class="form-control" placeholder="Search..." oninput="searchPetugas(this)">
     							</div>
-    						</div>
-    						<div class="col-sm-3">
-    							<button class="btn btn-primary" style="width: 100%;" onclick="comingSoon()">Advanced Search</button>
     						</div>
     					</div>
     					<div class="scroll-container" id="scrollableDiv">
@@ -224,20 +225,63 @@
     				</div>
     			</div>
     			<div class="modal-footer">
-    				<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    				<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="confirmPetugasSelection(false)">
     					Batalkan
     				</button>
-    				<button id="submit" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="confirmPetugasSelection()">Ok</button>
+    				<buttonq id="submit" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="confirmPetugasSelection(true)">Ok</button>
     			</div>
     		</div>
     	</div>
     </div>
 
+    <div class="modal fade" id="modal2" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    	<div class="modal-dialog modal-lg">
+    		<div class="modal-content">
+    			<div class="modal-header">
+    				<h5 class="modal-title" id="modal-title">
+    					Pilih Laporan
+    				</h5>
+    			</div>
+    			<div class="modal-body">
+    				<div id="select-petugas-page-1">
+    					<div class="row" style="width: 100%;">
+    						<div class="col-sm-12">
+    							<div class="input-group">
+    								<span class="input-group-text" id="basic-addon1">
+    									<i class="bi bi-search"></i>
+    								</span>
+    								<input id="search-laporan" type="search" class="form-control" placeholder="Search..." oninput="searchLaporan(this)">
+    							</div>
+    						</div>
+    					</div>
+    					<div class="scroll-container" id="scrollableDiv2">
+    						<div class="row mt-4 w-100" id="laporan-display">
+
+    						</div>
+    						<div id="loading2" class="loading">
+    							<div class="spinner"></div>
+    							Loading...
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+    			<div class="modal-footer">
+    				<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="confirmLaporanSelection(false)">
+    					Batalkan
+    				</button>
+    				<buttonq id="submit" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="confirmLaporanSelection(true)">Ok</button>
+    			</div>
+    		</div>
+    	</div>
+    </div>
     <!-- Select2 assets and initialization -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- Select2 Bootstrap 5 theme -->
     <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.1.1/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+    <script src="https://unpkg.com/leaflet.vectorgrid@latest/dist/Leaflet.VectorGrid.js"></script>
 
     <script>
     	let searchInterval;
@@ -245,35 +289,53 @@
     	let hasNextPage = false;
     	let apiResponse = [];
     	let selectedPetugas = [];
+    	let selectedLaporan = [];
+    	let isLoading = false;
 
     	const scrollableDiv = document.getElementById("scrollableDiv");
     	const content = document.getElementById("petugas-display");
     	const loading = document.getElementById("loading");
 
-    	let isLoading = false;
+    	const scrollableDiv2 = document.getElementById("scrollableDiv2");
+    	const content2 = document.getElementById("laporan-display");
+    	const loading2 = document.getElementById("loading2");
 
-    	function fetchMoreContent() {
+    	function fetchMoreContent(content, loading) {
     		if (isLoading) return;
     		if (!hasNextPage) return;
     		isLoading = true;
     		loading.style.display = "block";
     		searchPage++;
-    		searchPetugas(document.getElementById("search-petugas"), searchPage, () => {
-    			isLoading = false;
-    			loading.style.display = "none";
-    		});
-    	}
-
-    	function handleScroll() {
-    		if (scrollableDiv.scrollTop + scrollableDiv.clientHeight >= scrollableDiv.scrollHeight - 10) {
-    			fetchMoreContent();
+    		console.log("panggil");
+    		if (content === content2) {
+    			searchLaporan(content, searchPage, () => {
+    				isLoading = false;
+    				loading.style.display = "none";
+    			});
+    		} else {
+    			searchPetugas(content, searchPage, () => {
+    				isLoading = false;
+    				loading.style.display = "none";
+    			});
     		}
     	}
 
-    	scrollableDiv.addEventListener("scroll", handleScroll);
+    	function handleScroll(context, content, loading) {
+    		console.log(context.scrollTop + context.clientHeight >= context.scrollHeight - 10);
+    		if (context.scrollTop + context.clientHeight >= context.scrollHeight - 10) {
+    			fetchMoreContent(content, loading);
+    		}
+    	}
 
-    	// Load initial content
-    	fetchMoreContent();
+    	scrollableDiv.addEventListener("scroll", () => {
+    		handleScroll(scrollableDiv, content, loading);
+    	});
+
+    	scrollableDiv2.addEventListener("scroll", () => {
+    		handleScroll(scrollableDiv2, content2, loading2);
+    	});
+
+    	fetchMoreContent(content, loading);
 
     	(function($) {
     		let id_petugas = "";
@@ -564,46 +626,83 @@
     	function selectPetugas(context, id) {
     		let value = {};
     		apiResponse.forEach((val, idx) => {
-    			if (val.mal_id == id) {
+    			if (val.id == id) {
     				value = val;
     				return;
     			}
     		});
-    		context.classList.toggle("bg-success");
-    		let addNew = true;
-    		selectedPetugas.forEach((val, idx) => {
-    			if (val.mal_id == id) {
-    				selectedPetugas.splice(idx, 1);
-    				addNew = false;
-    				return;
-    			}
+    		$(".petugas-item").each(function() {
+    			this.classList.remove("bg-success");
     		});
-    		if (addNew) {
-    			selectedPetugas.push(value);
+    		if (selectedPetugas && selectedPetugas.id == id) {
+    			selectedPetugas = [];
+    		} else {
+    			context.classList.add("bg-success");
+    			selectedPetugas = value;
     		}
+    		// context.classList.toggle("bg-success");
+    		// let addNew = true;
+    		// selectedPetugas.forEach((val, idx) => {
+    		// 	if (val.id == id) {
+    		// 		selectedPetugas.splice(idx, 1);
+    		// 		addNew = false;
+    		// 		return;
+    		// 	}
+    		// });
+    		// if (addNew) {
+    		// 	selectedPetugas.push(value);
+    		// }
+
     		console.log(selectedPetugas);
     	}
 
-    	function petugasDisplayGrid(image, name, id, is_selected = false) {
+    	function petugasDisplayGrid(image, data, is_selected = false) {
+    		let id = data.id;
+    		let name = data.nama;
+    		let cabang = data.nama_cabang;
     		let sel = is_selected ? "bg-success" : "";
-    		return ` 
-            <div class="col-sm-3 d-flex justify-content-center" >
-                <div class = "mt-2 pt-2 ` + sel + `"
-                style = "width: 18rem; border-radius : 10px; cursor: pointer"
-                onclick = "selectPetugas(this, '` + id + `')"
-                id = "` + id + `" >
-                    <div class = "card-img-top d-flex justify-content-center px-2" >
-                        <img src = "` + image + `"
-                        style = "height: 200px; border-radius : 10px"
-                        alt = "` + name + `'s cover image" >
-                    </div> 
-                    <div class = "card-body"
-                    style = "margin-top: -10px; white-space: initial" >
-                        <h6 > ` + name + ` </h6> 
-                    </div> 
-                </div> 
-            </div>
-            `;
+    		return `
+				<div class="col-12 col-lg-6 d-flex justify-content-center mb-3">
+					<div class="d-flex align-items-center p-2 mt-2 petugas-item ` + sel + `"
+						style="width:100%; border-radius:10px; cursor:pointer; background:#fff;"
+						onclick="selectPetugas(this, '` + id + `')"
+						id="` + id + `">
+						<div class="flex-shrink-0 me-3" style="width:90px; height:110px; overflow:hidden; border-radius:8px;">
+							<img src="` + image + `" alt="` + name + `"
+								style="width:100%; height:100%; object-fit:cover; display:block;" />
+						</div>
+						<div class="flex-grow-1" style="white-space:normal;">
+							<h5 class="mb-1" style="font-weight:600;">` + name + `</h5>ID:` + id + `
+							<div class="text-muted small">` + cabang.replace('-', '<br>') + `</div>
+						</div>
+					</div>
+				</div>
+			`;
+    	}
+
+    	function confirmPetugasSelection(confirm) {
+    		if (confirm) {
+    			if (!selectedPetugas || selectedPetugas.length == 0) {
+    				Swal.fire({
+    					icon: 'warning',
+    					title: 'Pilih Petugas',
+    					text: 'Silahkan pilih petugas terlebih dahulu.'
+    				});
+    				selectedPetugas = [];
+    				$('#pilih-petugas').html('<i class="fas fa-add"></i>&nbsp;Pilih Petugas');
+    				$('#pilih-petugas').addClass('btn-primary');
+    				$('#pilih-petugas').removeClass('btn-success');
+    				return;
+    			}
+    			$('#pilih-petugas').html('Petugas Terpilih: ' + selectedPetugas.nama);
+    			$('#pilih-petugas').removeClass('btn-primary');
+    			$('#pilih-petugas').addClass('btn-success');
+    		} else {
+    			selectedPetugas = [];
+    			$('#pilih-petugas').html('<i class="fas fa-add"></i>&nbsp;Pilih Petugas');
+    			$('#pilih-petugas').addClass('btn-primary');
+    			$('#pilih-petugas').removeClass('btn-success');
+    		}
     	}
 
     	function searchPetugas(input, page = 1, callback = () => {}) {
@@ -621,7 +720,7 @@
     				url: origin + "petugas/search_petugas",
     				type: "get",
     				data: {
-    					q: input.value,
+    					q: input.value ?? "",
     					page: page
     				},
     				success: function(response) {
@@ -630,18 +729,221 @@
     						animeDisplay.innerHTML = "";
     						searchPage = 1;
     					}
-    					hasNextPage = response.pagination.has_next_page;
+    					hasNextPage = response.has_next_page;
     					apiResponse = response.data;
     					response.data.forEach((value, index) => {
     						let selected = false;
-    						selectedPetugas.forEach((val, idx) => {
+    						if (selectedPetugas.id == value.id) {
+    							selected = true;
+    						}
+    						animeDisplay.innerHTML += petugasDisplayGrid(origin + "assets/img/profile/" + value.foto, value, selected);
+    					});
+    					callback();
+    				},
+    				error: function(xhr) {
+    					alert("<b>Error</b><br> Internal Server Error");
+    					callback()
+    				}
+    			});
+    		}, 500);
+    	}
+
+    	function selectLaporan(context, id) {
+    		let value = {};
+    		apiResponse.forEach((val, idx) => {
+    			if (val.id == id) {
+    				value = val;
+    				return;
+    			}
+    		});
+
+    		context.classList.toggle("bg-success");
+    		let addNew = true;
+    		selectedLaporan.forEach((val, idx) => {
+    			if (val.id == id) {
+    				selectedLaporan.splice(idx, 1);
+    				addNew = false;
+    				return;
+    			}
+    		});
+    		if (addNew) {
+    			selectedLaporan.push(value);
+    		}
+
+    		console.log(selectedLaporan);
+    	}
+
+    	function laporanDisplayGrid(image, data, is_selected = false) {
+    		let id = data.id;
+    		let kategori = data.kategori;
+    		let level = data.tingkat_keparahan;
+    		let kabkot = data.kabkot;
+    		let deskripsi = data.deskripsi;
+    		let longitude = data.longitude;
+    		let latitude = data.latitude;
+    		let sel = is_selected ? "bg-success" : "";
+    		let collapseId = "collapse_" + id;
+    		let collapseMapId = "collapse_map_" + id;
+    		let mapDivId = "leaflet_map_" + id;
+    		return `
+				<div class="col-12 col-lg-6 d-flex justify-content-center mb-3">
+					<div class="p-2 mt-2 petugas-item ` + sel + `"
+						style="width:100%; border-radius:10px; cursor:pointer; background:#fff;"
+						onclick="selectLaporan(this, '` + id + `')"
+						id="` + id + `">
+						<div class="d-flex align-items-center">
+							<div class="flex-shrink-0 me-3" style="width:110px; height:110px; overflow:hidden; border-radius:8px;">
+								<img src="` + image + `" alt="` + kategori + `"
+									onerror="this.onerror=null;this.src='` + origin + `assets/img/dokumentasi/no-image.png';"
+									style="width:100%; height:100%; object-fit:cover; display:block;" />
+							</div>
+							<div class="flex-grow-1" style="white-space:normal;">
+								<h5 class="mb-2" style="font-weight:600;">` + kategori + `</h5>
+								<div class="mb-1"><small><strong>ID:` + id + `</strong></small></div>
+								<div class="mb-1"><small>Level <strong>` + level + `</strong></small></div>
+								<div class="text-muted small mb-2">` + kabkot + `</div>
+								<div class="d-flex gap-2">
+									<button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#` + collapseId + `" aria-expanded="false" aria-controls="` + collapseId + `" onclick="event.stopPropagation();">
+										<i class="bi bi-chevron-down"></i> Deskripsi
+									</button>
+									<button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#` + collapseMapId + `" aria-expanded="false" aria-controls="` + collapseMapId + `" onclick="event.stopPropagation(); initLaporanMap('` + id + `', ` + latitude + `, ` + longitude + `);">
+										<i class="bi bi-geo-alt"></i> Map
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="collapse mt-2" id="` + collapseId + `">
+							<div class="card card-body p-2 border-0" style="background:#f8f9fa; font-size:0.9rem;">
+								` + deskripsi + `
+							</div>
+						</div>
+
+						<div class="collapse mt-2" id="` + collapseMapId + `">
+							<div class="card card-body p-2 border-0" style="background:#fff; font-size:0.9rem;">
+								<div style="width:100%; height:220px;">
+									<div id="` + mapDivId + `" style="width:100%; height:100%; border-radius:6px; overflow:hidden;"></div>
+									<div class="mt-1 small text-muted">Longitude: ` + longitude + ` &nbsp;|&nbsp; Latitude: ` + latitude + `</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			`;
+    	}
+
+    	// Initialize Leaflet map for laporan item. Creates map only once per id.
+    	function initLaporanMap(id, lat, lon) {
+    		try {
+    			var mapDivId = 'leaflet_map_' + id;
+    			var container = document.getElementById(mapDivId);
+    			if (!container) return;
+    			window.laporanMaps = window.laporanMaps || {};
+    			if (window.laporanMaps[id]) {
+    				try {
+    					window.laporanMaps[id].invalidateSize();
+    				} catch (e) {}
+    				window.laporanMaps[id].setView([lat, lon], 13);
+    				return;
+    			}
+    			if (typeof L === 'undefined') {
+    				container.innerHTML = '<div style="padding:10px;color:#666">Leaflet tidak ditemukan. Pastikan library Leaflet dimuat.</div>';
+    				return;
+    			}
+    			var map = L.map(mapDivId, {
+    				scrollWheelZoom: false
+    			}).setView([lat, lon], 13);
+    			L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    				attribution: '&copy; OSM'
+    			}).addTo(map);
+    			L.marker([lat, lon]).addTo(map);
+    			window.laporanMaps[id] = map;
+    			// small delay to ensure container is visible and sized
+    			setTimeout(function() {
+    				try {
+    					map.invalidateSize();
+    				} catch (e) {}
+    			}, 200);
+    		} catch (e) {
+    			console.error('initLaporanMap error', e);
+    		}
+    	}
+
+    	function confirmLaporanSelection(confirm) {
+    		if (confirm) {
+    			if (!selectedLaporan || selectedLaporan.length == 0) {
+    				Swal.fire({
+    					icon: 'warning',
+    					title: 'Pilih Laporan',
+    					text: 'Silahkan pilih laporan terlebih dahulu.'
+    				});
+    				selectedLaporan = [];
+					$('#pilih-laporan').addClass('btn-primary');
+					$('#pilih-laporan').removeClass('btn-success');
+					// clear displayed list
+					$('#selected-laporan-list').html('');
+    				return;
+    			}
+			$('#pilih-laporan').removeClass('btn-primary');
+			$('#pilih-laporan').addClass('btn-success');
+			// render selected laporan list below the button as cards
+			try {
+				var items = Array.isArray(selectedLaporan) ? selectedLaporan : [selectedLaporan];
+				var listHtml = '';
+				items.forEach(function(item) {
+					var iid = item.id || '-';
+					var ikat = item.kategori || item.nama || '-';
+					listHtml += '<div class="card mt-2 mb-2" style="border:1px solid #ddd;">' +
+						'<div class="card-body p-2 container px-3">' +
+						'<span>ID:' + iid + ' - ' + ikat + '</span>' +
+						'</div>' +
+						'</div>';
+				});
+				$('#selected-laporan-list').html(listHtml);
+			} catch (e) {
+				console.error('render selected laporan list failed', e);
+			}
+    		} else {
+    			selectedLaporan = [];
+				$('#pilih-laporan').addClass('btn-primary');
+				$('#pilih-laporan').removeClass('btn-success');
+				// clear displayed list
+				$('#selected-laporan-list').html('');
+    		}
+    	}
+
+    	function searchLaporan(input, page = 1, callback = () => {}) {
+    		clearInterval(searchInterval);
+    		if (page == 1) {
+    			document.getElementById("scrollableDiv2").scrollTo({
+    				top: 0,
+    				behavior: 'smooth'
+    			});
+    		}
+    		searchInterval = setTimeout(() => {
+    			$.ajax({
+    				// url: origin + "petugas/search_petugas",
+    				url: origin + "penanganan/search_laporan",
+    				type: "get",
+    				data: {
+    					q: input.value ?? "",
+    					page: page
+    				},
+    				success: function(response) {
+    					const animeDisplay = document.getElementById("laporan-display");
+    					if (page == 1) {
+    						animeDisplay.innerHTML = "";
+    						searchPage = 1;
+    					}
+    					hasNextPage = response.has_next_page;
+    					apiResponse = response.data;
+    					response.data.forEach((value, index) => {
+    						let selected = false;
+    						selectedLaporan.forEach((val, idx) => {
     							if (val.id == value.id) {
     								selected = true;
-    								return;
     							}
     						});
-    						animeDisplay.innerHTML += petugasDisplayGrid(origin + "assets/img/profile/" + value.foto, value.nama,
-    							value.id, selected);
+    						animeDisplay.innerHTML += laporanDisplayGrid(origin + "assets/img/dokumentasi/" + value.foto, value, selected);
     					});
     					callback();
     				},
