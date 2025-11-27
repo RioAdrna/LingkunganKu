@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2025 at 09:11 AM
+-- Generation Time: Nov 27, 2025 at 06:08 PM
 -- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -42,7 +42,9 @@ CREATE TABLE `cabang` (
 
 INSERT INTO `cabang` (`id`, `nama_cabang`, `kabkot_id`, `latitude`, `longitude`, `created_at`) VALUES
 (3, 'Pandawara', 1, -6.794342, 107.534180, '2025-11-26 14:11:42'),
-(4, 'Garuda Corps', 5, -7.101957, 106.984863, '2025-11-26 14:12:40');
+(4, 'Garuda Corps', 5, -7.101957, 106.984863, '2025-11-26 14:12:40'),
+(5, 'Squirell Sanctuary', 4, -6.597937, 106.776123, '2025-11-27 12:31:30'),
+(6, 'Neuro', 1, -7.061541, 107.523193, '2025-11-27 12:32:48');
 
 -- --------------------------------------------------------
 
@@ -564,8 +566,10 @@ INSERT INTO `users` (`id`, `cabang_petugas_id`, `nik`, `nama`, `email`, `passwor
 (2, NULL, NULL, 'Siti Lestari', 'siti@gmail.com', '$2y$10$i7Q0yfnvnohbrZCAw4ISKu3yMAmMfKMGz5/PtcbWT8wBGG0jI/P3O', 'user', '082145678912', 'Jl. Pasir Koja No. 12, Bandung', '2025-11-10 11:33:31', 'user_2_1763811211.jpg'),
 (3, 4, NULL, 'Budi Santoso', 'budi@gmail.com', '$2y$10$i7Q0yfnvnohbrZCAw4ISKu3yMAmMfKMGz5/PtcbWT8wBGG0jI/P3O', 'petugas', '081345678901', 'Jl. Cipaganti No. 7, Bandung', '2025-11-10 11:33:31', 'user_3_1763811502.jpg'),
 (5, NULL, NULL, 'Admin Lingkungan', 'admin@dlh.go.id', '123456', 'admin', '081234567002', 'Kantor Dinas Lingkungan Hidup', '2025-11-10 11:33:31', ''),
-(6, 3, '3273221905060111', 'Kumis Aster', 'ufwhuifwehfu@mm.com', '$2y$10$XoWCyn/mGGw9IQc6yApqreMHE0zf3bpbBg9ywSXSkt0xR62ERJzcG', 'petugas', '08298381362', 'feuhweufhwe', '2025-11-26 16:30:57', NULL),
-(7, 4, '1234567890123663', 'Anggia Rahmadita', 'rahmadita1945@gmail.com', '$2y$10$Zpjgf8P6wCdHIiTdwRdMLOlN3qgEyMarCJmKRW32blte6UPGkstLu', 'petugas', '081224018624', 'Gegerkalong', '2025-11-27 08:10:51', 'user_1764231051.jpg');
+(6, 3, '3273221905060111', 'Kumis Aster', 'ufwhuifwehfu@mm.com', '$2y$10$XoWCyn/mGGw9IQc6yApqreMHE0zf3bpbBg9ywSXSkt0xR62ERJzcG', 'petugas', '08298381362', 'feuhweufhwe', '2025-11-26 16:30:57', 'user_1764247094.jpg'),
+(7, 4, '1234567890123663', 'Anggia Rahmadita', 'rahmadita1945@gmail.com', '$2y$10$Zpjgf8P6wCdHIiTdwRdMLOlN3qgEyMarCJmKRW32blte6UPGkstLu', 'petugas', '081224018624', 'Gegerkalong', '2025-11-27 08:10:51', 'user_1764231051.jpg'),
+(10, 5, '1234567890123654', 'Jane Doe', 'email@example.net', '$2y$10$urniwPAzQgiz7/bSjd50KeCpon1KN5PM45/3VSrt.Y4ayLGvtk8y.', 'petugas', '0812278481', 'Dimana Saja', '2025-11-27 12:35:50', 'user_1764246949.jpg'),
+(11, 6, '7823146473812', 'Muhammad Rayhan Fathurrakhman', 'sangku@gg.co', '$2y$10$pCD01Slvw71weFA0VcEN5.3r3Z9bdDXGN/oXU7XjWzRWwywkJFfWe', 'petugas', '081224012334', 'Bandung lah', '2025-11-27 12:36:50', 'user_1764247010.jpg');
 
 --
 -- Indexes for dumped tables
@@ -626,7 +630,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cabang`
 --
 ALTER TABLE `cabang`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `kabkot`
@@ -656,7 +660,7 @@ ALTER TABLE `penanganan`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
