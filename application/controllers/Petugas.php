@@ -206,8 +206,8 @@ class Petugas extends CI_Controller
 		$page = $this->input->get("page");
 		$per_page = 10;
 		$res = $this->model_petugas->search_petugas($q, $page, $per_page);
-        $total = $this->model_petugas->count_search_total($q, $page);
-        $count = $this->model_petugas->count_search($q, $page);
+        $total = $this->model_petugas->count_search_total($q);
+        $count = $this->model_petugas->count_search($q, $page, $per_page);
         $data = [
             'status' => 200,
             'message' => 'Berhasil request',

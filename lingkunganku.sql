@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2025 at 08:53 AM
+-- Generation Time: Nov 27, 2025 at 09:11 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.12
 
@@ -564,7 +564,8 @@ INSERT INTO `users` (`id`, `cabang_petugas_id`, `nik`, `nama`, `email`, `passwor
 (2, NULL, NULL, 'Siti Lestari', 'siti@gmail.com', '$2y$10$i7Q0yfnvnohbrZCAw4ISKu3yMAmMfKMGz5/PtcbWT8wBGG0jI/P3O', 'user', '082145678912', 'Jl. Pasir Koja No. 12, Bandung', '2025-11-10 11:33:31', 'user_2_1763811211.jpg'),
 (3, 4, NULL, 'Budi Santoso', 'budi@gmail.com', '$2y$10$i7Q0yfnvnohbrZCAw4ISKu3yMAmMfKMGz5/PtcbWT8wBGG0jI/P3O', 'petugas', '081345678901', 'Jl. Cipaganti No. 7, Bandung', '2025-11-10 11:33:31', 'user_3_1763811502.jpg'),
 (5, NULL, NULL, 'Admin Lingkungan', 'admin@dlh.go.id', '123456', 'admin', '081234567002', 'Kantor Dinas Lingkungan Hidup', '2025-11-10 11:33:31', ''),
-(6, 3, '3273221905060111', 'Kumis Aster', 'ufwhuifwehfu@mm.com', '$2y$10$XoWCyn/mGGw9IQc6yApqreMHE0zf3bpbBg9ywSXSkt0xR62ERJzcG', 'petugas', '08298381362', 'feuhweufhwe', '2025-11-26 16:30:57', NULL);
+(6, 3, '3273221905060111', 'Kumis Aster', 'ufwhuifwehfu@mm.com', '$2y$10$XoWCyn/mGGw9IQc6yApqreMHE0zf3bpbBg9ywSXSkt0xR62ERJzcG', 'petugas', '08298381362', 'feuhweufhwe', '2025-11-26 16:30:57', NULL),
+(7, 4, '1234567890123663', 'Anggia Rahmadita', 'rahmadita1945@gmail.com', '$2y$10$Zpjgf8P6wCdHIiTdwRdMLOlN3qgEyMarCJmKRW32blte6UPGkstLu', 'petugas', '081224018624', 'Gegerkalong', '2025-11-27 08:10:51', 'user_1764231051.jpg');
 
 --
 -- Indexes for dumped tables
@@ -655,7 +656,7 @@ ALTER TABLE `penanganan`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables

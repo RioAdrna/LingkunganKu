@@ -87,4 +87,27 @@ class Model_petugas extends CI_Model
 		$this->db->limit($per_page, ($page-1)*$per_page);
 		return $this->db->get('users')->result();
 	}
+
+	function count_search_total($q)
+	{
+		$this->db->select('count(users.id) as total');
+		$this->db->where('role', 'petugas');
+		$this->__search($q);
+		$this->db->join('cabang', 'cabang.id = users.cabang_petugas_id');
+		$this->db->join('kabkot', 'kabkot.id = cabang.kabkot_id', 'left');
+		return $this->db->get('users')->result()[0]->total;
+		
+	}
+
+	function count_search($q, $page, $per_page)
+	{
+		$this->db->select('count(users.id) as total');
+		$this->db->where('role', 'petugas');
+		$this->__search($q);
+		$this->db->join('cabang', 'cabang.id = users.cabang_petugas_id');
+		$this->db->join('kabkot', 'kabkot.id = cabang.kabkot_id', 'left');
+		$this->db->limit($per_page, ($page-1)*$per_page);
+		return $this->db->get('users')->result()[0]->total;
+		
+	}
 }

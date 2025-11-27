@@ -635,13 +635,13 @@
     					response.data.forEach((value, index) => {
     						let selected = false;
     						selectedPetugas.forEach((val, idx) => {
-    							if (val.mal_id == value.mal_id) {
+    							if (val.id == value.id) {
     								selected = true;
     								return;
     							}
     						});
-    						animeDisplay.innerHTML += petugasDisplayGrid(value.images.jpg.image_url, value.name,
-    							value.mal_id, selected);
+    						animeDisplay.innerHTML += petugasDisplayGrid(origin + "assets/img/profile/" + value.foto, value.nama,
+    							value.id, selected);
     					});
     					callback();
     				},
