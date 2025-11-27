@@ -199,4 +199,30 @@ class Petugas extends CI_Controller
                 "judul" => "Gagal dihapus"
             ));
     }
+
+	public function search_petugas()
+	{
+		$q = $this->input->get("q");
+		$page = $this->input->get("page");
+		$per_page = 10;
+		$res = $this->model_petugas->search_petugas($q, $page, $per_page);
+        $total = $this->model_petugas->count_search_total($q, $page);
+        $count = $this->model_petugas->count_search($q, $page);
+        $data = [
+            'status' => 200,
+            'message' => 'Berhasil request',
+            'data' => $res,
+			'current_page' => (int)$page,
+			'has_next_page' => ($per_page * $page) < $total,
+			'pagination' => [
+				'count' => $count,
+				'per_page' => $per_page,
+				'total' => $total,
+			]
+        ];
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($data));
+        return;
+	}
 }

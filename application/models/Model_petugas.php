@@ -67,4 +67,24 @@ class Model_petugas extends CI_Model
 		$this->db->where("id", $id);
 		return $this->db->delete("users");
 	}
+
+	function search_petugas($q, $page,$per_page){
+		$this->db->select('users.id as id');
+		$this->db->select('CONCAT(cabang.nama_cabang, " - ", kabkot.nama) as nama_cabang');
+		$this->db->select('users.nama as nama');
+		$this->db->select('users.nik as nik');
+		$this->db->select('users.email as email');
+		$this->db->select('users.no_hp as no_hp');
+		$this->db->select('users.alamat as alamat');
+		$this->db->select('users.foto as foto');
+		$this->db->select('cabang.id as id_cabang');
+
+		$this->db->where('role', 'petugas');
+		$this->__search($q);
+		$this->db->join('cabang', 'cabang.id = users.cabang_petugas_id');
+		$this->db->join('kabkot', 'kabkot.id = cabang.kabkot_id', 'left');
+		$this->db->order_by('nama', 'asc');
+		$this->db->limit($per_page, ($page-1)*$per_page);
+		return $this->db->get('users')->result();
+	}
 }
