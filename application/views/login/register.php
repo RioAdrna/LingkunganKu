@@ -354,24 +354,20 @@
 				let isValid = true;
 				let errorMessage = "";
 
-				// Cek jika ada field yang kosong
 				if (nama.length < 1 || email.length < 1 || password.length < 1 || ulangiPassword.length < 1) {
 					errorMessage = "Semua field wajib diisi";
 					isValid = false;
 
-					// Tambah class error ke semua field yang kosong
 					if (nama.length < 1) $("#nama").parent().parent().addClass("error");
 					if (email.length < 1) $("#email").parent().parent().addClass("error");
 					if (password.length < 1) $("#password").parent().parent().addClass("error");
 					if (ulangiPassword.length < 1) $("#ulangi").parent().parent().addClass("error");
 				} else {
-					// Jika semua field terisi, lanjut validasi lainnya
 					$("#nama").parent().parent().removeClass("error");
 					$("#email").parent().parent().removeClass("error");
 					$("#password").parent().parent().removeClass("error");
 					$("#ulangi").parent().parent().removeClass("error");
 
-					// Validasi panjang password
 					if (password.length < 8) {
 						errorMessage = "Password harus minimal 8 karakter";
 						$("#password").parent().parent().addClass("error");
@@ -379,7 +375,6 @@
 						isValid = false;
 					}
 
-					// Validasi kecocokan password
 					if (password !== ulangiPassword) {
 						errorMessage = "Password tidak cocok";
 						$("#password").parent().parent().addClass("error");
@@ -398,10 +393,8 @@
 					return;
 				}
 
-				// Tampilkan loading dengan delay agar terlihat lebih lama
 				$("#loading").show();
 
-				// Tambahkan delay kecil sebelum mengirim AJAX
 				setTimeout(function() {
 					$.ajax({
 						url: base_url + "register/submit",
@@ -429,7 +422,6 @@
 						},
 						success: function(res) {
 							if (res.sts == 1) {
-								// Tambah delay sebelum redirect agar loading terlihat
 								setTimeout(function() {
 									window.location.href = base_url + "Login";
 								}, 500);
@@ -449,7 +441,7 @@
 							}
 						}
 					});
-				}, 800); // Delay 800ms sebelum mengirim AJAX
+				}, 800);
 			});
 
 			$("input").on("input", function() {
