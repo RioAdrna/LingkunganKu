@@ -74,7 +74,7 @@
 						<div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
 							<i class="fas fa-tasks text-dark text-sm opacity-10"></i>
 						</div>
-						<span class="nav-link-text ms-1">Status Laporan</span>
+						<span class="nav-link-text ms-1">Riwayat Laporan</span>
 					</a>
 				</li>
 
@@ -133,15 +133,17 @@
 			</ul>
 		</div>
 		<div class="sidenav-footer mx-3 ">
-			<div class="card card-plain shadow-none" id="sidenavCard">
-				<img class="w-50 mx-auto" src="<?= base_url('assets/img/illustrations/icon-documentation.svg') ?>" alt="sidebar_illustration">
-				<div class="card-body text-center p-3 w-100 pt-0">
-					<div class="docs-info">
-						<h6 class="mb-0">Need help?</h6>
-						<!-- <p class="text-xs font-weight-bold mb-0">Please check our docs</p> -->
+			<a href="<?= base_url("?p=" . base64_encode('bantuan')) ?>" class=" text-decoration-none">
+				<div class="card card-plain shadow-none" id="sidenavCard">
+					<img class="w-50 mx-auto" src="<?= base_url('assets/img/illustrations/icon-documentation.svg') ?>" alt="sidebar_illustration">
+					<div class="card-body text-center p-3 w-100 pt-0">
+						<div class="docs-info">
+							<h6 class="mb-0">Need help?</h6>
+							<!-- <p class="text-xs font-weight-bold mb-0">Please check our docs</p> -->
+						</div>
 					</div>
 				</div>
-			</div>
+			</a>
 			<br>
 			<a class="btn btn-danger mt-3 w-100" href="<?= base_url('login/logout') ?>"><i class="fas fa-sign-out-alt"></i>&nbsp;
 				Logout</a>

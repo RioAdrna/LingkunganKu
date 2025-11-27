@@ -148,73 +148,138 @@ $("#simpan").click(function () {
 });
 
 $(document).ready(function () {
-	dataTableConfig = {
-		serverSide: true,
-		ajax: {
-			url: origin + "cabang/data_cabang/",
-			dataSrc: "data",
-		},
-		order: [0, "desc"],
-		columnDefs: [
-			{
-				width: "20%",
-				targets: 1,
-			},
-		],
-		columns: [
-			{
-				title: "ID",
-				data: "id",
-			},
-			{
-				title: "Cabang",
-				data: "nama_cabang",
-			},
-			{
-				title: "Kabupaten/ Kota",
-				data: "kabkot",
-			},
-			{
-				title: "Lokasi",
-				render: function (data, type, row, meta) {
-					return (
-						`
-						<input type="hidden" id="longitude" value="${row.longitude}">
-						<input type="hidden" id="latitude" value="${row.latitude}">
-                            <a class="btn btn-sm btn-primary" href="` +
-						url_map +
-						`&longitude=` +
-						row.longitude +
-						`&latitude=` +
-						row.latitude +
-						`">
+	$(document).ready(function () {
+    dataTableConfig = {
+        serverSide: true,
+        responsive: true,
+        autoWidth: false,
+        scrollX: false,
+        language: {
+            paginate: {
+                previous: '<i class="fas fa-chevron-left"></i>',
+                next: '<i class="fas fa-chevron-right"></i>'
+            },
+            zeroRecords: "Data Cabang tidak ditemukan"
+        },
+        lengthChange: true,
+        searching: false,
+        info: false,
+        createdRow: function (row, data, dataIndex) {
+            // Tambahkan class untuk alignment tengah di semua sel
+            $('td', row).css({
+                'vertical-align': 'middle',
+                'text-align': 'center'
+            });
+        },
+        ajax: {
+            url: origin + "cabang/data_cabang/",
+            dataSrc: function (json) {
+                console.log("Response from server:", json);
+                return json.data;
+            },
+            error: function (xhr, error, thrown) {
+                console.log("AJAX Error:", xhr, error, thrown);
+            }
+        },
+        order: [[1, "desc"]], // Urutkan berdasarkan kolom ke-1 (Cabang)
+        columnDefs: [
+            {
+                targets: '_all', // Semua kolom
+                className: 'dt-body-center' // Class untuk alignment tengah
+            },
+            {
+                targets: 0, // Kolom No
+                orderable: false,
+                searchable: false,
+                width: '5%'
+            },
+            {
+                targets: 1, // Kolom Cabang
+                width: "25%"
+            },
+            {
+                targets: 2, // Kolom Kabupaten/Kota
+                width: "20%"
+            },
+            {
+                targets: 3, // Kolom Lokasi
+                defaultContent: "-",
+                width: "30%",
+                render: function (data, type, row, meta) {
+                    if (!row.longitude || !row.latitude) {
+                        return '<div style="display: flex; align-items: center; justify-content: center; height: 100%;">Lokasi tidak tersedia</div>';
+                    }
+                    return `
+                        <div style="display: flex; gap: 5px; align-items: center; justify-content: center; flex-wrap: nowrap;">
+                            <a class="btn btn-sm btn-primary" href="${url_map}&longitude=${row.longitude}&latitude=${row.latitude}">
                                 Lihat Lokasi
                             </a>
-							<a class="btn btn-sm btn-secondary" href="https://www.google.com/maps?q=${row.latitude},${row.longitude}">
-								Buka di Google Maps
-							</a>
-                        `
-					);
-				},
-			},
-			{
-				title: "Action",
-				data: "id",
-				render: function (data, type, row, meta) {
-					return (
-						`
-                            <button class="btn btn-sm btn-warning" onclick="edit(this, '${row.kabkot_id}')">
-                            	<i class="bi bi-pencil"></i>
+                            <a class="btn btn-sm btn-secondary" href="https://www.google.com/maps?q=${row.latitude},${row.longitude}" target="_blank">
+                                Google Maps
+                            </a>
+                        </div>
+                    `;
+                }
+            },
+            {
+                targets: 4, // Kolom Action
+                defaultContent: "-",
+                orderable: false,
+                searchable: false,
+                width: "20%",
+                render: function (data, type, row, meta) {
+                    return `
+                        <div style="display: flex; gap: 5px; align-items: center; justify-content: center; flex-wrap: nowrap;">
+                            <button class="btn btn-sm btn-warning" onclick="edit(this, '${row.kabkot_id || ''}')">
+                                <i class="bi bi-pencil"></i>
                             </button>
-                            <button class="btn btn-sm btn-danger" onclick="deleteM(this)">
-                            	<i class="bi bi-trash"></i>
+                            <button class="btn btn-sm btn-danger" onclick="deleteM(${row.id})">
+                                <i class="bi bi-trash"></i>
                             </button>
-                        `
-					);
-				},
-			},
-		],
-	};
+                        </div>
+                    `;
+                }
+            }
+        ],
+        columns: [
+            {
+                title: "No",
+                data: null,
+                defaultContent: "-",
+                render: function (data, type, row, meta) {
+                    if (type === 'display') {
+                        return '<div style="display: flex; align-items: center; justify-content: center; height: 100%;">' + (meta.settings._iDisplayStart + meta.row + 1) + '</div>';
+                    }
+                    return meta.row + 1;
+                }
+            },
+            {
+                title: "Cabang",
+                data: "nama_cabang",
+                defaultContent: "-",
+                render: function (data, type, row) {
+                    return '<div style="display: flex; align-items: center; justify-content: center; height: 100%;">' + (data || '-') + '</div>';
+                }
+            },
+            {
+                title: "Kabupaten/Kota",
+                data: "kabkot",
+                defaultContent: "-",
+                render: function (data, type, row) {
+                    return '<div style="display: flex; align-items: center; justify-content: center; height: 100%;">' + (data || '-') + '</div>';
+                }
+            },
+            {
+                title: "Lokasi",
+                defaultContent: "-"
+            },
+            {
+                title: "Action",
+                defaultContent: "-"
+            }
+        ]
+    };
+});
 
 	$(document).ready(function () {
 		table = $("#tabel_lapor").DataTable(dataTableConfig);
