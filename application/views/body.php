@@ -300,35 +300,35 @@
 			<!-- Chatbot Box -->
 			<div id="chatbot-box"
 				style="position: fixed; bottom: 110px; right: 30px; width: 420px; 
-					height: 420px; background:white; border-radius: 15px;
-					box-shadow:0 6px 20px rgba(0,0,0,0.25);
-					display:none; flex-direction:column; overflow:hidden; z-index:9999;
-					animation: fadeInUp 0.3s ease;">
+				height: 420px; background:white; border-radius: 15px;
+				box-shadow:0 6px 20px rgba(0,0,0,0.25);
+				display:none; flex-direction:column; overflow:hidden; z-index:9999;
+				animation: fadeInUp 0.3s ease;
+				max-width: calc(100vw - 40px); max-height: 70vh;">
 
-				<div style="background:#4e73df; color:white; padding:15px; font-weight:bold;">
+				<div style="background:#4e73df; color:white; padding:15px; font-weight:bold; flex-shrink: 0;">
 					<i class="fas fa-robot"></i> LingkunganKu AI Assistant
 				</div>
 
-				<div id="chat-content" style="padding:10px; height:300px; overflow-y:auto;">
+				<div id="chat-content" style="padding:10px; height:100%; overflow-y:auto; flex: 1; min-height: 0;">
 					<p><b>AI:</b> Halo! Ada yang bisa saya bantu?</p>
 				</div>
 
-				<div style="display:flex; border-top:1px solid #ddd; padding:8px; gap:8px; align-items:center;">
+				<div style="display:flex; border-top:1px solid #ddd; padding:8px; gap:8px; align-items:center; flex-shrink: 0;">
 
 					<input id="chat-input" type="text"
-						style="flex:1; border:1px solid #ccc; padding:10px 14px; border-radius:10px; outline:none;"
+						style="flex:1; border:1px solid #ccc; padding:10px 14px; border-radius:10px; outline:none; font-size: 14px;"
 						placeholder="Tulis pesan...">
 
 					<button id="send-btn"
-						style="width:50px; height:45px; border:none; border-radius:50%;
-					background:#016B61; color:white; display:flex; justify-content:center;
-					align-items:center; cursor:pointer; font-size:20px;
-					box-shadow:0 4px 12px rgba(0,0,0,0.25);">
+						style="width:45px; height:45px; border:none; border-radius:50%;
+						background:#016B61; color:white; display:flex; justify-content:center;
+						align-items:center; cursor:pointer; font-size:18px;
+						box-shadow:0 4px 12px rgba(0,0,0,0.25); flex-shrink: 0;">
 						<i class="fas fa-paper-plane"></i>
 					</button>
 
 				</div>
-
 			</div>
 			<i class="fa fa-cog py-2"> </i>
 		</a>

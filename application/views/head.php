@@ -34,4 +34,73 @@
     <link rel="stylesheet" type="text/css" href="<?= base_url("assets/vendor/libs/filepond/dist/filepond.min.css") ?>">
     <link rel="stylesheet" type="text/css" href="<?= base_url("assets/vendor/libs/filepond/plugins/filepond-plugin-image-preview/filepond-plugin-image-preview.min.css") ?>">
 
+    <style>
+        /* Responsive styles untuk mobile */
+        @media (max-width: 768px) {
+            #chatbot-box {
+                right: 20px !important;
+                left: 20px !important;
+                bottom: 100px !important;
+                width: auto !important;
+                height: 60vh !important;
+                max-width: none !important;
+                max-height: 60vh !important;
+            }
+
+            #chat-input {
+                font-size: 16px !important;
+                /* Prevent zoom on iOS */
+                padding: 12px 16px !important;
+            }
+
+            #send-btn {
+                width: 50px !important;
+                height: 50px !important;
+                font-size: 20px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #chatbot-box {
+                right: 10px !important;
+                left: 10px !important;
+                bottom: 90px !important;
+                height: 55vh !important;
+                max-height: 55vh !important;
+                border-radius: 12px !important;
+            }
+
+            #chat-content {
+                padding: 8px !important;
+            }
+
+            #chat-input {
+                padding: 10px 14px !important;
+            }
+        }
+
+        /* Pastikan flex layout bekerja dengan baik */
+        #chatbot-box {
+            display: none;
+            flex-direction: column;
+        }
+
+        #chat-content {
+            flex: 1;
+            min-height: 0;
+            /* Important for flex child to respect height */
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>

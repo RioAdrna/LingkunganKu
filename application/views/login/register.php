@@ -307,7 +307,7 @@
 						</div>
 						<div class="div">
 							<h5>Email</h5>
-							<input type="text" id="email" name="email" class="input">
+							<input type="email" id="email" name="email" class="input">
 						</div>
 					</div>
 					<div class="input-div pass">
