@@ -18,7 +18,12 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <!-- CSS Files -->
-     
+
+    <!-- LEAFLET -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css">
+
     <link id="pagestyle" rel="stylesheet" href="<?= base_url('assets/css/argon-dashboard.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/nucleo-icons.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/nucleo-svg.css') ?>">

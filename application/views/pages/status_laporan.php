@@ -28,7 +28,7 @@
                             <div class="row align-items-center">
                                 <div class="col-12 col-sm-8">
                                     <h6 class="mb-0">
-                                        <i class="fas fa-info-square"></i>&nbsp; Status Laporan
+                                        <i class="fas fa-clipboard-check"></i>&nbsp; Status Laporan
                                     </h6>
                                 </div>
                                 <div class="col-12 col-sm-4 text-sm-end text-center mt-2 mt-sm-0">

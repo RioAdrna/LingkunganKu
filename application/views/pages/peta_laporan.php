@@ -1,131 +1,114 @@
-<!doctype html>
-<html lang="id">
+<style>
+  /* Reset any stray inline weirdness */
+  .card-body a {
+    text-decoration: none;
+  }
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Peta Laporan - Responsive Fix</title>
+  /* Map area responsive */
+  #map-container {
+    width: 100%;
+    min-height: 300px;
+    height: 70vh;
+    overflow: hidden;
+    /* fleksibel */
+  }
 
-  <!-- Bootstrap CSS (CDN) -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  #map {
+    width: 100%;
+    height: 100%;
+  }
 
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css">
+  #map-detail {
+    margin: -500px;
+    transition: margin 0.4s ease-in-out;
+  }
 
-  <style>
-    /* Reset any stray inline weirdness */
-    .card-body a {
-      text-decoration: none;
-    }
+  /* control area */
+  #control-map {
+    width: 100%;
+  }
 
-    /* Map area responsive */
+  /* sample map thumbnail */
+  .sample-map {
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 6px;
+  }
+
+  .sample-map img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* make filter row use flex for first row (so tombol tetap di kanan) */
+  .filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: flex-end;
+  }
+
+  .filter-row .filter-item {
+    flex: 1 1 220px;
+    min-width: 160px;
+  }
+
+  .filter-row .filter-button {
+    flex: 0 0 auto;
+  }
+
+  /* second row uses bootstrap columns but keep gaps tidy */
+  .filter-row-2 {
+    margin-top: .5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .filter-row-2 .filter-item-2 {
+    flex: 1 1 220px;
+    min-width: 160px;
+  }
+
+  /* small tweaks */
+  .form-label {
+    font-weight: 600;
+  }
+
+  .btn-tampilkan {
+    padding: 8px 18px;
+    font-weight: 600;
+    border-radius: 8px;
+    white-space: nowrap;
+  }
+
+  /* ensure popups don't overflow on small screens */
+  .leaflet-popup-content {
+    word-wrap: break-word;
+  }
+
+  /* responsive height adjustments */
+  @media (max-width: 992px) {
     #map-container {
-      width: 100%;
-      min-height: 300px;
-      height: 70vh;
-      overflow: hidden;
-      /* fleksibel */
+      height: 60vh;
     }
+  }
 
-    #map {
-      width: 100%;
-      height: 100%;
+  @media (max-width: 768px) {
+    #map-container {
+      height: 50vh;
     }
+  }
 
-    #map-detail{
-      margin: -500px;
-      transition: margin 0.4s ease-in-out ;
+  @media (max-width: 576px) {
+    #map-container {
+      height: 45vh;
     }
-
-    /* control area */
-    #control-map {
-      width: 100%;
-    }
-
-    /* sample map thumbnail */
-    .sample-map {
-      width: 100%;
-      height: 100px;
-      overflow: hidden;
-      border-radius: 6px;
-    }
-
-    .sample-map img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    /* make filter row use flex for first row (so tombol tetap di kanan) */
-    .filter-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: flex-end;
-    }
-
-    .filter-row .filter-item {
-      flex: 1 1 220px;
-      min-width: 160px;
-    }
-
-    .filter-row .filter-button {
-      flex: 0 0 auto;
-    }
-
-    /* second row uses bootstrap columns but keep gaps tidy */
-    .filter-row-2 {
-      margin-top: .5rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .filter-row-2 .filter-item-2 {
-      flex: 1 1 220px;
-      min-width: 160px;
-    }
-
-    /* small tweaks */
-    .form-label {
-      font-weight: 600;
-    }
-
-    .btn-tampilkan {
-      padding: 8px 18px;
-      font-weight: 600;
-      border-radius: 8px;
-      white-space: nowrap;
-    }
-
-    /* ensure popups don't overflow on small screens */
-    .leaflet-popup-content {
-      word-wrap: break-word;
-    }
-
-    /* responsive height adjustments */
-    @media (max-width: 992px) {
-      #map-container {
-        height: 60vh;
-      }
-    }
-
-    @media (max-width: 768px) {
-      #map-container {
-        height: 50vh;
-      }
-    }
-
-    @media (max-width: 576px) {
-      #map-container {
-        height: 45vh;
-      }
-    }
-  </style>
-</head>
+  }
+</style>
 
 <body>
 
@@ -237,7 +220,7 @@
 
             </div>
 
-            <hr/>
+            <hr />
 
             <!-- MAP -->
             <div id="map-container" class="d-flex align-items-center">
@@ -759,5 +742,3 @@
     });
   </script>
 </body>
-
-</html>

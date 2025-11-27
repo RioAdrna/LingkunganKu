@@ -27,9 +27,9 @@
                         <div class="card-header border-2">
                             <div class="row align-items-center">
                                 <div class="col-12 col-sm-8">
-                                    <!-- <h6 class="mb-0">
-                                        <i class="fas fa-info-square"></i>&nbsp; Lapor Masalah
-                                    </h6> -->
+                                    <h6 class="mb-0">
+                                        <i class="fas fa-bullhorn"></i>&nbsp; Lapor Masalah
+                                    </h6>
                                 </div>
                                 <div class="col-12 col-sm-4 text-sm-end text-center mt-2 mt-sm-0">
                                     <button id="tambah_data" type="button" class="btn btn-warning shadow-sm"

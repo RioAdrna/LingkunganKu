@@ -6,47 +6,54 @@ class Register extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Model_login'); // ganti kalau model registrasi berbeda
         date_default_timezone_set("Asia/Jakarta");
+        $this->load->model('Model_register');
     }
 
     public function index()
     {
-        // Tampilkan halaman register
-        $this->load->view('login/register'); // pastikan file view-nya sudah dibuat
+        $this->load->view('login/register');
     }
 
-    public function proses_register()
+    public function submit()
     {
-        $nama       = $this->input->post('nama', TRUE);
-        $email      = $this->input->post('email', TRUE);
-        $password   = $this->input->post('password', TRUE);
-        $no_hp      = $this->input->post('no_hp', TRUE);
-        $alamat     = $this->input->post('alamat', TRUE);
-        
-        $cek = $this->Model_login->cek_user(['email' => $email]);
+        $nama = $this->input->post('nama');
+        $email = $this->input->post('email');
+        $password = $this->input->post('password');
+        $ulang = $this->input->post('ulang');
 
-        if ($cek->num_rows() > 0) {
-            echo json_encode(["sts" => "0", "msg" => "Email sudah terdaftar!"]);
+        if (!$nama || !$email || !$password || !$ulang) {
+            echo json_encode(['sts' => 0, 'msg' => 'Semua field wajib diisi']);
             return;
         }
 
+        if ($password !== $ulang) {
+            echo json_encode(['sts' => 0, 'msg' => 'Password tidak sama']);
+            return;
+        }
+
+        if ($this->Model_register->cek_email($email)) {
+            echo json_encode(['sts' => 0, 'msg' => 'Email sudah digunakan']);
+            return;
+        }
+
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+
         $data = [
-            'nama'       => $nama,
-            'email'      => $email,
-            'password'   => password_hash($password, PASSWORD_DEFAULT),
-            'no_hp'      => $no_hp,
-            'alamat'     => $alamat,
-            'role'       => 'user',
-            'created_at' => date('Y-m-d H:i:s')
+            'nama' => $nama,
+            'email' => $email,
+            'password' => $hash,
+            'role' => 'user',
+            'no_hp' => null,
+            'alamat' => null,
+            'foto' => 'no-image.png',
+            'created_at' => date("Y-m-d H:i:s"),
         ];
 
-        $insert = $this->Model_login->insert_user($data);
-
-        if ($insert) {
-            echo json_encode(["sts" => "1", "msg" => "Registrasi berhasil!"]);
+        if ($this->Model_register->register($data)) {
+            echo json_encode(['sts' => 1, 'msg' => 'Registrasi berhasil']);
         } else {
-            echo json_encode(["sts" => "0", "msg" => "Registrasi gagal"]);
+            echo json_encode(['sts' => 0, 'msg' => 'Gagal menyimpan data']);
         }
     }
 }
