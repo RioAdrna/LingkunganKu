@@ -33,6 +33,14 @@ class Register extends CI_Controller
             return;
         }
 
+        if ($this->db->where('nik', $nik)->get('user')->num_rows() > 0) {
+            echo json_encode([
+                "sts" => 0,
+                "msg" => "NIK sudah digunakan"
+            ]);
+            return;
+        }
+
         if ($this->Model_register->cek_email($email)) {
             echo json_encode(['sts' => 0, 'msg' => 'Email sudah digunakan']);
             return;

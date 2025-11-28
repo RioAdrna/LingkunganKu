@@ -442,13 +442,8 @@
 
 
     <!-- Copyright Start -->
-<<<<<<< HEAD
     <div class="container-fluid copyright bg-dark py-4" style="background-color: #1A2A4F;">
         <div class="container copyright text-center mt-4" >
-=======
-    <div class="container-fluid copyright bg-dark py-4">
-        <div class="container copyright text-center mt-4">
->>>>>>> bc22b04 (Update regis + NIK)
             <p class="text-white">© <span>Copyright</span> <strong class="px-1 sitename">LINGKUNGANKU NEURO</strong> <span>All Rights
                     Reserved</span>
             </p>
