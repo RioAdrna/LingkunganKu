@@ -33,6 +33,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css" integrity="sha512-t7Few9xlddEmgd3oKZQahkNI4dS6l80+eGEzFQiqtyVYdvcSG2D3Iub77R20BdotfRPA9caaRkg1tyaJiPmO0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" type="text/css" href="<?= base_url("assets/vendor/libs/filepond/dist/filepond.min.css") ?>">
     <link rel="stylesheet" type="text/css" href="<?= base_url("assets/vendor/libs/filepond/plugins/filepond-plugin-image-preview/filepond-plugin-image-preview.min.css") ?>">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
 
     <style>
         /* Responsive styles untuk mobile */

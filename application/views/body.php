@@ -160,10 +160,15 @@
 				</div>
 			</a>
 		</div>
+				</div>
 			</a>
 			<br>
-			<a class="btn btn-danger mt-3 w-100" href="<?= base_url('login/logout') ?>"><i class="fas fa-sign-out-alt"></i>&nbsp;
-				Logout</a>
+			<div class="text-center">
+    <a class="btn btn-danger mt-3 w-85" href="<?= base_url('login/logout') ?>">
+        <i class="fas fa-sign-out-alt"></i>&nbsp; Logout
+    </a>
+</div>
+
 		</div>
 	</aside>
 	<main class="main-content position-relative border-radius-lg ">

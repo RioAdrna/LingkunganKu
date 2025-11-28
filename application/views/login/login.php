@@ -248,11 +248,40 @@
 				justify-content: center;
 			}
 		}
+
+		#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white; /* bisa diganti warna lain */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    transition: opacity .6s ease;
+}
+
+#splash-screen img {
+    width: 150px;
+    animation: splashZoom 1.2s ease;
+}
+
+@keyframes splashZoom {
+    0% { transform: scale(0.4); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
 	</style>
 </head>
 
 <body>
 	<img class="wave" src="<?= base_url('assets/img/wave(3).svg') ?>">
+	<div id="splash-screen">
+    <img src="<?= base_url('assets/img/logos/Logo_LingkunganKu-1.png') ?>" alt="Logo">
+</div>
+
 	<div class="container">
 		<!-- LOGIN FORM -->
 		<div class="login-content">
@@ -384,6 +413,17 @@
 		}
 	});
 	</script>
+	<script>
+    window.addEventListener("load", function () {
+        setTimeout(() => {
+            const splash = document.getElementById("splash-screen");
+            splash.style.opacity = 0;
+
+            setTimeout(() => splash.style.display = "none", 600);
+        }, 700);
+    });
+</script>
+
 </body>
 
 </html>
