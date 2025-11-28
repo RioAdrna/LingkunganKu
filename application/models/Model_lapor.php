@@ -43,17 +43,17 @@ class Model_lapor extends CI_Model
     public function dashboard_data()
     {
         $query = $this->db->query(
-            "SELECT count(id_laporan) as jumlah from laporan
+            "SELECT 'lm' as tipe, count(id_laporan) as jumlah from laporan
             UNION
-            SELECT count(id_laporan) as jumlah from laporan where status='selesai'
+            SELECT 'lt' as tipe, count(id_laporan) as jumlah from laporan where status='selesai'
             UNION
-            Select count(id_laporan) as jumlah from laporan where laporan.tanggal_laporan >= NOW() - INTERVAL 7 DAY
+            Select 'lm7' as tipe, count(id_laporan) as jumlah from laporan where laporan.tanggal_laporan >= NOW() - INTERVAL 7 DAY
             UNION
-            Select count(id_laporan) as jumlah from laporan where status='selesai' AND laporan.tanggal_laporan >= NOW() - INTERVAL 7 DAY
+            Select 'lt7' as tipe, count(id_laporan) as jumlah from laporan where status='selesai' AND laporan.tanggal_laporan >= NOW() - INTERVAL 7 DAY
             UNION
-            Select count(id_laporan) as jumlah from laporan where MONTH(laporan.tanggal_laporan) = MONTH(NOW())
+            Select 'lmb' as tipe, count(id_laporan) as jumlah from laporan where MONTH(laporan.tanggal_laporan) = MONTH(NOW())
             UNION
-            Select count(id_laporan) as jumlah from laporan where status='selesai' AND  MONTH(laporan.tanggal_laporan) = MONTH(NOW());"
+            Select 'ltb' as tipe, count(id_laporan) as jumlah from laporan where status='selesai' AND  MONTH(laporan.tanggal_laporan) = MONTH(NOW());"
         );
         return $query->result();
     }
