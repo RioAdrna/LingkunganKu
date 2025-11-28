@@ -1,8 +1,9 @@
     <style>
-		#tabel_lapor td:first-child,
-    #tabel_lapor th:first-child {
-        text-align: center !important;
-    }
+    	#tabel_lapor td:first-child,
+    	#tabel_lapor th:first-child {
+    		text-align: center !important;
+    	}
+
     	#tabel_lapor td,
     	#tabel_lapor th {
     		white-space: normal !important;
@@ -136,39 +137,169 @@
     	</div>
     </div>
 
-
     <!-- Detail Modal -->
     <div class="modal fade" id="detailModal" aria-labelledby="detailModalLabel" aria-hidden="true">
     	<div class="modal-dialog modal-lg">
-    		<div class="modal-content">
-    			<div class="modal-header">
-    				<h5 class="modal-title" id="detailModalLabel"><i class="fas fa-info-circle"></i>&nbsp; Detail Penanganan</h5>
-    				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+    		<div class="modal-content border-0 shadow-lg">
+    			<!-- Header -->
+    			<div class="modal-header border-bottom bg-white">
+    				<div class="d-flex align-items-center">
+    					<div class="bg-light rounded-circle d-flex align-items-center justify-content-center me-3"
+    						style="width: 40px; height: 40px;">
+    						<i class="fas fa-info-circle text-dark"></i>
+    					</div>
+    					<div>
+    						<h5 class="modal-title mb-0 fw-bold text-dark" id="detailModalLabel">Detail Penanganan</h5>
+    						<small class="text-muted">Informasi lengkap penanganan laporan</small>
+    					</div>
+    				</div>
+    				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     			</div>
-    			<div class="modal-body">
+
+    			<!-- Body -->
+    			<div class="modal-body p-4 bg-white">
     				<div class="row">
     					<div class="col-12">
-    						<div class="detail-item mb-2"><label class="detail-label fw-bold">ID:</label> <span id="detail_id" class="detail-value">-</span></div>
-    						<div class="detail-item mb-2"><label class="detail-label fw-bold">Petugas:</label> <span id="detail_petugas" class="detail-value">-</span></div>
-    						<div class="detail-item mb-2"><label class="detail-label fw-bold">Cabang:</label> <span id="detail_cabang" class="detail-value">-</span></div>
-    						<div class="detail-item mb-2"><label class="detail-label fw-bold">Catatan:</label> <div id="detail_catatan" class="detail-value text-wrap">-</div></div>
-    						<div class="detail-item mb-2"><label class="detail-label fw-bold">Status:</label> <span id="detail_status_penanganan" class="detail-value">-</span></div>
-    						<div class="detail-item mb-2"><label class="detail-label fw-bold">Lampiran:</label> <div id="detail_lampiran" class="detail-value">-</div></div>
-    						<div class="detail-item mb-2"><label class="detail-label fw-bold">Dibuat pada:</label> <span id="detail_created_at" class="detail-value">-</span></div>
-    						<div class="detail-item mb-2"><label class="detail-label fw-bold">Waktu Selesai Ditangani:</label> <span id="detail_waktu_selesai" class="detail-value">-</span></div>
-    						<div class="detail-item mb-2"><label class="detail-label fw-bold">Waktu Dikonfirmasi Selesai:</label> <span id="detail_waktu_dikonfirmasi" class="detail-value">-</span></div>
-    						<hr />
-    						<h6>Daftar Laporan:</h6>
-    						<div id="detail-laporan-list" class="mt-2"></div>
+    						<!-- Informasi Utama dalam Grid -->
+    						<div class="row g-3 mb-4">
+    							<!-- Kolom 1 -->
+    							<div class="col-md-6">
+    								<div class="card border h-100">
+    									<div class="card-body">
+    										<label class="text-xs text-muted mb-2 fw-semibold text-uppercase">
+    											<i class="fas fa-id-card me-1"></i>ID Penanganan
+    										</label>
+    										<div id="detail_id" class="fw-bold text-dark fs-6">-</div>
+    									</div>
+    								</div>
+    							</div>
+
+    							<div class="col-md-6">
+    								<div class="card border h-100">
+    									<div class="card-body">
+    										<label class="text-xs text-muted mb-2 fw-semibold text-uppercase">
+    											<i class="fas fa-user me-1"></i>Petugas
+    										</label>
+    										<div id="detail_petugas" class="fw-bold text-dark">-</div>
+    									</div>
+    								</div>
+    							</div>
+
+    							<div class="col-md-6">
+    								<div class="card border h-100">
+    									<div class="card-body">
+    										<label class="text-xs text-muted mb-2 fw-semibold text-uppercase">
+    											<i class="fas fa-building me-1"></i>Cabang
+    										</label>
+    										<div id="detail_cabang" class="fw-bold text-dark">-</div>
+    									</div>
+    								</div>
+    							</div>
+
+    							<div class="col-md-6">
+    								<div class="card border h-100">
+    									<div class="card-body">
+    										<label class="text-xs text-muted mb-2 fw-semibold text-uppercase">
+    											<i class="fas fa-tasks me-1"></i>Status
+    										</label>
+    										<div id="detail_status_penanganan" class="fw-bold text-dark">-</div>
+    									</div>
+    								</div>
+    							</div>
+    						</div>
+
+    						<!-- Catatan -->
+    						<div class="card border mb-4">
+    							<div class="card-body">
+    								<label class="text-xs text-muted mb-2 fw-semibold text-uppercase">
+    									<i class="fas fa-sticky-note me-1"></i>Catatan Penanganan
+    								</label>
+    								<div id="detail_catatan" class="text-dark lh-base bg-light rounded p-3">
+    									<span class="text-muted">Tidak ada catatan</span>
+    								</div>
+    							</div>
+    						</div>
+
+    						<!-- Lampiran -->
+    						<div class="card border mb-4">
+    							<div class="card-body">
+    								<label class="text-xs text-muted mb-2 fw-semibold text-uppercase">
+    									<i class="fas fa-paperclip me-1"></i>Lampiran
+    								</label>
+    								<div id="detail_lampiran" class="text-dark">
+    									<span class="text-muted">Tidak ada lampiran</span>
+    								</div>
+    							</div>
+    						</div>
+
+    						<!-- Timeline -->
+    						<div class="card border mb-4">
+    							<div class="card-body">
+    								<label class="text-xs text-muted mb-3 fw-semibold text-uppercase">
+    									<i class="fas fa-clock me-1"></i>Timeline
+    								</label>
+    								<div class="row g-3">
+    									<div class="col-md-4">
+    										<div class="text-center">
+    											<div class="bg-light rounded p-3">
+    												<i class="fas fa-plus-circle text-primary mb-2 fs-4"></i>
+    												<div class="text-xs text-muted fw-semibold">Dibuat Pada</div>
+    												<div id="detail_created_at" class="fw-bold text-dark small">-</div>
+    											</div>
+    										</div>
+    									</div>
+    									<div class="col-md-4">
+    										<div class="text-center">
+    											<div class="bg-light rounded p-3">
+    												<i class="fas fa-check-circle text-success mb-2 fs-4"></i>
+    												<div class="text-xs text-muted fw-semibold">Selesai Ditangani</div>
+    												<div id="detail_waktu_selesai" class="fw-bold text-dark small">-</div>
+    											</div>
+    										</div>
+    									</div>
+    									<div class="col-md-4">
+    										<div class="text-center">
+    											<div class="bg-light rounded p-3">
+    												<i class="fas fa-check-double text-info mb-2 fs-4"></i>
+    												<div class="text-xs text-muted fw-semibold">Dikonfirmasi Selesai</div>
+    												<div id="detail_waktu_dikonfirmasi" class="fw-bold text-dark small">-</div>
+    											</div>
+    										</div>
+    									</div>
+    								</div>
+    							</div>
+    						</div>
+
+    						<!-- Daftar Laporan -->
+    						<div class="card border">
+    							<div class="card-header bg-light border-bottom">
+    								<h6 class="mb-0 fw-bold text-dark">
+    									<i class="fas fa-list me-2"></i>Daftar Laporan
+    								</h6>
+    							</div>
+    							<div class="card-body">
+    								<div id="detail-laporan-list" class="mt-2">
+    									<div class="text-center text-muted py-3">
+    										<i class="fas fa-inbox fs-1 mb-2"></i>
+    										<p class="mb-0">Tidak ada daftar laporan</p>
+    									</div>
+    								</div>
+    							</div>
+    						</div>
     					</div>
     				</div>
     			</div>
-    			<div class="modal-footer">
-    				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+
+    			<!-- Footer -->
+    			<div class="modal-footer border-top bg-white">
+    				<button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">
+    					<i class="fas fa-times me-1"></i>Tutup
+    				</button>
     			</div>
     		</div>
     	</div>
     </div>
+
 
     <!-- Select Petugas Modal -->
     <!-- Data search modal -->
@@ -541,117 +672,119 @@
     				bsModal.show();
     			};
 
-				// Detail function to display penanganan information
-				window.detail = function(btn) {
-					var row = table.row($(btn).closest('tr')).data();
-					if (!row) return;
+    			// Detail function to display penanganan information
+    			window.detail = function(btn) {
+    				var row = table.row($(btn).closest('tr')).data();
+    				if (!row) return;
 
-					console.log('detail row', row);
+    				console.log('detail row', row);
 
-					// Basic fields from row (use fallbacks)
-					$('#detail_id').text(row.id || '-');
-					$('#detail_petugas').text(row.petugas || row.petugas_nama || '-');
-					$('#detail_cabang').text(row.cabang || row.nama_cabang || '-');
-					$('#detail_catatan').text(row.catatan || row.keterangan || '-');
-					$('#detail_status_penanganan').text(row.status_penanganan || row.status || '-');
-					$('#detail_created_at').text(row.created_at || row.tanggal || row.created || '-');
-					$('#detail_waktu_selesai').text(row.waktu_selesai_ditangani || row.waktu_selesai || '-');
-					$('#detail_waktu_dikonfirmasi').text(row.waktu_dikonfirmasi_selesai || row.waktu_dikonfirmasi || '-');
+    				// Basic fields from row (use fallbacks)
+    				$('#detail_id').text(row.id || '-');
+    				$('#detail_petugas').text(row.petugas || row.petugas_nama || '-');
+    				$('#detail_cabang').text(row.cabang || row.nama_cabang || '-');
+    				$('#detail_catatan').text(row.catatan || row.keterangan || '-');
+    				$('#detail_status_penanganan').text(row.status_penanganan || row.status || '-');
+    				$('#detail_created_at').text(row.created_at || row.tanggal || row.created || '-');
+    				$('#detail_waktu_selesai').text(row.waktu_selesai_ditangani || row.waktu_selesai || '-');
+    				$('#detail_waktu_dikonfirmasi').text(row.waktu_dikonfirmasi_selesai || row.waktu_dikonfirmasi || '-');
 
-					// Lampiran: show download button if available
-					var lampiranHtml = '-';
-					if (row.lampiran) {
-						// try to form a usable URL; if row.lampiran already an absolute URL, use it
-						var lampiranUrl = row.lampiran.indexOf('http') === 0 ? row.lampiran : origin + (row.lampiran.startsWith('/') ? row.lampiran.substring(1) : row.lampiran);
-						lampiranHtml = '<a class="btn btn-sm btn-outline-primary" href="' + lampiranUrl + '" target="_blank" rel="noopener" download>Download Lampiran</a>';
-					}
-					$('#detail_lampiran').html(lampiranHtml);
+    				// Lampiran: show download button if available
+    				var lampiranHtml = '-';
+    				if (row.lampiran) {
+    					// try to form a usable URL; if row.lampiran already an absolute URL, use it
+    					var lampiranUrl = row.lampiran.indexOf('http') === 0 ? row.lampiran : origin + (row.lampiran.startsWith('/') ? row.lampiran.substring(1) : row.lampiran);
+    					lampiranHtml = '<a class="btn btn-sm btn-outline-primary" href="' + lampiranUrl + '" target="_blank" rel="noopener" download>Download Lampiran</a>';
+    				}
+    				$('#detail_lampiran').html(lampiranHtml);
 
-					// Clear laporan list while loading
-					$('#detail-laporan-list').html('<div class="spinner" style="width:20px;height:20px;border-width:3px;margin:10px auto"></div>');
+    				// Clear laporan list while loading
+    				$('#detail-laporan-list').html('<div class="spinner" style="width:20px;height:20px;border-width:3px;margin:10px auto"></div>');
 
-					// Fetch laporan list assigned to this penanganan
-					if (row.id) {
-						$.ajax({
-							url: origin + 'penanganan/laporan_by_id_penanganan',
-							method: 'GET',
-							data: { id: row.id },
-							dataType: 'json',
-							success: function(resp) {
-								var data = [];
-								if (!resp) data = [];
-								else if (Array.isArray(resp)) data = resp;
-								else if (Array.isArray(resp.data)) data = resp.data;
-								else if (Array.isArray(resp.laporan)) data = resp.laporan;
+    				// Fetch laporan list assigned to this penanganan
+    				if (row.id) {
+    					$.ajax({
+    						url: origin + 'penanganan/laporan_by_id_penanganan',
+    						method: 'GET',
+    						data: {
+    							id: row.id
+    						},
+    						dataType: 'json',
+    						success: function(resp) {
+    							var data = [];
+    							if (!resp) data = [];
+    							else if (Array.isArray(resp)) data = resp;
+    							else if (Array.isArray(resp.data)) data = resp.data;
+    							else if (Array.isArray(resp.laporan)) data = resp.laporan;
 
-								// render list similar to selected laporan cards
-								try {
-									if (!data || data.length === 0) {
-										$('#detail-laporan-list').html('<div class="text-muted">Tidak ada laporan terkait.</div>');
-										return;
-									}
-									var listHtml = '';
-									data.forEach(function(item) {
-										var iid = item.id || '-';
-										var user_id = item.user_id || item.id_user || '-';
-										var nama_user = item.nama_user || item.nama_pelapor || item.nama || '-';
-										var kategori = item.kategori || '-';
-										var kabkot = item.kabkot || item.kabupaten || item.kota || '-';
-										var deskripsi = item.deskripsi || item.keterangan || '-';
-										var foto = item.foto || '';
-										var tingkat = item.tingkat_keparahan || item.level || '-';
-										var tanggal = item.tanggal_laporan || item.tanggal || item.created_at || '-';
-										var lon = item.longitude || item.lng || item.lon || '';
-										var lat = item.latitude || item.lat || '';
-										var collapseDesc = 'detail_collapse_desc_' + iid;
-										var collapseMap = 'detail_collapse_map_' + iid;
-										var mapDivId = 'detail_leaflet_map_' + iid;
+    							// render list similar to selected laporan cards
+    							try {
+    								if (!data || data.length === 0) {
+    									$('#detail-laporan-list').html('<div class="text-muted">Tidak ada laporan terkait.</div>');
+    									return;
+    								}
+    								var listHtml = '';
+    								data.forEach(function(item) {
+    									var iid = item.id || '-';
+    									var user_id = item.user_id || item.id_user || '-';
+    									var nama_user = item.nama_user || item.nama_pelapor || item.nama || '-';
+    									var kategori = item.kategori || '-';
+    									var kabkot = item.kabkot || item.kabupaten || item.kota || '-';
+    									var deskripsi = item.deskripsi || item.keterangan || '-';
+    									var foto = item.foto || '';
+    									var tingkat = item.tingkat_keparahan || item.level || '-';
+    									var tanggal = item.tanggal_laporan || item.tanggal || item.created_at || '-';
+    									var lon = item.longitude || item.lng || item.lon || '';
+    									var lat = item.latitude || item.lat || '';
+    									var collapseDesc = 'detail_collapse_desc_' + iid;
+    									var collapseMap = 'detail_collapse_map_' + iid;
+    									var mapDivId = 'detail_leaflet_map_' + iid;
 
-										listHtml += '<div class="card mt-2 mb-2" style="border:1px solid #ddd;">';
-										listHtml += '<div class="card-body p-2">';
-										listHtml += '<div class="d-flex justify-content-between align-items-start">';
-										listHtml += '<div><strong>ID: ' + iid + '</strong> &nbsp;|&nbsp; <strong>' + kategori + '</strong><br><small>' + kabkot + ' - Pelapor: ' + nama_user + ' (ID:' + user_id + ')</small></div>';
-										if (foto) {
-											var fotoUrl = (foto.indexOf('http') === 0) ? foto : origin + 'assets/img/dokumentasi/' + foto;
-											listHtml += '<div><a class="btn btn-sm btn-outline-secondary me-1" href="' + fotoUrl + '" target="_blank" rel="noopener">View Foto</a></div>';
-										} else {
-											listHtml += '<div class="text-muted small">No Foto</div>';
-										}
-										listHtml += '</div>';
+    									listHtml += '<div class="card mt-2 mb-2" style="border:1px solid #ddd;">';
+    									listHtml += '<div class="card-body p-2">';
+    									listHtml += '<div class="d-flex justify-content-between align-items-start">';
+    									listHtml += '<div><strong>ID: ' + iid + '</strong> &nbsp;|&nbsp; <strong>' + kategori + '</strong><br><small>' + kabkot + ' - Pelapor: ' + nama_user + ' (ID:' + user_id + ')</small></div>';
+    									if (foto) {
+    										var fotoUrl = (foto.indexOf('http') === 0) ? foto : origin + 'assets/img/dokumentasi/' + foto;
+    										listHtml += '<div><a class="btn btn-sm btn-outline-secondary me-1" href="' + fotoUrl + '" target="_blank" rel="noopener">View Foto</a></div>';
+    									} else {
+    										listHtml += '<div class="text-muted small">No Foto</div>';
+    									}
+    									listHtml += '</div>';
 
-										listHtml += '<div class="mt-2 small text-muted">Level: <strong>' + tingkat + '</strong> &nbsp;|&nbsp; Tanggal: ' + tanggal + '</div>';
+    									listHtml += '<div class="mt-2 small text-muted">Level: <strong>' + tingkat + '</strong> &nbsp;|&nbsp; Tanggal: ' + tanggal + '</div>';
 
-										listHtml += '<div class="mt-2 d-flex gap-2">';
-										listHtml += '<button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#' + collapseDesc + '" aria-expanded="false" aria-controls="' + collapseDesc + '" onclick="event.stopPropagation();">Deskripsi</button>';
-										listHtml += '<button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#' + collapseMap + '" aria-expanded="false" aria-controls="' + collapseMap + '" onclick="event.stopPropagation(); initLaporanMapDetail(\'' + iid + '\',' + (lat || 0) + ',' + (lon || 0) + ');">Map</button>';
-										listHtml += '</div>';
+    									listHtml += '<div class="mt-2 d-flex gap-2">';
+    									listHtml += '<button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#' + collapseDesc + '" aria-expanded="false" aria-controls="' + collapseDesc + '" onclick="event.stopPropagation();">Deskripsi</button>';
+    									listHtml += '<button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#' + collapseMap + '" aria-expanded="false" aria-controls="' + collapseMap + '" onclick="event.stopPropagation(); initLaporanMapDetail(\'' + iid + '\',' + (lat || 0) + ',' + (lon || 0) + ');">Map</button>';
+    									listHtml += '</div>';
 
-										listHtml += '<div class="collapse mt-2" id="' + collapseDesc + '"><div class="card card-body p-2 border-0" style="background:#f8f9fa; font-size:0.95rem;">' + deskripsi + '</div></div>';
+    									listHtml += '<div class="collapse mt-2" id="' + collapseDesc + '"><div class="card card-body p-2 border-0" style="background:#f8f9fa; font-size:0.95rem;">' + deskripsi + '</div></div>';
 
-										listHtml += '<div class="collapse mt-2" id="' + collapseMap + '"><div class="card card-body p-2 border-0" style="background:#fff; font-size:0.95rem;"><div style="width:100%; height:220px;"><div id="' + mapDivId + '" style="width:100%; height:100%; border-radius:6px; overflow:hidden;"></div><div class="mt-1 small text-muted">Longitude: ' + lon + ' &nbsp;|&nbsp; Latitude: ' + lat + '</div></div></div></div>';
+    									listHtml += '<div class="collapse mt-2" id="' + collapseMap + '"><div class="card card-body p-2 border-0" style="background:#fff; font-size:0.95rem;"><div style="width:100%; height:220px;"><div id="' + mapDivId + '" style="width:100%; height:100%; border-radius:6px; overflow:hidden;"></div><div class="mt-1 small text-muted">Longitude: ' + lon + ' &nbsp;|&nbsp; Latitude: ' + lat + '</div></div></div></div>';
 
-										listHtml += '</div></div>';
-									});
-									$('#detail-laporan-list').html(listHtml);
-								} catch (e) {
-									console.error('render detail laporan failed', e);
-									$('#detail-laporan-list').html('<div class="text-muted">Gagal menampilkan daftar laporan.</div>');
-								}
-							},
-							error: function() {
-								$('#detail-laporan-list').html('<div class="text-muted">Gagal memuat daftar laporan.</div>');
-							}
-						});
-					} else {
-						$('#detail-laporan-list').html('<div class="text-muted">Tidak ada laporan terkait.</div>');
-					}
+    									listHtml += '</div></div>';
+    								});
+    								$('#detail-laporan-list').html(listHtml);
+    							} catch (e) {
+    								console.error('render detail laporan failed', e);
+    								$('#detail-laporan-list').html('<div class="text-muted">Gagal menampilkan daftar laporan.</div>');
+    							}
+    						},
+    						error: function() {
+    							$('#detail-laporan-list').html('<div class="text-muted">Gagal memuat daftar laporan.</div>');
+    						}
+    					});
+    				} else {
+    					$('#detail-laporan-list').html('<div class="text-muted">Tidak ada laporan terkait.</div>');
+    				}
 
-					// Open detail modal
-					$('#detailModalLabel').text('Detail Penanganan');
-					var modalEl = document.getElementById('detailModal');
-					var bsModal = new bootstrap.Modal(modalEl);
-					bsModal.show();
-				};
+    				// Open detail modal
+    				$('#detailModalLabel').text('Detail Penanganan');
+    				var modalEl = document.getElementById('detailModal');
+    				var bsModal = new bootstrap.Modal(modalEl);
+    				bsModal.show();
+    			};
     		});
     	})(window.jQuery || window.$ || function(fn) {
     		fn();
@@ -1033,31 +1166,41 @@
     		}
     	}
 
-			// init map for detail modal (uses separate map container ids)
-			function initLaporanMapDetail(id, lat, lon) {
-				try {
-					var mapDivId = 'detail_leaflet_map_' + id;
-					var container = document.getElementById(mapDivId);
-					if (!container) return;
-					window.laporanMapsDetail = window.laporanMapsDetail || {};
-					if (window.laporanMapsDetail[id]) {
-						try { window.laporanMapsDetail[id].invalidateSize(); } catch (e) {}
-						window.laporanMapsDetail[id].setView([lat, lon], 13);
-						return;
-					}
-					if (typeof L === 'undefined') {
-						container.innerHTML = '<div style="padding:10px;color:#666">Leaflet tidak ditemukan. Pastikan library Leaflet dimuat.</div>';
-						return;
-					}
-					var map = L.map(mapDivId, { scrollWheelZoom: false }).setView([lat, lon], 13);
-					L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OSM' }).addTo(map);
-					L.marker([lat, lon]).addTo(map);
-					window.laporanMapsDetail[id] = map;
-					setTimeout(function() { try { map.invalidateSize(); } catch (e) {} }, 200);
-				} catch (e) {
-					console.error('initLaporanMapDetail error', e);
-				}
-			}
+    	// init map for detail modal (uses separate map container ids)
+    	function initLaporanMapDetail(id, lat, lon) {
+    		try {
+    			var mapDivId = 'detail_leaflet_map_' + id;
+    			var container = document.getElementById(mapDivId);
+    			if (!container) return;
+    			window.laporanMapsDetail = window.laporanMapsDetail || {};
+    			if (window.laporanMapsDetail[id]) {
+    				try {
+    					window.laporanMapsDetail[id].invalidateSize();
+    				} catch (e) {}
+    				window.laporanMapsDetail[id].setView([lat, lon], 13);
+    				return;
+    			}
+    			if (typeof L === 'undefined') {
+    				container.innerHTML = '<div style="padding:10px;color:#666">Leaflet tidak ditemukan. Pastikan library Leaflet dimuat.</div>';
+    				return;
+    			}
+    			var map = L.map(mapDivId, {
+    				scrollWheelZoom: false
+    			}).setView([lat, lon], 13);
+    			L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    				attribution: '&copy; OSM'
+    			}).addTo(map);
+    			L.marker([lat, lon]).addTo(map);
+    			window.laporanMapsDetail[id] = map;
+    			setTimeout(function() {
+    				try {
+    					map.invalidateSize();
+    				} catch (e) {}
+    			}, 200);
+    		} catch (e) {
+    			console.error('initLaporanMapDetail error', e);
+    		}
+    	}
 
     	function confirmLaporanSelection(confirm) {
     		if (confirm) {
@@ -1235,14 +1378,13 @@
     	}
 
     	function clearForm() {
-			id_penanganan = "";
+    		id_penanganan = "";
     		selectedPetugas = [];
     		selectedLaporan = [];
     		confirmLaporanSelection(false);
     		confirmPetugasSelection(false);
-			console.log('form cleared');
+    		console.log('form cleared');
     	}
 
-		$("#tambah_data").on('click', clearForm);
-		
+    	$("#tambah_data").on('click', clearForm);
     </script>
