@@ -623,14 +623,14 @@ if ($this->session->userdata('level') === "admin") { ?>
 							<i class="fas fa-building text-white fs-5" style="line-height: 60px;"></i>
 						</div>
 						<div>
-							<h5 class="fw-bold text-dark mb-1">Cabang Epsilon</h5>
+							<h5 class="fw-bold text-dark mb-1"><?= $petugas_data->nama_cabang ?></h5>
 							<p class="text-muted mb-1">
 								<i class="fas fa-users me-1"></i>
-								<span class="fw-semibold">12 Petugas</span>
+								<span class="fw-semibold"><?= $petugas_data->total_anggota ?> Petugas</span>
 							</p>
 							<p class="text-muted mb-0">
 								<i class="fas fa-map-pin me-1"></i>
-								Jl. Merdeka No. 123, Jakarta
+								<?= $petugas_data->nama_kabkot ?>
 							</p>
 						</div>
 					</div>

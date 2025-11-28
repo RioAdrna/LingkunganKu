@@ -25,6 +25,7 @@ class Utama extends CI_Controller
 		parent::__construct();
 		$this->load->model("model_lapor");
 		$this->load->model("model_login");
+		$this->load->model("model_petugas");
 	}
 
 	public function index()
@@ -88,6 +89,10 @@ class Utama extends CI_Controller
 					$data["stat_kabkot"] = $this->model_lapor->dashboard_stat3();
 				}
 
+				if (base64_decode($_GET['p']) == "dashboard" && $this->session->userdata('level') === "petugas") {
+					$data["petugas_data"] = $this->model_petugas->get_cabang_petugas($this->session->userdata('id_user'));
+				}
+
 				if (base64_decode($_GET['p']) == "cabang" && $this->session->userdata('level') === "admin") {
 					$this->load->model('model_kabkot');
 					$data["kabkot"] = $this->model_kabkot->get();
@@ -97,7 +102,10 @@ class Utama extends CI_Controller
 				$data["stat_per_bulan"] = $this->model_lapor->dashboard_stat();
 				$data["stat_kategori"] = $this->model_lapor->dashboard_stat2();
 				$data["stat_kabkot"] = $this->model_lapor->dashboard_stat3();
+			} else if( $this->session->userdata('level') === "petugas") {
+				$data["petugas_data"] = $this->model_petugas->get_cabang_petugas($this->session->userdata('id_user'));
 			}
+		
 			$this->load->view('head', $data);
 			$this->load->view('body', $data);
 		}
