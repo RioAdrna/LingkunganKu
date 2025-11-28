@@ -22053,7 +22053,7 @@ fieldset:disabled .btn {
 
 .btn-primary:hover,
 .btn.bg-gradient-primary:hover {
-	background-color: #3653f5;
+	background-color: #212529;
 	border-color: #3653f5;
 }
 
@@ -29202,3 +29202,8 @@ pre[class*="language-"] {
 
 	
 }
+
+.header-gradient {
+    background: linear-gradient(135deg, #E3F2FD 0%, #90CAF9 100%);
+}
+

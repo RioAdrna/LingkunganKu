@@ -15,7 +15,7 @@
 
 
 <body class="g-sidenav-show   bg-gray-100">
-	<div class="min-height-300 position-absolute w-100" style="background-color: #1A2A4F;">
+	<div class="min-height-300 position-absolute w-100" style="background: linear-gradient(135deg, #3A7BD5 0%, #00D2FF 100%);">
 	</div>
 	<aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
 		<div class="sidenav-header">
@@ -145,17 +145,21 @@
 
 			</ul>
 		</div>
-		<div class="sidenav-footer mx-3 ">
-			<a href="<?= base_url("?p=" . base64_encode('bantuan')) ?>" class=" text-decoration-none">
-				<div class="card card-plain shadow-none" id="sidenavCard">
-					<img class="w-50 mx-auto" src="<?= base_url('assets/img/illustrations/icon-documentation.svg') ?>" alt="sidebar_illustration">
-					<div class="card-body text-center p-3 w-100 pt-0">
-						<div class="docs-info">
-							<h6 class="mb-0">Need help?</h6>
-							<!-- <p class="text-xs font-weight-bold mb-0">Please check our docs</p> -->
-						</div>
+		<div class="sidenav-footer mx-3">
+			<a href="<?= base_url("?p=" . base64_encode('bantuan')) ?>" class="text-decoration-none">
+				<div class="card shadow-sm border-0 text-center py-3" style="border-radius: 14px; background-color:#CBF3BB;">
+					
+					<div class="icon icon-shape text-center rounded-circle mx-auto mb-2" 
+						style="width: 45px; height: 45px; display:flex; align-items:center; justify-content:center;
+								background-color:#d6e4ff;">
+						<i class="fas fa-comments" style="color:#2f6fe4;"></i>
 					</div>
+
+					<h6 class="mb-0 text-dark">Bantuan</h6>
+					<h7 class="text-xs text-secondary mb-0">Klik untuk melihat informasi</h7>
 				</div>
+			</a>
+		</div>
 			</a>
 			<br>
 			<a class="btn btn-danger mt-3 w-100" href="<?= base_url('login/logout') ?>"><i class="fas fa-sign-out-alt"></i>&nbsp;

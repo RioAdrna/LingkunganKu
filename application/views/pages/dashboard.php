@@ -19,6 +19,108 @@
 	</div>
 </div>
 <!-- CARD TEMPLATE RAPIH & SERAGAM -->
+<!-- ROW UTAMA: PENGUMUMAN + 4 BOX STAT -->
+<div class="row mt-4">
+
+    <!-- KIRI: BOX PENGUMUMAN -->
+    <div class="col-xl-6 col-lg-6 col-md-12 mb-4">
+        <div class="card h-100">
+            <div class="card-header pb-0 pt-3">
+                <h6 class="text-capitalize">Pengumuman</h6>
+            </div>
+            <div class="card-body">
+                <p class="text-sm text-dark">
+                    Belum ada pengumuman terbaru.  
+                    <br>– Admin LingkunganKu
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- KANAN: 4 BOX STATISTIK -->
+    <div class="col-xl-6 col-lg-6 col-md-12">
+        <div class="row">
+
+            <!-- LAPORAN TERKIRIM -->
+            <div class="col-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body p-3">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Laporan Terkirim</p>
+                                <h5 class="font-weight-bolder"><?= $jumlah_terkirim ?></h5>
+                            </div>
+                            <div class="col-4 text-end">
+                                <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+                                    <i class="fas fa-paper-plane text-lg opacity-10"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LAPORAN SELESAI -->
+            <div class="col-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body p-3">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Laporan Selesai</p>
+                                <h5 class="font-weight-bolder"><?= $jumlah_selesai ?></h5>
+                            </div>
+                            <div class="col-4 text-end">
+                                <div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
+                                    <i class="fas fa-check-circle text-lg opacity-10"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LAPORAN DITOLAK -->
+            <div class="col-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body p-3">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Laporan Ditolak</p>
+                                <h5 class="font-weight-bolder"><?= $jumlah_ditolak ?></h5>
+                            </div>
+                            <div class="col-4 text-end">
+                                <div class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
+                                    <i class="fas fa-times-circle text-lg opacity-10"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOX TAMBAHAN (SARAN: DIPROSES) -->
+            <div class="col-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body p-3">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Laporan Diproses</p>
+                                <h5 class="font-weight-bolder"><?= $jumlah_proses ?></h5>
+                            </div>
+                            <div class="col-4 text-end">
+                                <div class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
+                                    <i class="fas fa-spinner text-lg opacity-10"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
 
 <?php
 if ($this->session->userdata('level') === "admin") { ?>
