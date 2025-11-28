@@ -1,4 +1,122 @@
 <style>
+	.hover-lift {
+		transition: all 0.3s ease;
+	}
+
+	.hover-lift:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+	}
+
+	.bg-gradient-primary {
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+	}
+
+	.bg-gradient-success {
+		background: linear-gradient(135deg, #42b883 0%, #347474 100%) !important;
+	}
+
+	.bg-gradient-warning {
+		background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
+	}
+
+	.bg-gradient-info {
+		background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+	}
+
+	.bg-gradient-danger {
+		background: linear-gradient(135deg, #fa709a 0%, #fee140 100%) !important;
+	}
+
+	.list-group-item {
+		transition: background-color 0.2s ease;
+	}
+
+	.list-group-item:hover {
+		background-color: #f8f9fa;
+	}
+
+	.badge {
+		font-size: 0.7rem;
+		font-weight: 600;
+	}
+
+	.progress {
+		border-radius: 10px;
+	}
+
+	.progress-bar {
+		border-radius: 10px;
+	}
+
+	/* Animasi untuk icon */
+	.icon-shape {
+		transition: transform 0.3s ease;
+	}
+
+	.card:hover .icon-shape {
+		transform: scale(1.1);
+	}
+
+	.hover-lift {
+		transition: all 0.3s ease;
+	}
+
+	.hover-lift:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+	}
+
+	.bg-gradient-primary {
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+	}
+
+	.bg-gradient-success {
+		background: linear-gradient(135deg, #42b883 0%, #347474 100%) !important;
+	}
+
+	.bg-gradient-warning {
+		background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
+	}
+
+	.bg-gradient-info {
+		background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+	}
+
+	.bg-gradient-danger {
+		background: linear-gradient(135deg, #fa709a 0%, #fee140 100%) !important;
+	}
+
+	.list-group-item {
+		transition: background-color 0.2s ease;
+	}
+
+	.list-group-item:hover {
+		background-color: #f8f9fa;
+	}
+
+	.badge {
+		font-size: 0.7rem;
+		font-weight: 600;
+	}
+
+	.progress {
+		border-radius: 10px;
+	}
+
+	.progress-bar {
+		border-radius: 10px;
+	}
+
+	/* Animasi untuk icon */
+	.icon-shape {
+		transition: transform 0.3s ease;
+	}
+
+	.card:hover .icon-shape {
+		transform: scale(1.1);
+	}
+
 	.chart-pie-container {
 		position: relative;
 	}
@@ -427,95 +545,271 @@ if ($this->session->userdata('level') === "admin") { ?>
 			</div>
 		</div>
 	</div>
-
-<?php } else if ($this->session->userdata('level') === "petugas") {
-?>
+<?php } else if ($this->session->userdata('level') === "petugas") { ?>
 
 	<div class="row">
 		<?php
 		$nama_data = [
 			"Jumlah Tugas",
 			"Tugas Selesai Bulan Ini",
+			"Tugas Dalam Proses",
+			"Rating Kepuasan"
 		];
-		for ($i = 0; $i < 2; $i++) {
+
+		$icons = [
+			"fas fa-tasks",
+			"fas fa-check-circle",
+			"fas fa-spinner",
+			"fas fa-star"
+		];
+
+		$colors = [
+			"bg-gradient-primary",
+			"bg-gradient-success",
+			"bg-gradient-warning",
+			"bg-gradient-info"
+		];
+
+		$values = ["15", "8", "7", "4.8"];
+
+		for ($i = 0; $i < 4; $i++) {
 		?>
-			<div class="col-xl-3 col-sm-6 mb-4">
-				<div class="card h-100">
+			<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 mb-4">
+				<div class="card border-0 shadow-sm h-100 hover-lift">
 					<div class="card-body p-3">
 						<div class="row align-items-center">
 							<div class="col-8">
-								<p class="text-sm mb-0 text-uppercase font-weight-bold"><?= $nama_data[$i] ?></p>
-								<h5 class="font-weight-bolder">999</h5>
-								<!-- <p class="mb-0">
-							<span class="text-success text-sm font-weight-bolder">+12%</span> minggu ini
-						</p> -->
+								<p class="text-xs mb-1 text-uppercase fw-semibold text-muted"><?= $nama_data[$i] ?></p>
+								<h4 class="fw-bold text-dark mb-0"><?= $values[$i] ?></h4>
+								<?php if ($i == 3): ?>
+									<div class="mt-1">
+										<small class="text-warning">
+											<i class="fas fa-star"></i>
+											<i class="fas fa-star"></i>
+											<i class="fas fa-star"></i>
+											<i class="fas fa-star"></i>
+											<i class="fas fa-star-half-alt"></i>
+										</small>
+									</div>
+								<?php endif; ?>
 							</div>
 							<div class="col-4 text-end">
-								<div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-									<i class="ni ni-send text-lg opacity-10"></i>
+								<div class="icon icon-shape <?= $colors[$i] ?> shadow text-center rounded-circle mx-auto"
+									style="width: 50px; height: 50px;">
+									<i class="<?= $icons[$i] ?> text-white fs-6" style="line-height: 50px;"></i>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		<?php
-		}
-		?>
+		<?php } ?>
+	</div>
 
-		<div class="col-xl-6 col-sm-12 mb-4">
-			<div class="card h-100">
-				<div class="card-body p-3">
-					<div class="row align-items-center">
-						<div class="col-8">
-							<p class="text-sm mb-0 text-uppercase font-weight-bold">Cabang Tugas</p>
-							<h5 class="font-weight-bolder">Cabang Epsilon</h5>
-							<!-- <p class="mb-0">
-							<span class="text-success text-sm font-weight-bolder">+12%</span> minggu ini
-						</p> -->
+	<!-- Cabang Tugas & Quick Actions -->
+	<div class="row mt-2">
+		<!-- Cabang Tugas -->
+		<div class="col-lg-6 mb-4">
+			<div class="card border-0 shadow-sm h-100">
+				<div class="card-header bg-transparent pb-2 pt-3 border-0">
+					<h6 class="fw-bold text-primary mb-0">
+						<i class="fas fa-map-marker-alt me-2"></i>Informasi Cabang
+					</h6>
+				</div>
+				<div class="card-body">
+					<div class="d-flex align-items-center mb-3">
+						<div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle me-3"
+							style="width: 60px; height: 60px;">
+							<i class="fas fa-building text-white fs-5" style="line-height: 60px;"></i>
 						</div>
-						<div class="col-4 text-end">
-							<i class="bi bi-geo-alt" style="font-size: 35px; font-weight: bold;"></i>
+						<div>
+							<h5 class="fw-bold text-dark mb-1">Cabang Epsilon</h5>
+							<p class="text-muted mb-1">
+								<i class="fas fa-users me-1"></i>
+								<span class="fw-semibold">12 Petugas</span>
+							</p>
+							<p class="text-muted mb-0">
+								<i class="fas fa-map-pin me-1"></i>
+								Jl. Merdeka No. 123, Jakarta
+							</p>
 						</div>
+					</div>
+					<div class="mt-3">
+						<div class="progress mb-2" style="height: 8px;">
+							<div class="progress-bar bg-success" role="progressbar" style="width: 65%"></div>
+						</div>
+						<small class="text-muted">65% tugas bulan ini telah diselesaikan</small>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Quick Actions -->
+		<div class="col-lg-6 mb-4">
+			<div class="card border-0 shadow-sm h-100">
+				<div class="card-header bg-transparent pb-2 pt-3 border-0">
+					<h6 class="fw-bold text-primary mb-0">
+						<i class="fas fa-bolt me-2"></i>Aksi Cepat
+					</h6>
+				</div>
+				<div class="card-body">
+					<div class="d-grid gap-2">
+						<a href="#" class="btn btn-primary btn-lg py-3">
+							<i class="fas fa-list-check me-2"></i>Lihat Semua Tugas
+						</a>
+						<a href="#" class="btn btn-outline-primary py-2">
+							<i class="fas fa-map-marked-alt me-2"></i>Peta Tugas
+						</a>
+						<a href="#" class="btn btn-outline-primary py-2">
+							<i class="fas fa-chart-line me-2"></i>Laporan Harian
+						</a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
+	<!-- Tugas Baru -->
 	<div class="row mt-2 mb-4">
 		<div class="col-12">
-			<div class="card">
-				<div class="card-header pb-0 p-3">
-					<h6 class="mb-0">Tugas Baru</h6>
+			<div class="card border-0 shadow-sm">
+				<div class="card-header bg-transparent pb-2 pt-3 border-0 d-flex justify-content-between align-items-center">
+					<h6 class="fw-bold text-primary mb-0">
+						<i class="fas fa-bell me-2"></i>Tugas Baru
+					</h6>
+					<span class="badge bg-primary">3 Tugas Menunggu</span>
 				</div>
-				<div class="card-body p-3">
-					<ul class="list-group">
-						<li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-							<div class="d-flex align-items-center">
-								<div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
-									<i class="ni ni-trash text-white opacity-10"></i>
+				<div class="card-body p-0">
+					<div class="list-group list-group-flush">
+						<!-- Tugas 1 -->
+						<div class="list-group-item border-0">
+							<div class="row align-items-center">
+								<div class="col-auto">
+									<div class="icon icon-shape bg-gradient-warning text-white text-center rounded-circle"
+										style="width: 40px; height: 40px;">
+										<i class="fas fa-tint fs-6" style="line-height: 40px;"></i>
+									</div>
 								</div>
-								<div class="d-flex flex-column">
-									<h6 class="mb-1 text-dark text-sm">Penanganan Laporan Masalah Air</h6>
-									<span class="text-xs">Klik untuk melihat lokasi</span></span>
+								<div class="col">
+									<h6 class="mb-1 fw-semibold text-dark">Penanganan Masalah Air</h6>
+									<p class="text-muted mb-1 small">
+										<i class="fas fa-map-marker-alt me-1"></i>
+										Jl. Sudirman No. 45 - RT 05/RW 02
+									</p>
+									<div class="d-flex align-items-center">
+										<span class="badge bg-warning me-2">Prioritas Tinggi</span>
+										<span class="badge bg-light text-dark">
+											<i class="fas fa-clock me-1"></i>2 jam lalu
+										</span>
+									</div>
+								</div>
+								<div class="col-auto">
+									<button class="btn btn-sm btn-primary">
+										<i class="fas fa-eye me-1"></i>Detail
+									</button>
 								</div>
 							</div>
-							<div class="d-flex">
-								<button class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto">
-									<i class="ni ni-bold-right"></i>
-								</button>
+						</div>
+
+						<!-- Tugas 2 -->
+						<div class="list-group-item border-0">
+							<div class="row align-items-center">
+								<div class="col-auto">
+									<div class="icon icon-shape bg-gradient-danger text-white text-center rounded-circle"
+										style="width: 40px; height: 40px;">
+										<i class="fas fa-trash fs-6" style="line-height: 40px;"></i>
+									</div>
+								</div>
+								<div class="col">
+									<h6 class="mb-1 fw-semibold text-dark">Pembersihan Sampah Menumpuk</h6>
+									<p class="text-muted mb-1 small">
+										<i class="fas fa-map-marker-alt me-1"></i>
+										Jl. Merdeka No. 88 - RT 03/RW 01
+									</p>
+									<div class="d-flex align-items-center">
+										<span class="badge bg-danger me-2">Sangat Mendesak</span>
+										<span class="badge bg-light text-dark">
+											<i class="fas fa-clock me-1"></i>1 jam lalu
+										</span>
+									</div>
+								</div>
+								<div class="col-auto">
+									<button class="btn btn-sm btn-primary">
+										<i class="fas fa-eye me-1"></i>Detail
+									</button>
+								</div>
 							</div>
-						</li>
-					</ul>
+						</div>
+
+						<!-- Tugas 3 -->
+						<div class="list-group-item border-0">
+							<div class="row align-items-center">
+								<div class="col-auto">
+									<div class="icon icon-shape bg-gradient-info text-white text-center rounded-circle"
+										style="width: 40px; height: 40px;">
+										<i class="fas fa-tree fs-6" style="line-height: 40px;"></i>
+									</div>
+								</div>
+								<div class="col">
+									<h6 class="mb-1 fw-semibold text-dark">Pemangkasan Pohon Tumbang</h6>
+									<p class="text-muted mb-1 small">
+										<i class="fas fa-map-marker-alt me-1"></i>
+										Taman Kota - Area Bermain Anak
+									</p>
+									<div class="d-flex align-items-center">
+										<span class="badge bg-success me-2">Biasa</span>
+										<span class="badge bg-light text-dark">
+											<i class="fas fa-clock me-1"></i>30 menit lalu
+										</span>
+									</div>
+								</div>
+								<div class="col-auto">
+									<button class="btn btn-sm btn-primary">
+										<i class="fas fa-eye me-1"></i>Detail
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Footer dengan tombol lihat semua -->
+					<div class="card-footer bg-transparent border-0 text-center py-3">
+						<a href="#" class="btn btn-outline-primary btn-sm">
+							<i class="fas fa-list me-1"></i>Lihat Semua Tugas
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-<?php
-}
-?>
+	<!-- Statistik Cepat -->
+	<div class="row mt-2">
+		<div class="col-12">
+			<div class="card border-0 bg-gradient-primary text-white shadow-sm">
+				<div class="card-body p-4">
+					<div class="row align-items-center">
+						<div class="col-md-8">
+							<h5 class="text-white mb-2 fw-bold">
+								<i class="fas fa-chart-line me-2"></i>Ringkasan Performa Minggu Ini
+							</h5>
+							<p class="text-white mb-0 opacity-90">
+								Anda telah menyelesaikan <strong>8 dari 15 tugas</strong> dengan rating kepuasan 4.8/5.0
+							</p>
+						</div>
+						<div class="col-md-4 text-md-end">
+							<div class="bg-white text-primary rounded p-3 d-inline-block">
+								<small class="fw-bold">Efisiensi</small>
+								<h4 class="mb-0 fw-bold">87%</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<?php } ?>
 
 
 <?php
