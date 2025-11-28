@@ -162,7 +162,6 @@ $(document).ready(function () {
             zeroRecords: "Data Cabang tidak ditemukan"
         },
         lengthChange: true,
-        searching: false,
         info: false,
         createdRow: function (row, data, dataIndex) {
             // Tambahkan class untuk alignment tengah di semua sel

@@ -71,7 +71,7 @@
     							</div>
     							<div class="col-12 col-sm-4 text-sm-end text-center mt-2 mt-sm-0">
     								<button id="tambah_data" type="button" class="btn btn-primary shadow-sm"
-    									data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="clearForm()">
+    									data-bs-toggle="modal" data-bs-target="#exampleModal">
     									<i class="fas fa-add"></i>&nbsp; Buat Tugas Baru
     								</button>
     							</div>
@@ -116,11 +116,11 @@
     								data-bs-toggle="modal" data-bs-target="#modal2" onclick="searchLaporan(document.getElementById('search-laporan'))">
     								<i class="fas fa-add"></i>&nbsp; Tambahkan Laporan
     							</button>
-								<!-- Selected laporan list will be injected here -->
+    							<!-- Selected laporan list will be injected here -->
     						</div>
     					</div>
 
-						<div id="selected-laporan-list" class="mt-2"></div>
+    					<div id="selected-laporan-list" class="mt-2"></div>
     				</div>
 
     				<div class="modal-footer">
@@ -138,49 +138,24 @@
     	<div class="modal-dialog modal-lg">
     		<div class="modal-content">
     			<div class="modal-header">
-    				<h5 class="modal-title" id="detailModalLabel"><i class="fas fa-user"></i>&nbsp; Detail Petugas</h5>
+    				<h5 class="modal-title" id="detailModalLabel"><i class="fas fa-info-circle"></i>&nbsp; Detail Penanganan</h5>
     				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
     			</div>
     			<div class="modal-body">
     				<div class="row">
-    					<!-- Foto Section (Left) -->
-    					<div class="col-md-4 text-center mb-3 mb-md-0">
-    						<img id="detail_foto" src="" alt="Foto Petugas" style="max-width:100%;height:auto;border:1px solid #ddd;padding:8px;border-radius:8px;display:none;" />
-    						<div id="no_foto" style="display:none;padding:20px;background-color:#f0f0f0;border-radius:8px;color:#999;">
-    							<i class="fas fa-image" style="font-size:48px;"></i>
-    							<p class="mt-2">Tidak ada foto</p>
-    						</div>
-    					</div>
-    					<!-- Information Section (Right) -->
-    					<div class="col-md-8">
-    						<div class="detail-item mb-3">
-    							<label class="detail-label fw-bold">ID:</label>
-    							<span id="detail_id" class="detail-value">-</span>
-    						</div>
-    						<div class="detail-item mb-3">
-    							<label class="detail-label fw-bold">NIK:</label>
-    							<span id="detail_nik" class="detail-value">-</span>
-    						</div>
-    						<div class="detail-item mb-3">
-    							<label class="detail-label fw-bold">Nama:</label>
-    							<span id="detail_nama" class="detail-value">-</span>
-    						</div>
-    						<div class="detail-item mb-3">
-    							<label class="detail-label fw-bold">Email:</label>
-    							<span id="detail_email" class="detail-value">-</span>
-    						</div>
-    						<div class="detail-item mb-3">
-    							<label class="detail-label fw-bold">No. HP:</label>
-    							<span id="detail_no_hp" class="detail-value">-</span>
-    						</div>
-    						<div class="detail-item mb-3">
-    							<label class="detail-label fw-bold">Alamat:</label>
-    							<span id="detail_alamat" class="detail-value">-</span>
-    						</div>
-    						<div class="detail-item mb-3">
-    							<label class="detail-label fw-bold">Cabang:</label>
-    							<span id="detail_cabang" class="detail-value">-</span>
-    						</div>
+    					<div class="col-12">
+    						<div class="detail-item mb-2"><label class="detail-label fw-bold">ID:</label> <span id="detail_id" class="detail-value">-</span></div>
+    						<div class="detail-item mb-2"><label class="detail-label fw-bold">Petugas:</label> <span id="detail_petugas" class="detail-value">-</span></div>
+    						<div class="detail-item mb-2"><label class="detail-label fw-bold">Cabang:</label> <span id="detail_cabang" class="detail-value">-</span></div>
+    						<div class="detail-item mb-2"><label class="detail-label fw-bold">Catatan:</label> <div id="detail_catatan" class="detail-value text-wrap">-</div></div>
+    						<div class="detail-item mb-2"><label class="detail-label fw-bold">Status:</label> <span id="detail_status_penanganan" class="detail-value">-</span></div>
+    						<div class="detail-item mb-2"><label class="detail-label fw-bold">Lampiran:</label> <div id="detail_lampiran" class="detail-value">-</div></div>
+    						<div class="detail-item mb-2"><label class="detail-label fw-bold">Dibuat pada:</label> <span id="detail_created_at" class="detail-value">-</span></div>
+    						<div class="detail-item mb-2"><label class="detail-label fw-bold">Waktu Selesai Ditangani:</label> <span id="detail_waktu_selesai" class="detail-value">-</span></div>
+    						<div class="detail-item mb-2"><label class="detail-label fw-bold">Waktu Dikonfirmasi Selesai:</label> <span id="detail_waktu_dikonfirmasi" class="detail-value">-</span></div>
+    						<hr />
+    						<h6>Daftar Laporan:</h6>
+    						<div id="detail-laporan-list" class="mt-2"></div>
     					</div>
     				</div>
     			</div>
@@ -290,7 +265,10 @@
     	let apiResponse = [];
     	let selectedPetugas = [];
     	let selectedLaporan = [];
+
     	let isLoading = false;
+
+    	let id_penanganan = "";
 
     	const scrollableDiv = document.getElementById("scrollableDiv");
     	const content = document.getElementById("petugas-display");
@@ -361,10 +339,54 @@
     				e.preventDefault();
     				var form = this;
     				var $btn = $('#simpan');
-    				var fd = new FormData(form);
+    				var fd = new FormData();
 
-    				if (id_petugas != "") {
-    					fd.append("id", id_petugas);
+    				// Normalize and validate selected laporan -> array of ids
+    				var laporanIds = [];
+    				if (Array.isArray(selectedLaporan)) {
+    					laporanIds = selectedLaporan.map(function(item) {
+    						return (typeof item === 'object') ? item.id : item;
+    					}).filter(Boolean);
+    				} else if (selectedLaporan) {
+    					// single item (defensive)
+    					laporanIds = [(typeof selectedLaporan === 'object') ? selectedLaporan.id : selectedLaporan].filter(Boolean);
+    				}
+
+    				if (!laporanIds || laporanIds.length === 0) {
+    					Swal.fire({
+    						icon: 'error',
+    						title: 'Gagal',
+    						text: 'Silahkan pilih laporan terlebih dahulu'
+    					});
+    					return;
+    				}
+
+    				// Validate selected petugas (selectedPetugas is expected to be an object when chosen)
+    				var petugasId = null;
+    				if (selectedPetugas && typeof selectedPetugas === 'object') {
+    					petugasId = selectedPetugas.id || null;
+    				} else if (selectedPetugas) {
+    					petugasId = selectedPetugas; // defensive: if an id was stored directly
+    				}
+
+    				if (!petugasId) {
+    					Swal.fire({
+    						icon: 'error',
+    						title: 'Gagal',
+    						text: 'Silahkan pilih petugas terlebih dahulu'
+    					});
+    					return;
+    				}
+
+    				// Append petugas id
+    				fd.append('selectedPetugas', petugasId);
+    				// Append laporan ids as array entries so PHP receives them as an array
+    				laporanIds.forEach(function(id) {
+    					fd.append('selectedLaporan[]', id);
+    				});
+
+    				if (id_penanganan != "") {
+    					fd.append("id", id_penanganan);
     					fd.append("status", "update");
     				} else {
     					fd.append("status", "insert");
@@ -374,7 +396,7 @@
     				$btn.prop('disabled', true).text('Menyimpan...');
 
     				$.ajax({
-    					url: '<?= base_url("petugas/kelola_petugas") ?>',
+    					url: '<?= base_url("penanganan/kelola_penanganan") ?>',
     					method: 'POST',
     					data: fd,
     					processData: false,
@@ -409,10 +431,10 @@
     							} catch (e) {}
 
     							// reset form and preview
-    							$('#form_petugas')[0].reset();
-    							$('#preview_foto').hide().attr('src', '');
-    							if ($('#cabang').data('select2')) $('#cabang').val(null).trigger('change');
-
+    							selectedLaporan = false;
+    							selectedPetugas = false;
+    							confirmLaporanSelection(false);
+    							confirmPetugasSelection(false);
     							// optional: refresh table if function exists
     							table.ajax.reload();
     						});
@@ -436,92 +458,203 @@
 
     			// Clear form function used by the button that opens the modal
     			window.clearForm = function() {
-    				id_petugas = "";
-    				$('#form_petugas')[0].reset();
-    				$('#preview_foto').hide().attr('src', '');
-    				if ($('#cabang').data('select2')) {
-    					$('#cabang').val(null).trigger('change');
-    				}
-    				$('#password').attr('placeholder', 'Buat password');
-    				$('#exampleModalLabel').html('<i class="fas fa-plus"></i>&nbsp; Tambah Petugas');
-    				$('#nik').closest('.mb-3').show();
-    				$('#nik').attr('required', true);
+    				id_penanganan = "";
+    				$('#exampleModalLabel').html('<i class="fas fa-plus"></i>&nbsp; Tugas Baru');
     			};
 
-    			// Edit function to populate form from table row
+    			// Edit function to populate assignment form from penanganan table row
     			window.edit = function(btn) {
     				var row = table.row($(btn).closest('tr')).data();
     				if (!row) return;
 
-    				id_petugas = row.id;
-    				$('#nik').val(row.nik || '');
-    				$('#nama').val(row.nama || '');
-    				$('#email').val(row.email || '');
-    				$('#no_hp').val(row.no_hp || '');
-    				$('#alamat').val(row.alamat || '');
+    				// set current penanganan id (used by submit handler)
+    				id_penanganan = row.id || "";
 
-    				// Hide NIK field in edit mode
-    				$('#nik').closest('.mb-3').hide();
-    				$('#nik').attr('required', false);
-
-    				// Set password placeholder for edit mode
-    				$('#password').attr('placeholder', 'Kosongkan jika tidak ingin mengubah password');
-
-    				// Update modal title
-    				$('#exampleModalLabel').html('<i class="fas fa-edit"></i>&nbsp; Edit Petugas');
-
-    				// Set cabang if available
-    				if (row.id_cabang) {
-    					var option = new Option(row.nama_cabang, row.id_cabang, true, true);
-    					$('#cabang').append(option).trigger('change');
+    				// Populate selectedPetugas from row (expecting fields 'petugas_id' and 'petugas')
+    				if (row.petugas_id) {
+    					selectedPetugas = {
+    						id: row.petugas_id,
+    						nama: row.petugas || ''
+    					};
+    					$('#pilih-petugas').html('Petugas Terpilih: ' + (selectedPetugas.nama || selectedPetugas.id));
+    					$('#pilih-petugas').removeClass('btn-primary').addClass('btn-success');
+    				} else {
+    					selectedPetugas = [];
+    					$('#pilih-petugas').html('<i class="fas fa-add"></i>&nbsp; Pilih Petugas');
+    					$('#pilih-petugas').removeClass('btn-success').addClass('btn-primary');
     				}
 
-    				// Show photo preview if exists
-    				if (row.foto) {
-    					$('#preview_foto').attr('src', origin + 'assets/img/profile/' + row.foto).show();
+    				// Fetch laporan list assigned to this penanganan from backend
+    				// backend endpoint: origin + 'penanganan/laporan_by_id_penanganan'
+    				if (id_penanganan) {
+    					$.ajax({
+    						url: origin + 'penanganan/laporan_by_id_penanganan',
+    						method: 'GET',
+    						data: {
+    							id: id_penanganan
+    						},
+    						dataType: 'json',
+    						success: function(resp) {
+    							// Expecting an array of laporan objects or { data: [...] }
+    							var data = [];
+    							if (!resp) data = [];
+    							else if (Array.isArray(resp)) data = resp;
+    							else if (Array.isArray(resp.data)) data = resp.data;
+    							else if (Array.isArray(resp.laporan)) data = resp.laporan;
+
+    							selectedLaporan = data || [];
+
+    							// Render selected laporan into the UI (reuse confirmLaporanSelection rendering)
+    							try {
+    								if (selectedLaporan.length > 0) {
+    									confirmLaporanSelection(true);
+    								} else {
+    									// clear list if none
+    									$('#selected-laporan-list').html('');
+    									$('#pilih-laporan').removeClass('btn-success').addClass('btn-primary');
+    								}
+    							} catch (e) {
+    								console.error('render laporan selection failed', e);
+    							}
+    						},
+    						error: function(xhr, status) {
+    							console.error('Failed to load laporan for penanganan', status);
+    							selectedLaporan = [];
+    							$('#selected-laporan-list').html('');
+    							$('#pilih-laporan').removeClass('btn-success').addClass('btn-primary');
+    						}
+    					});
+    				} else {
+    					selectedLaporan = [];
+    					$('#selected-laporan-list').html('');
+    					$('#pilih-laporan').removeClass('btn-success').addClass('btn-primary');
     				}
 
-    				// Open modal
+    				// Set modal title and open modal
+    				$('#exampleModalLabel').html('<i class="fas fa-edit"></i>&nbsp; Edit Penanganan');
     				var modalEl = document.getElementById('exampleModal');
     				var bsModal = new bootstrap.Modal(modalEl);
     				bsModal.show();
     			};
 
-    			// Detail function to display petugas information
-    			window.detail = function(btn) {
-    				var row = table.row($(btn).closest('tr')).data();
-    				if (!row) return;
+				// Detail function to display penanganan information
+				window.detail = function(btn) {
+					var row = table.row($(btn).closest('tr')).data();
+					if (!row) return;
 
-    				console.log(row);
+					console.log('detail row', row);
 
-    				// Populate detail fields
-    				$('#detail_id').text(row.id || '-');
-    				$('#detail_nik').text(row.nik || '-');
-    				$('#detail_nama').text(row.nama || '-');
-    				$('#detail_email').text(row.email || '-');
-    				$('#detail_no_hp').text(row.no_hp || '-');
-    				$('#detail_alamat').text(row.alamat || '-');
-    				$('#detail_cabang').text(row.nama_cabang || '-');
+					// Basic fields from row (use fallbacks)
+					$('#detail_id').text(row.id || '-');
+					$('#detail_petugas').text(row.petugas || row.petugas_nama || '-');
+					$('#detail_cabang').text(row.cabang || row.nama_cabang || '-');
+					$('#detail_catatan').text(row.catatan || row.keterangan || '-');
+					$('#detail_status_penanganan').text(row.status_penanganan || row.status || '-');
+					$('#detail_created_at').text(row.created_at || row.tanggal || row.created || '-');
+					$('#detail_waktu_selesai').text(row.waktu_selesai_ditangani || row.waktu_selesai || '-');
+					$('#detail_waktu_dikonfirmasi').text(row.waktu_dikonfirmasi_selesai || row.waktu_dikonfirmasi || '-');
 
-    				// Handle photo display
-    				if (row.foto) {
-    					$('#detail_foto').attr('src', origin + 'assets/img/profile/' + row.foto).show();
-    					$('#no_foto').hide();
-    				} else {
-    					$('#detail_foto').hide();
-    					$('#no_foto').show();
-    				}
+					// Lampiran: show download button if available
+					var lampiranHtml = '-';
+					if (row.lampiran) {
+						// try to form a usable URL; if row.lampiran already an absolute URL, use it
+						var lampiranUrl = row.lampiran.indexOf('http') === 0 ? row.lampiran : origin + (row.lampiran.startsWith('/') ? row.lampiran.substring(1) : row.lampiran);
+						lampiranHtml = '<a class="btn btn-sm btn-outline-primary" href="' + lampiranUrl + '" target="_blank" rel="noopener" download>Download Lampiran</a>';
+					}
+					$('#detail_lampiran').html(lampiranHtml);
 
-    				// Open detail modal
-    				var modalEl = document.getElementById('detailModal');
-    				var bsModal = new bootstrap.Modal(modalEl);
-    				bsModal.show();
-    			};
+					// Clear laporan list while loading
+					$('#detail-laporan-list').html('<div class="spinner" style="width:20px;height:20px;border-width:3px;margin:10px auto"></div>');
+
+					// Fetch laporan list assigned to this penanganan
+					if (row.id) {
+						$.ajax({
+							url: origin + 'penanganan/laporan_by_id_penanganan',
+							method: 'GET',
+							data: { id: row.id },
+							dataType: 'json',
+							success: function(resp) {
+								var data = [];
+								if (!resp) data = [];
+								else if (Array.isArray(resp)) data = resp;
+								else if (Array.isArray(resp.data)) data = resp.data;
+								else if (Array.isArray(resp.laporan)) data = resp.laporan;
+
+								// render list similar to selected laporan cards
+								try {
+									if (!data || data.length === 0) {
+										$('#detail-laporan-list').html('<div class="text-muted">Tidak ada laporan terkait.</div>');
+										return;
+									}
+									var listHtml = '';
+									data.forEach(function(item) {
+										var iid = item.id || '-';
+										var user_id = item.user_id || item.id_user || '-';
+										var nama_user = item.nama_user || item.nama_pelapor || item.nama || '-';
+										var kategori = item.kategori || '-';
+										var kabkot = item.kabkot || item.kabupaten || item.kota || '-';
+										var deskripsi = item.deskripsi || item.keterangan || '-';
+										var foto = item.foto || '';
+										var tingkat = item.tingkat_keparahan || item.level || '-';
+										var tanggal = item.tanggal_laporan || item.tanggal || item.created_at || '-';
+										var lon = item.longitude || item.lng || item.lon || '';
+										var lat = item.latitude || item.lat || '';
+										var collapseDesc = 'detail_collapse_desc_' + iid;
+										var collapseMap = 'detail_collapse_map_' + iid;
+										var mapDivId = 'detail_leaflet_map_' + iid;
+
+										listHtml += '<div class="card mt-2 mb-2" style="border:1px solid #ddd;">';
+										listHtml += '<div class="card-body p-2">';
+										listHtml += '<div class="d-flex justify-content-between align-items-start">';
+										listHtml += '<div><strong>ID: ' + iid + '</strong> &nbsp;|&nbsp; <strong>' + kategori + '</strong><br><small>' + kabkot + ' - Pelapor: ' + nama_user + ' (ID:' + user_id + ')</small></div>';
+										if (foto) {
+											var fotoUrl = (foto.indexOf('http') === 0) ? foto : origin + 'assets/img/dokumentasi/' + foto;
+											listHtml += '<div><a class="btn btn-sm btn-outline-secondary me-1" href="' + fotoUrl + '" target="_blank" rel="noopener">View Foto</a></div>';
+										} else {
+											listHtml += '<div class="text-muted small">No Foto</div>';
+										}
+										listHtml += '</div>';
+
+										listHtml += '<div class="mt-2 small text-muted">Level: <strong>' + tingkat + '</strong> &nbsp;|&nbsp; Tanggal: ' + tanggal + '</div>';
+
+										listHtml += '<div class="mt-2 d-flex gap-2">';
+										listHtml += '<button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#' + collapseDesc + '" aria-expanded="false" aria-controls="' + collapseDesc + '" onclick="event.stopPropagation();">Deskripsi</button>';
+										listHtml += '<button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#' + collapseMap + '" aria-expanded="false" aria-controls="' + collapseMap + '" onclick="event.stopPropagation(); initLaporanMapDetail(\'' + iid + '\',' + (lat || 0) + ',' + (lon || 0) + ');">Map</button>';
+										listHtml += '</div>';
+
+										listHtml += '<div class="collapse mt-2" id="' + collapseDesc + '"><div class="card card-body p-2 border-0" style="background:#f8f9fa; font-size:0.95rem;">' + deskripsi + '</div></div>';
+
+										listHtml += '<div class="collapse mt-2" id="' + collapseMap + '"><div class="card card-body p-2 border-0" style="background:#fff; font-size:0.95rem;"><div style="width:100%; height:220px;"><div id="' + mapDivId + '" style="width:100%; height:100%; border-radius:6px; overflow:hidden;"></div><div class="mt-1 small text-muted">Longitude: ' + lon + ' &nbsp;|&nbsp; Latitude: ' + lat + '</div></div></div></div>';
+
+										listHtml += '</div></div>';
+									});
+									$('#detail-laporan-list').html(listHtml);
+								} catch (e) {
+									console.error('render detail laporan failed', e);
+									$('#detail-laporan-list').html('<div class="text-muted">Gagal menampilkan daftar laporan.</div>');
+								}
+							},
+							error: function() {
+								$('#detail-laporan-list').html('<div class="text-muted">Gagal memuat daftar laporan.</div>');
+							}
+						});
+					} else {
+						$('#detail-laporan-list').html('<div class="text-muted">Tidak ada laporan terkait.</div>');
+					}
+
+					// Open detail modal
+					$('#detailModalLabel').text('Detail Penanganan');
+					var modalEl = document.getElementById('detailModal');
+					var bsModal = new bootstrap.Modal(modalEl);
+					bsModal.show();
+				};
     		});
     	})(window.jQuery || window.$ || function(fn) {
     		fn();
     	});
     	$(document).ready(function() {
+
+
     		dataTableConfig = {
     			serverSide: true,
     			ajax: {
@@ -781,6 +914,32 @@
     		let deskripsi = data.deskripsi;
     		let longitude = data.longitude;
     		let latitude = data.latitude;
+    		let tanggal_laporan = data.tanggal_laporan;
+    		// format MySQL timestamp (YYYY-MM-DD HH:MM:SS) to user-friendly format
+    		function formatTimestamp(ts) {
+    			if (!ts) return '-';
+    			try {
+    				// ensure ISO format for reliable parsing
+    				var iso = ts.replace(' ', 'T');
+    				var d = new Date(iso);
+    				if (isNaN(d.getTime())) {
+    					// fallback: try replace space with 'T' and append Z
+    					d = new Date(iso + 'Z');
+    					if (isNaN(d.getTime())) return ts;
+    				}
+    				// Indonesian locale, readable format
+    				return d.toLocaleString('id-ID', {
+    					day: '2-digit',
+    					month: 'long',
+    					year: 'numeric',
+    					hour: '2-digit',
+    					minute: '2-digit'
+    				});
+    			} catch (e) {
+    				return ts;
+    			}
+    		}
+    		let tanggal_readable = formatTimestamp(tanggal_laporan);
     		let sel = is_selected ? "bg-success" : "";
     		let collapseId = "collapse_" + id;
     		let collapseMapId = "collapse_map_" + id;
@@ -801,7 +960,9 @@
 								<h5 class="mb-2" style="font-weight:600;">` + kategori + `</h5>
 								<div class="mb-1"><small><strong>ID:` + id + `</strong></small></div>
 								<div class="mb-1"><small>Level <strong>` + level + `</strong></small></div>
-								<div class="text-muted small mb-2">` + kabkot + `</div>
+		
+								<div class="text-muted small">` + kabkot + `</div>
+								<div class="text-muted small mb-2" style="font-size: 11px"><i class="bi bi-calendar-event"></i>&nbsp;` + tanggal_readable + `</div>
 								<div class="d-flex gap-2">
 									<button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#` + collapseId + `" aria-expanded="false" aria-controls="` + collapseId + `" onclick="event.stopPropagation();">
 										<i class="bi bi-chevron-down"></i> Deskripsi
@@ -868,6 +1029,32 @@
     		}
     	}
 
+			// init map for detail modal (uses separate map container ids)
+			function initLaporanMapDetail(id, lat, lon) {
+				try {
+					var mapDivId = 'detail_leaflet_map_' + id;
+					var container = document.getElementById(mapDivId);
+					if (!container) return;
+					window.laporanMapsDetail = window.laporanMapsDetail || {};
+					if (window.laporanMapsDetail[id]) {
+						try { window.laporanMapsDetail[id].invalidateSize(); } catch (e) {}
+						window.laporanMapsDetail[id].setView([lat, lon], 13);
+						return;
+					}
+					if (typeof L === 'undefined') {
+						container.innerHTML = '<div style="padding:10px;color:#666">Leaflet tidak ditemukan. Pastikan library Leaflet dimuat.</div>';
+						return;
+					}
+					var map = L.map(mapDivId, { scrollWheelZoom: false }).setView([lat, lon], 13);
+					L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OSM' }).addTo(map);
+					L.marker([lat, lon]).addTo(map);
+					window.laporanMapsDetail[id] = map;
+					setTimeout(function() { try { map.invalidateSize(); } catch (e) {} }, 200);
+				} catch (e) {
+					console.error('initLaporanMapDetail error', e);
+				}
+			}
+
     	function confirmLaporanSelection(confirm) {
     		if (confirm) {
     			if (!selectedLaporan || selectedLaporan.length == 0) {
@@ -877,37 +1064,37 @@
     					text: 'Silahkan pilih laporan terlebih dahulu.'
     				});
     				selectedLaporan = [];
-					$('#pilih-laporan').addClass('btn-primary');
-					$('#pilih-laporan').removeClass('btn-success');
-					// clear displayed list
-					$('#selected-laporan-list').html('');
+    				$('#pilih-laporan').addClass('btn-primary');
+    				$('#pilih-laporan').removeClass('btn-success');
+    				// clear displayed list
+    				$('#selected-laporan-list').html('');
     				return;
     			}
-			$('#pilih-laporan').removeClass('btn-primary');
-			$('#pilih-laporan').addClass('btn-success');
-			// render selected laporan list below the button as cards
-			try {
-				var items = Array.isArray(selectedLaporan) ? selectedLaporan : [selectedLaporan];
-				var listHtml = '';
-				items.forEach(function(item) {
-					var iid = item.id || '-';
-					var ikat = item.kategori || item.nama || '-';
-					listHtml += '<div class="card mt-2 mb-2" style="border:1px solid #ddd;">' +
-						'<div class="card-body p-2 container px-3">' +
-						'<span>ID:' + iid + ' - ' + ikat + '</span>' +
-						'</div>' +
-						'</div>';
-				});
-				$('#selected-laporan-list').html(listHtml);
-			} catch (e) {
-				console.error('render selected laporan list failed', e);
-			}
+    			$('#pilih-laporan').removeClass('btn-primary');
+    			$('#pilih-laporan').addClass('btn-success');
+    			// render selected laporan list below the button as cards
+    			try {
+    				var items = Array.isArray(selectedLaporan) ? selectedLaporan : [selectedLaporan];
+    				var listHtml = '';
+    				items.forEach(function(item) {
+    					var iid = item.id || '-';
+    					var ikat = item.kategori || item.nama || '-';
+    					listHtml += '<div class="card mt-2 mb-2" style="border:1px solid #ddd;">' +
+    						'<div class="card-body p-2 container px-3">' +
+    						'<span>ID:' + iid + ' - ' + ikat + '</span>' +
+    						'</div>' +
+    						'</div>';
+    				});
+    				$('#selected-laporan-list').html(listHtml);
+    			} catch (e) {
+    				console.error('render selected laporan list failed', e);
+    			}
     		} else {
     			selectedLaporan = [];
-				$('#pilih-laporan').addClass('btn-primary');
-				$('#pilih-laporan').removeClass('btn-success');
-				// clear displayed list
-				$('#selected-laporan-list').html('');
+    			$('#pilih-laporan').addClass('btn-primary');
+    			$('#pilih-laporan').removeClass('btn-success');
+    			// clear displayed list
+    			$('#selected-laporan-list').html('');
     		}
     	}
 
@@ -919,6 +1106,93 @@
     				behavior: 'smooth'
     			});
     		}
+
+    		/**
+    		 * Submit selectedPetugas and selectedLaporan to penanganan/kelola_penanganan via AJAX
+    		 * Optional: pass a selector for the triggering button to disable it during request
+    		 */
+    		// function submitSelectedForPenanganan(btnSelector = '#kirim-penanganan'){
+    		// 	// normalize arrays
+    		// 	var petugasArr = Array.isArray(selectedPetugas) ? selectedPetugas : (selectedPetugas ? [selectedPetugas] : []);
+    		// 	var laporanArr = Array.isArray(selectedLaporan) ? selectedLaporan : (selectedLaporan ? [selectedLaporan] : []);
+
+    		// 	if(petugasArr.length === 0){
+    		// 		Swal.fire({icon:'warning', title:'Pilih Petugas', text:'Silahkan pilih minimal 1 petugas untuk dikirim.'});
+    		// 		return;
+    		// 	}
+
+    		// 	// Bind modal save button to submitSelectedForPenanganan
+    		// 	// Use event delegation in case modal is rendered after script runs
+    		// 	$(document).on('click', '#exampleModal #simpan', function(e){
+    		// 		e.preventDefault();
+    		// 		// call the submit function and pass the button selector so it will be disabled during request
+    		// 		submitSelectedForPenanganan('#exampleModal #simpan');
+    		// 	});
+    		// 	if(laporanArr.length === 0){
+    		// 		Swal.fire({icon:'warning', title:'Pilih Laporan', text:'Silahkan pilih minimal 1 laporan untuk dikirim.'});
+    		// 		return;
+    		// 	}
+
+    		// 	// Extract ids (support objects or plain ids)
+    		// 	var petugasIds = petugasArr.map(function(p){ return (typeof p === 'object') ? (p.id || p.ID || p.id_user || p.user_id) : p; }).filter(Boolean);
+    		// 	var laporanIds = laporanArr.map(function(l){ return (typeof l === 'object') ? (l.id || l.ID || l.id_laporan) : l; }).filter(Boolean);
+
+    		// 	if(petugasIds.length === 0 || laporanIds.length === 0){
+    		// 		Swal.fire({icon:'error', title:'Data tidak valid', text:'Tidak dapat menemukan id pada selection.'});
+    		// 		return;
+    		// 	}
+
+    		// 	Swal.fire({
+    		// 		title: 'Konfirmasi Kirim',
+    		// 		text: 'Kirim ' + petugasIds.length + ' petugas untuk menangani ' + laporanIds.length + ' laporan?',
+    		// 		icon: 'question',
+    		// 		showCancelButton: true,
+    		// 		confirmButtonText: 'Ya, kirim',
+    		// 		cancelButtonText: 'Batal'
+    		// 	}).then(function(result){
+    		// 		if(!result.isConfirmed) return;
+
+    		// 		var $btn = $(btnSelector);
+    		// 		if($btn.length) {
+    		// 			$btn.prop('disabled', true).data('orig-text', $btn.text()).text('Mengirim...');
+    		// 		}
+
+    		// 		$.ajax({
+    		// 			url: origin + 'penanganan/kelola_penanganan',
+    		// 			method: 'POST',
+    		// 			data: {
+    		// 				petugas: petugasIds,
+    		// 				laporan: laporanIds
+    		// 			},
+    		// 			traditional: true,
+    		// 			dataType: 'json'
+    		// 		}).done(function(resp){
+    		// 			if(!resp){
+    		// 				Swal.fire({icon:'error', title:'Error', text:'Response kosong dari server'});
+    		// 				return;
+    		// 			}
+    		// 			if(resp.icon && resp.icon === 'success' || resp.success === true || resp.status == 200){
+    		// 				Swal.fire({icon:'success', title: resp.judul || 'Berhasil', text: resp.message || resp.pesan || ''}).then(function(){
+    		// 					// clear selections and update UI if helpers exist
+    		// 					selectedPetugas = [];
+    		// 					selectedLaporan = [];
+    		// 					try{ $('#selected-petugas-list').html(''); }catch(e){}
+    		// 					try{ $('#selected-laporan-list').html(''); }catch(e){}
+    		// 					if(typeof window.refresh_table === 'function') window.refresh_table();
+    		// 					if(typeof window.load_table === 'function') window.load_table();
+    		// 				});
+    		// 			} else {
+    		// 				Swal.fire({icon:'error', title: resp.judul || 'Gagal', text: resp.message || JSON.stringify(resp)});
+    		// 			}
+    		// 		}).fail(function(jqXHR, textStatus){
+    		// 			Swal.fire({icon:'error', title:'Terjadi Kesalahan', text: textStatus || 'Network error'});
+    		// 		}).always(function(){
+    		// 			if($btn.length) {
+    		// 				$btn.prop('disabled', false).text($btn.data('orig-text') || 'Kirim');
+    		// 			}
+    		// 		});
+    		// 	});
+    		// }
     		searchInterval = setTimeout(() => {
     			$.ajax({
     				// url: origin + "petugas/search_petugas",
@@ -926,6 +1200,7 @@
     				type: "get",
     				data: {
     					q: input.value ?? "",
+    					id_penanganan: id_penanganan,
     					page: page
     				},
     				success: function(response) {
@@ -954,4 +1229,16 @@
     			});
     		}, 500);
     	}
+
+    	function clearForm() {
+			id_penanganan = "";
+    		selectedPetugas = [];
+    		selectedLaporan = [];
+    		confirmLaporanSelection(false);
+    		confirmPetugasSelection(false);
+			console.log('form cleared');
+    	}
+
+		$("#tambah_data").on('click', clearForm);
+		
     </script>

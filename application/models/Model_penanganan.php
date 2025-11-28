@@ -56,11 +56,10 @@ class Model_penanganan extends CI_Model
 		return $this->db->insert("penanganan", $data);
 	}
 
-	function update_data($data, $where)
+	function update_data($id, $data)
 	{
-		$this->db->set($data);
-		$this->db->where($where);
-		return $this->db->update("penanganan");
+		$this->db->where('id', $id);
+		return $this->db->update('penanganan', $data);
 	}
 
 	function delete_data($id)
@@ -68,4 +67,5 @@ class Model_penanganan extends CI_Model
 		$this->db->where("id", $id);
 		return $this->db->delete("penanganan");
 	}
+
 }
