@@ -62,34 +62,138 @@
 
   <div class="modal fade" id="detailModalTugas" aria-labelledby="detailModalTugasLabel" aria-hidden="true">
   	<div class="modal-dialog modal-lg">
-  		<div class="modal-content">
-  			<div class="modal-header">
-  				<h5 class="modal-title" id="detailModalTugasLabel">Detail Tugas</h5>
+  		<div class="modal-content border-0 shadow-lg">
+  			<!-- Header -->
+  			<div class="modal-header border-bottom bg-white">
+  				<div class="d-flex align-items-center">
+  					<div class="bg-light rounded-circle d-flex align-items-center justify-content-center me-3"
+  						style="width: 40px; height: 40px;">
+  						<i class="fas fa-tasks text-dark"></i>
+  					</div>
+  					<div>
+  						<h5 class="modal-title mb-0 fw-bold text-dark" id="detailModalTugasLabel">Detail Tugas</h5>
+  						<small class="text-muted">Informasi lengkap tugas penanganan</small>
+  					</div>
+  				</div>
   				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
   			</div>
-  			<div class="modal-body">
+
+  			<!-- Body -->
+  			<div class="modal-body p-4 bg-white">
   				<div class="row">
   					<div class="col-12">
-  						<div class="mb-2"><strong>ID:</strong> <span id="tugas_detail_id">-</span></div>
-  						<div class="mb-2"><strong>Catatan:</strong>
-  							<div id="tugas_detail_catatan" class="text-wrap">-</div>
-  						</div>
-  						<div class="mb-2"><strong>Status:</strong> <span id="tugas_detail_status">-</span></div>
-  						<div class="mb-2"><strong>Lampiran:</strong>
-  							<div id="tugas_detail_lampiran">-</div>
-  						</div>
-  						<div class="mb-2"><strong>Dibuat pada:</strong> <span id="tugas_detail_created_at">-</span></div>
-  						<div class="mb-2"><strong>Waktu Selesai Ditangani:</strong> <span id="tugas_detail_waktu_selesai">-</span></div>
-  						<div class="mb-2"><strong>Waktu Dikonfirmasi Selesai:</strong> <span id="tugas_detail_waktu_dikonfirmasi">-</span></div>
+  						<!-- Informasi Utama -->
+  						<div class="row g-3 mb-4">
+  							<div class="col-md-6">
+  								<div class="card border h-100">
+  									<div class="card-body">
+  										<label class="text-xs text-muted mb-2 fw-semibold text-uppercase">
+  											<i class="fas fa-id-card me-1"></i>ID Tugas
+  										</label>
+  										<div id="tugas_detail_id" class="fw-bold text-dark fs-6">-</div>
+  									</div>
+  								</div>
+  							</div>
 
-  						<hr />
-  						<h6>Daftar Laporan Terkait</h6>
-  						<div id="tugas_detail_laporan_list" class="mt-2"></div>
+  							<div class="col-md-6">
+  								<div class="card border h-100">
+  									<div class="card-body">
+  										<label class="text-xs text-muted mb-2 fw-semibold text-uppercase">
+  											<i class="fas fa-tasks me-1"></i>Status Tugas
+  										</label>
+  										<div id="tugas_detail_status" class="fw-bold text-dark">-</div>
+  									</div>
+  								</div>
+  							</div>
+  						</div>
+
+  						<!-- Catatan -->
+  						<div class="card border mb-4">
+  							<div class="card-body">
+  								<label class="text-xs text-muted mb-2 fw-semibold text-uppercase">
+  									<i class="fas fa-sticky-note me-1"></i>Catatan Tugas
+  								</label>
+  								<div id="tugas_detail_catatan" class="text-dark lh-base bg-light rounded p-3">
+  									<span class="text-muted">Tidak ada catatan</span>
+  								</div>
+  							</div>
+  						</div>
+
+  						<!-- Lampiran -->
+  						<div class="card border mb-4">
+  							<div class="card-body">
+  								<label class="text-xs text-muted mb-2 fw-semibold text-uppercase">
+  									<i class="fas fa-paperclip me-1"></i>Lampiran
+  								</label>
+  								<div id="tugas_detail_lampiran" class="text-dark">
+  									<span class="text-muted">Tidak ada lampiran</span>
+  								</div>
+  							</div>
+  						</div>
+
+  						<!-- Timeline -->
+  						<div class="card border mb-4">
+  							<div class="card-body">
+  								<label class="text-xs text-muted mb-3 fw-semibold text-uppercase">
+  									<i class="fas fa-clock me-1"></i>Timeline
+  								</label>
+  								<div class="row g-3">
+  									<div class="col-md-4">
+  										<div class="text-center">
+  											<div class="bg-light rounded p-3">
+  												<i class="fas fa-plus-circle text-primary mb-2 fs-4"></i>
+  												<div class="text-xs text-muted fw-semibold">Dibuat Pada</div>
+  												<div id="tugas_detail_created_at" class="fw-bold text-dark small">-</div>
+  											</div>
+  										</div>
+  									</div>
+  									<div class="col-md-4">
+  										<div class="text-center">
+  											<div class="bg-light rounded p-3">
+  												<i class="fas fa-check-circle text-success mb-2 fs-4"></i>
+  												<div class="text-xs text-muted fw-semibold">Selesai Ditangani</div>
+  												<div id="tugas_detail_waktu_selesai" class="fw-bold text-dark small">-</div>
+  											</div>
+  										</div>
+  									</div>
+  									<div class="col-md-4">
+  										<div class="text-center">
+  											<div class="bg-light rounded p-3">
+  												<i class="fas fa-check-double text-info mb-2 fs-4"></i>
+  												<div class="text-xs text-muted fw-semibold">Dikonfirmasi Selesai</div>
+  												<div id="tugas_detail_waktu_dikonfirmasi" class="fw-bold text-dark small">-</div>
+  											</div>
+  										</div>
+  									</div>
+  								</div>
+  							</div>
+  						</div>
+
+  						<!-- Daftar Laporan Terkait -->
+  						<div class="card border">
+  							<div class="card-header bg-light border-bottom">
+  								<h6 class="mb-0 fw-bold text-dark">
+  									<i class="fas fa-list me-2"></i>Daftar Laporan Terkait
+  								</h6>
+  							</div>
+  							<div class="card-body">
+  								<div id="tugas_detail_laporan_list" class="mt-2">
+  									<div class="text-center text-muted py-3">
+  										<i class="fas fa-inbox fs-1 mb-2"></i>
+  										<p class="mb-0">Tidak ada laporan terkait</p>
+  									</div>
+  								</div>
+  							</div>
+  						</div>
   					</div>
   				</div>
   			</div>
-  			<div class="modal-footer">
-  				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+
+  			<!-- Footer -->
+  			<div class="modal-footer border-top bg-white">
+  				<button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">
+  					<i class="fas fa-times me-1"></i>Tutup
+  				</button>
   			</div>
   		</div>
   	</div>
