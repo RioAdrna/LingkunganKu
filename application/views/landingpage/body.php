@@ -99,7 +99,6 @@
             <div class="row g-5 align-items-center">
                 <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
                     <div class="video border">
-                        <button type="button" class="btn btn-play" data-bs-toggle="modal" data-src="https://youtu.be/giv2GL8lp94?si=JrJU-QK-c1JBcy7z" data-bs-target="#videoModal">
                             <span></span>
                         </button>
                     </div>
@@ -443,7 +442,7 @@
 
 
     <!-- Copyright Start -->
-    <div class="container-fluid copyright bg-dark py-4">
+    <div class="container-fluid copyright bg-dark py-4" style="background-color: #1A2A4F;">
         <div class="container copyright text-center mt-4" >
             <p class="text-white">© <span>Copyright</span> <strong class="px-1 sitename">LINGKUNGANKU NEURO</strong> <span>All Rights
                     Reserved</span>
@@ -451,7 +450,7 @@
             <div class="credits text-white">
 
                 Designed & Developed by <a
-                    href="https://www.instagram.com/universitas_nurtanio?igsh=emZjampwMzZydWsx" style="color: #5CB338;">Tim Neuro -
+                    href="https://www.instagram.com/universitas_nurtanio?igsh=emZjampwMzZydWsx" style="color: #75ba58ff;">Tim Neuro -
                     Universitas Nurtanio Bandung</a>
             </div>
         </div>
