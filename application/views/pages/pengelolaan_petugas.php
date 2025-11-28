@@ -1,9 +1,9 @@
     <style>
+    	#tabel_lapor td:first-child,
+    	#tabel_lapor th:first-child {
+    		text-align: center !important;
+    	}
 
-		#tabel_lapor td:first-child,
-    #tabel_lapor th:first-child {
-        text-align: center !important;
-    }
     	#tabel_lapor td,
     	#tabel_lapor th {
     		white-space: normal !important;
@@ -139,64 +139,148 @@
     		</div>
     	</div>
     </div>
-
-    <!-- Detail Modal -->
-    <div class="modal fade" id="detailModal" aria-labelledby="detailModalLabel" aria-hidden="true">
-    	<div class="modal-dialog modal-lg">
-    		<div class="modal-content">
-    			<div class="modal-header">
-    				<h5 class="modal-title" id="detailModalLabel"><i class="fas fa-user"></i>&nbsp; Detail Petugas</h5>
-    				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+    	<div class="modal-dialog modal-dialog-centered modal-lg">
+    		<div class="modal-content border-0 shadow-lg">
+    			<!-- Header -->
+    			<div class="modal-header border-bottom bg-white">
+    				<div class="d-flex align-items-center">
+    					<div class="bg-light rounded-circle d-flex align-items-center justify-content-center me-3"
+    						style="width: 40px; height: 40px;">
+    						<i class="fas fa-user text-dark"></i>
+    					</div>
+    					<div>
+    						<h5 class="modal-title mb-0 fw-bold text-dark" id="detailModalLabel">Detail Petugas</h5>
+    						<small class="text-muted">Informasi lengkap petugas</small>
+    					</div>
+    				</div>
+    				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     			</div>
-    			<div class="modal-body">
+
+    			<!-- Body -->
+    			<div class="modal-body p-4 bg-white">
     				<div class="row">
-    					<!-- Foto Section (Left) -->
-    					<div class="col-md-4 text-center mb-3 mb-md-0">
-    						<img id="detail_foto" src="" alt="Foto Petugas" style="max-width:100%;height:auto;border:1px solid #ddd;padding:8px;border-radius:8px;display:none;" />
-    						<div id="no_foto" style="display:none;padding:20px;background-color:#f0f0f0;border-radius:8px;color:#999;">
-    							<i class="fas fa-image" style="font-size:48px;"></i>
-    							<p class="mt-2">Tidak ada foto</p>
+    					<!-- Foto Section -->
+    					<div class="col-md-4 text-center mb-4 mb-md-0">
+    						<div class="position-relative">
+    							<img id="detail_foto" src="" alt="Foto Petugas"
+    								class="img-fluid rounded-3 border"
+    								style="display: none; max-height: 250px; object-fit: cover;">
+    							<div id="no_foto" class="d-none">
+    								<div class="bg-light rounded-3 p-5 text-center border">
+    									<i class="fas fa-user-circle text-muted mb-3" style="font-size: 4rem;"></i>
+    									<p class="text-muted mb-0 fw-semibold">Tidak ada foto</p>
+    								</div>
+    							</div>
+    						</div>
+    						<div class="mt-3">
+    							<span id="detail_status" class="badge bg-light border text-dark fs-6 px-3 py-2">
+    								<i class="fas fa-circle me-1 small text-success"></i>Aktif
+    							</span>
     						</div>
     					</div>
-    					<!-- Information Section (Right) -->
+
+    					<!-- Information Section -->
     					<div class="col-md-8">
-    						<div class="detail-item mb-3">
-    							<label class="detail-label fw-bold">ID:</label>
-    							<span id="detail_id" class="detail-value">-</span>
-    						</div>
-    						<div class="detail-item mb-3">
-    							<label class="detail-label fw-bold">NIK:</label>
-    							<span id="detail_nik" class="detail-value">-</span>
-    						</div>
-    						<div class="detail-item mb-3">
-    							<label class="detail-label fw-bold">Nama:</label>
-    							<span id="detail_nama" class="detail-value">-</span>
-    						</div>
-    						<div class="detail-item mb-3">
-    							<label class="detail-label fw-bold">Email:</label>
-    							<span id="detail_email" class="detail-value">-</span>
-    						</div>
-    						<div class="detail-item mb-3">
-    							<label class="detail-label fw-bold">No. HP:</label>
-    							<span id="detail_no_hp" class="detail-value">-</span>
-    						</div>
-    						<div class="detail-item mb-3">
-    							<label class="detail-label fw-bold">Alamat:</label>
-    							<span id="detail_alamat" class="detail-value">-</span>
-    						</div>
-    						<div class="detail-item mb-3">
-    							<label class="detail-label fw-bold">Cabang:</label>
-    							<span id="detail_cabang" class="detail-value">-</span>
+    						<div class="row g-3">
+    							<!-- Baris 1: ID dan NIK -->
+    							<div class="col-sm-6">
+    								<div class="card border h-100">
+    									<div class="card-body py-3">
+    										<label class="text-xs text-muted mb-1 fw-semibold text-uppercase">
+    											<i class="fas fa-id-card me-1"></i>ID Petugas
+    										</label>
+    										<div id="detail_id" class="fw-bold text-dark fs-6">-</div>
+    									</div>
+    								</div>
+    							</div>
+    							<div class="col-sm-6">
+    								<div class="card border h-100">
+    									<div class="card-body py-3">
+    										<label class="text-xs text-muted mb-1 fw-semibold text-uppercase">
+    											<i class="fas fa-fingerprint me-1"></i>NIK
+    										</label>
+    										<div id="detail_nik" class="fw-bold text-dark fs-6">-</div>
+    									</div>
+    								</div>
+    							</div>
+
+    							<!-- Baris 2: Nama -->
+    							<div class="col-12">
+    								<div class="card border h-100">
+    									<div class="card-body py-3">
+    										<label class="text-xs text-muted mb-1 fw-semibold text-uppercase">
+    											<i class="fas fa-user me-1"></i>Nama Lengkap
+    										</label>
+    										<div id="detail_nama" class="fw-bold text-dark fs-5">-</div>
+    									</div>
+    								</div>
+    							</div>
+
+    							<!-- Baris 3: Email dan No. HP -->
+    							<div class="col-sm-6">
+    								<div class="card border h-100">
+    									<div class="card-body py-3">
+    										<label class="text-xs text-muted mb-1 fw-semibold text-uppercase">
+    											<i class="fas fa-envelope me-1"></i>Email
+    										</label>
+    										<div id="detail_email" class="fw-bold text-dark text-break">-</div>
+    									</div>
+    								</div>
+    							</div>
+    							<div class="col-sm-6">
+    								<div class="card border h-100">
+    									<div class="card-body py-3">
+    										<label class="text-xs text-muted mb-1 fw-semibold text-uppercase">
+    											<i class="fas fa-phone me-1"></i>No. Telepon
+    										</label>
+    										<div id="detail_no_hp" class="fw-bold text-dark">-</div>
+    									</div>
+    								</div>
+    							</div>
+
+    							<!-- Baris 4: Cabang -->
+    								<!-- Cabang -->
+    								<div class="col-md-6 mb-3">
+    									<div class="card border h-100">
+    										<div class="card-body py-3">
+    											<label class="text-xs text-muted mb-1 fw-semibold text-uppercase">
+    												<i class="fas fa-building me-1"></i>Cabang
+    											</label>
+    											<div id="detail_cabang" class="fw-bold text-dark">-</div>
+    										</div>
+    									</div>
+    								</div>
+
+    								<!-- Alamat -->
+    								<div class="col-md-6 mb-3">
+    									<div class="card border h-100">
+    										<div class="card-body py-3">
+    											<label class="text-xs text-muted mb-1 fw-semibold text-uppercase">
+    												<i class="fas fa-map-marker-alt me-1"></i>Alamat
+    											</label>
+    											<div id="detail_alamat" class="fw-bold text-dark text-break">-</div>
+    										</div>
+    									</div>
+    								</div>
+
     						</div>
     					</div>
     				</div>
     			</div>
-    			<div class="modal-footer">
-    				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+
+    			<!-- Footer -->
+    			<div class="modal-footer border-top bg-white">
+    				<div class="d-flex justify-content-end w-100 align-items-center">
+    					<button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">
+    						<i class="fas fa-times me-1"></i>Tutup
+    					</button>
+    				</div>
     			</div>
     		</div>
     	</div>
     </div>
+
 
     <!-- Select2 assets and initialization -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -431,7 +515,7 @@
     					title: "ID",
     					data: "id",
     				},
-					{
+    				{
     					title: "Nama",
     					data: "nama",
     				},
