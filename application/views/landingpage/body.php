@@ -25,9 +25,9 @@
 
                     <!-- Menu di tengah -->
                     <div class="navbar-nav mx-auto">
-                        <a href="#home" class="nav-item nav-link active">Home</a>
-                        <a href="#about" class="nav-item nav-link">About</a>
-                        <a href="#contact" class="nav-item nav-link">Contact</a>
+                        <a href="#home" class="nav-item nav-link active">Beranda</a>
+                        <a href="#about" class="nav-item nav-link">Tentang</a>
+                        <a href="#contact" class="nav-item nav-link">Kontak</a>
                     </div>
 
                     <?php
@@ -70,7 +70,7 @@
                         Laporkan keluhan lingkungan Anda dengan mudah—mulai dari sampah, kerusakan fasilitas umum, hingga pencemaran. Bersama, kita wujudkan lingkungan yang bersih, aman, dan lebih nyaman.
                     </p>
 
-                    <a href="<?= base_url("login") ?>" class="btn btn-success">
+                    <a href="<?= base_url("login") ?>" class="btn btn-dark">
                         <i class="fas fa-sign-in-alt"></i> Login
                     </a>
 
@@ -389,7 +389,7 @@
                     </div>
 
                     <!-- KONTAK -->
-                    <div class="col-md-6 col-lg-4 col-xl-4" >
+                    <div class="col-md-6 col-lg-4 col-xl-4">
                         <div class="footer-item">
                             <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
                                 KONTAK
@@ -442,8 +442,13 @@
 
 
     <!-- Copyright Start -->
+<<<<<<< HEAD
     <div class="container-fluid copyright bg-dark py-4" style="background-color: #1A2A4F;">
         <div class="container copyright text-center mt-4" >
+=======
+    <div class="container-fluid copyright bg-dark py-4">
+        <div class="container copyright text-center mt-4">
+>>>>>>> bc22b04 (Update regis + NIK)
             <p class="text-white">© <span>Copyright</span> <strong class="px-1 sitename">LINGKUNGANKU NEURO</strong> <span>All Rights
                     Reserved</span>
             </p>

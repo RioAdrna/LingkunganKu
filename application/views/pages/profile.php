@@ -63,7 +63,7 @@
                                                 <div class="col-md-9 mb-4">
                                                     <div class="card">
                                                         <div class="card-header">
-                                                            <h6 class="card-title"><i class="fas fa-id-card"></i>&nbsp;  </h6>
+                                                            <h6 class="card-title"><i class="fas fa-id-card"></i>&nbsp; </h6>
                                                         </div>
 
                                                         <div class="card-body shadow-sm">
@@ -79,6 +79,13 @@
                                                                                 <h6 class="mb-0 text-dark">Nama Lengkap</h6>
                                                                             </div>
                                                                             <div class="col-sm-8 text-secondary border-start" id="nama"><?= $this->session->userdata("nama") ?></div>
+                                                                        </div>
+                                                                        <hr>
+                                                                        <div class="row border-start border-end">
+                                                                            <div class="col-sm-4">
+                                                                                <h6 class="mb-0 text-dark">NIK</h6>
+                                                                            </div>
+                                                                            <div class="col-sm-8 text-secondary border-start" id="nik"><?= $this->session->userdata("nik") ?></div>
                                                                         </div>
                                                                         <hr>
                                                                         <div class="row border-start border-end">

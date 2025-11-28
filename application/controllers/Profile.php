@@ -14,12 +14,14 @@ class Profile extends CI_Controller
     {
         $id       = $this->session->userdata("id_user");
         $nama     = $this->input->post("nama");
+        $nik     = $this->input->post("nik");
         $email    = $this->input->post("email");
         $no_hp    = $this->input->post("no_hp");
         $alamat   = $this->input->post("alamat");
 
         $data = [
             "nama"   => $nama,
+            "nik"   => $nik,
             "email"  => $email,
             "no_hp"  => $no_hp,
             "alamat" => $alamat

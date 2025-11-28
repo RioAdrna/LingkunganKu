@@ -21,8 +21,9 @@ class Register extends CI_Controller
         $email = $this->input->post('email');
         $password = $this->input->post('password');
         $ulang = $this->input->post('ulang');
+        $nik = $this->input->post('nik');
 
-        if (!$nama || !$email || !$password || !$ulang) {
+        if (!$nama || !$email || !$password || !$ulang || !$nik) {
             echo json_encode(['sts' => 0, 'msg' => 'Semua field wajib diisi']);
             return;
         }
@@ -42,6 +43,7 @@ class Register extends CI_Controller
         $data = [
             'nama' => $nama,
             'email' => $email,
+            'nik' => $nik,
             'password' => $hash,
             'role' => 'user',
             'no_hp' => null,

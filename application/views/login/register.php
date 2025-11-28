@@ -8,6 +8,30 @@
 		<link rel="stylesheet" href="<?= base_url('assets/plugins/fontawesome-free/css/all.min.css') ?>">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<style>
+			.input-div {
+				margin-bottom: 5px !important;
+			}
+
+			/* Membuat dua kolom */
+			.row-two {
+				display: flex;
+				gap: 10px;
+				width: 100%;
+				margin-bottom: 5px;
+			}
+
+			/* Kolom setengah */
+			.half {
+				flex: 1;
+			}
+
+			/* Mobile responsif (stack) */
+			@media (max-width: 768px) {
+				.row-two {
+					flex-direction: column;
+				}
+			}
+
 			* {
 
 				padding: 0;
@@ -292,6 +316,8 @@
 					<img src="<?= base_url('assets/img/logos/Logo_LingkunganKu-1.png') ?>">
 					<h2>Register</h2>
 					<br>
+
+					<!-- Nama -->
 					<div class="input-div one">
 						<div class="i">
 							<i class="fas fa-user"></i>
@@ -301,42 +327,66 @@
 							<input type="text" id="nama" name="nama" class="input">
 						</div>
 					</div>
-					<div class="input-div one">
-						<div class="i">
-							<i class="fas fa-envelope"></i>
-						</div>
-						<div class="div">
-							<h5>Email</h5>
-							<input type="email" id="email" name="email" class="input">
-						</div>
-					</div>
-					<div class="input-div pass">
-						<div class="i">
-							<i class="fas fa-lock"></i>
-						</div>
-						<div class="div">
-							<h5>Password</h5>
-							<input type="password" id="password" name="password" class="input">
-						</div>
-					</div>
-					<div class="input-div pass">
-						<div class="i">
-							<i class="fas fa-lock"></i>
-						</div>
-						<div class="div">
-							<h5>Ulangi Password</h5>
-							<input type="password" id="ulangi" name="ulang" class="input">
-						</div>
-					</div>
 					<br>
+					<!-- Email & NIK Bersebelahan -->
+					<div class="row-two">
+						<div class="input-div one half">
+							<div class="i">
+								<i class="fas fa-envelope"></i>
+							</div>
+							<div class="div">
+								<h5>Email</h5>
+								<input type="email" id="email" name="email" class="input">
+							</div>
+						</div>
+
+						<div class="input-div one half">
+							<div class="i">
+								<i class="fas fa-id-card"></i>
+							</div>
+							<div class="div">
+								<h5>NIK</h5>
+								<input type="text" id="nik" name="nik" class="input">
+							</div>
+						</div>
+					</div>
+
+					<!-- Password & Ulangi Password Bersebelahan -->
+					<div class="row-two">
+						<div class="input-div pass half">
+							<div class="i">
+								<i class="fas fa-lock"></i>
+							</div>
+							<div class="div">
+								<h5>Password</h5>
+								<input type="password" id="password" name="password" class="input">
+							</div>
+						</div>
+
+						<div class="input-div pass half">
+							<div class="i">
+								<i class="fas fa-lock"></i>
+							</div>
+							<div class="div">
+								<h5>Ulangi Password</h5>
+								<input type="password" id="ulangi" name="ulangi" class="input">
+							</div>
+						</div>
+					</div>
+
+					<br>
+
 					<input type="button" class="btn" id="register" value="Submit">
+
 					<div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
 						<a href="<?= base_url('Login') ?>" class="register-link text-decoration-none">
 							Sudah punya akun? login
 						</a>
 					</div>
+
 				</form>
 			</div>
+
 		</div>
 		<div id="loading">
 			<img src="<?= base_url('assets/img/logos/loading.gif') ?>" alt="Loading...">
@@ -348,26 +398,45 @@
 			$("#register").click(function() {
 				var nama = $("#nama").val().trim();
 				var email = $("#email").val().trim();
+				var nik = $("#nik").val().trim();
 				var password = $("#password").val();
 				var ulangiPassword = $("#ulangi").val();
 
 				let isValid = true;
 				let errorMessage = "";
 
-				if (nama.length < 1 || email.length < 1 || password.length < 1 || ulangiPassword.length < 1) {
+				// Validasi field wajib diisi
+				if (nama.length < 1 || email.length < 1 || nik.length < 1 || password.length < 1 || ulangiPassword.length < 1) {
 					errorMessage = "Semua field wajib diisi";
 					isValid = false;
 
 					if (nama.length < 1) $("#nama").parent().parent().addClass("error");
 					if (email.length < 1) $("#email").parent().parent().addClass("error");
+					if (nik.length < 1) $("#nik").parent().parent().addClass("error");
 					if (password.length < 1) $("#password").parent().parent().addClass("error");
 					if (ulangiPassword.length < 1) $("#ulangi").parent().parent().addClass("error");
 				} else {
 					$("#nama").parent().parent().removeClass("error");
 					$("#email").parent().parent().removeClass("error");
+					$("#nik").parent().parent().removeClass("error");
 					$("#password").parent().parent().removeClass("error");
 					$("#ulangi").parent().parent().removeClass("error");
 
+					// Validasi format email
+					if (!email.includes('@')) {
+						errorMessage = "Email harus mengandung karakter '@'";
+						$("#email").parent().parent().addClass("error");
+						isValid = false;
+					}
+
+					// Validasi NIK (harus 16 digit angka)
+					if (nik.length !== 16 || !/^\d+$/.test(nik)) {
+						errorMessage = "NIK harus terdiri dari 16 digit angka";
+						$("#nik").parent().parent().addClass("error");
+						isValid = false;
+					}
+
+					// Validasi password
 					if (password.length < 8) {
 						errorMessage = "Password harus minimal 8 karakter";
 						$("#password").parent().parent().addClass("error");
@@ -402,6 +471,7 @@
 						data: {
 							nama: nama,
 							email: email,
+							nik: nik,
 							password: password,
 							ulang: ulangiPassword
 						},
@@ -438,6 +508,9 @@
 								if (res.msg.includes("Email sudah digunakan")) {
 									$("#email").parent().parent().addClass("error");
 								}
+								if (res.msg.includes("NIK sudah digunakan")) {
+									$("#nik").parent().parent().addClass("error");
+								}
 							}
 						}
 					});
@@ -457,9 +530,6 @@
 		<script>
 			const inputs = document.querySelectorAll(".input");
 
-
-
-
 			function addcl() {
 				let parent = this.parentNode.parentNode;
 				parent.classList.add("focus");
@@ -471,7 +541,6 @@
 					parent.classList.remove("focus");
 				}
 			}
-
 
 			inputs.forEach(input => {
 				input.addEventListener("focus", addcl);

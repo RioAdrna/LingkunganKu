@@ -179,14 +179,14 @@
 					<ul class="navbar-nav ms-auto d-flex align-items-center gap-3">
 
 						<!-- Notifikasi -->
-						<li class="nav-item">
-							<a href="<?= base_url("?p=" . base64_encode('notifikasi')) ?>" class="nav-link">
-								<div class="icon icon-shape bg-warning shadow d-flex justify-content-center align-items-center"
-									style="width: 36px; height: 36px;">
-									<i class="fa fa-bell text-white"></i>
-								</div>
-							</a>
-						</li>
+						<!-- <li class="nav-item">
+								<a href="<?= base_url("?p=" . base64_encode('notifikasi')) ?>" class="nav-link">
+									<div class="icon icon-shape bg-warning shadow d-flex justify-content-center align-items-center"
+										style="width: 36px; height: 36px;">
+										<i class="fa fa-bell text-white"></i>
+									</div>
+								</a>
+							</li> -->
 
 						<!-- Profil -->
 						<li class="nav-item">

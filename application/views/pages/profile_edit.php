@@ -104,6 +104,21 @@
                                                                         </div>
                                                                         <div class="row border-start border-end align-items-center mb-3">
                                                                             <div class="col-sm-4">
+                                                                                <h6 class="mb-0 text-dark">NIK</h6>
+                                                                            </div>
+                                                                            <div class="col-sm-8 border-start">
+                                                                                <input
+                                                                                    type="number"
+                                                                                    class="form-control"
+                                                                                    id="nik"
+                                                                                    value="<?= $this->session->userdata('nik') ?>"
+                                                                                    readonly
+                                                                                    style="pointer-events: none; background-color: #e9ecef;"
+                                                                                    tabindex="-1">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row border-start border-end align-items-center mb-3">
+                                                                            <div class="col-sm-4">
                                                                                 <h6 class="mb-0 text-dark">Email</h6>
                                                                             </div>
                                                                             <div class="col-sm-8 border-start">

@@ -47,6 +47,7 @@ class Login extends CI_Controller
                 $data_session = [
                     'id_user' => $user->id,
                     'nama' => $user->nama,
+                    'nik' => $user->nik,
                     'email' => $user->email,
                     'no_hp' => $user->no_hp,
                     'alamat' => $user->alamat,
