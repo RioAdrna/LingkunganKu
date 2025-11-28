@@ -200,24 +200,25 @@
 			}
 
 			#loading {
-				display: none;
-				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				background: rgba(0, 0, 0, 0.4);
-				z-index: 9999;
-				text-align: center;
-			}
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8); 
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(2px);
+}
 
-			#loading img {
-				position: relative;
-				top: 50%;
-				transform: translateY(-50%);
-				width: 100px;
-				height: 100px;
-			}
+#loading video {
+    width: 180px; /* bisa kamu ubah sesuai ukuran videonya */
+    height: auto;
+    border-radius: 12px;
+}
+
 
 			.btn {
 				display: block;
@@ -302,11 +303,39 @@
 					color: #dc3545 !important;
 				}
 			}
+
+			#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white; /* bisa diganti warna lain */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    transition: opacity .6s ease;
+}
+
+#splash-screen img {
+    width: 150px;
+    animation: splashZoom 1.2s ease;
+}
+
+@keyframes splashZoom {
+    0% { transform: scale(0.4); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
 		</style>
 	</head>
 
 	<body>
 		<img class="wave" src="<?= base_url('assets/img/wave(3).svg') ?>">
+		<div id="splash-screen">
+    <img src="<?= base_url('assets/img/logos/Logo_LingkunganKu-1.png') ?>" alt="Logo">
+</div>
 		<div class="container">
 			<div class="img">
 				<img src="<?= base_url('assets/img/logos/daun.png') ?>">
@@ -389,8 +418,9 @@
 
 		</div>
 		<div id="loading">
-			<img src="<?= base_url('assets/img/logos/loading.gif') ?>" alt="Loading...">
-		</div>
+    <video id="loadingVideo" autoplay loop muted playsinline>
+        <source src="<?= base_url('assets/video/splash.mp4') ?>" type="video/mp4">
+</video>
 		<script src="<?= base_url("assets/vendor/libs/jquery/jquery.js") ?>"></script>
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -550,6 +580,48 @@
 		<script>
 			var base_url = "<?= base_url() ?>";
 		</script>
+		<script>
+    window.addEventListener("load", function () {
+        setTimeout(() => {
+            const splash = document.getElementById("splash-screen");
+            splash.style.opacity = 0;
+
+            setTimeout(() => splash.style.display = "none", 600);
+        }, 700);
+    });
+</script>
+<script>
+beforeSend: function() {
+    $("#loading").css("display", "flex").hide().fadeIn(200);
+},
+success: function(rsp) {
+    if (rsp.sts == "0") {
+        $("#loading").fadeOut(200, function() {
+            Swal.fire({
+                title: "Kesalahan!",
+                text: rsp.msg,
+                icon: "error"
+            });
+        });
+    } else {
+        const startTime = Date.now();
+        const minDuration = 800;
+
+        const elapsed = Date.now() - startTime;
+        const remaining = Math.max(0, minDuration - elapsed);
+
+        setTimeout(function() {
+            $("#loading").fadeOut(600, function() {
+                $("body").fadeOut(300, function() {
+                    window.location.href = "<?= base_url('?p=' . base64_encode('dashboard')) ?>";
+                });
+            });
+        }, remaining);
+    }
+}
+</script>
+
+
 	</body>
 
 	</html>

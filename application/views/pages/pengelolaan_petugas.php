@@ -1,4 +1,9 @@
     <style>
+
+		#tabel_lapor td:first-child,
+    #tabel_lapor th:first-child {
+        text-align: center !important;
+    }
     	#tabel_lapor td,
     	#tabel_lapor th {
     		white-space: normal !important;

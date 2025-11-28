@@ -204,6 +204,15 @@
                   </div>
                 </div>
 
+                <div class="col-md-3">
+                <label>Tampilkan Cabang</label>
+                <select id="tampil_cabang" class="form-control">
+                    <option value="tidak">Tidak</option>
+                    <option value="ya">Ya</option>
+                </select>
+            </div>
+
+
                 <div class="filter-button">
                   <button id="btnTampilkanTop" style="height: 100%; width: 100%" type="button" class="btn btn-primary btn-tampilkan" onclick="showPins()">Tampilkan</button>
                 </div>
@@ -335,6 +344,7 @@
   <script src="https://unpkg.com/leaflet.vectorgrid@latest/dist/Leaflet.VectorGrid.js"></script>
 
   <script>
+    let endpointCabang = "<?= base_url('petalaporan/show_cabang') ?>";
     document.addEventListener('DOMContentLoaded', function() {
       confirmSelectionCheckboxes();
 
@@ -362,6 +372,7 @@
     loadSample();
 
     var map = L.map('map').setView([-6.9, 107.6], 11); // posisi awal (misal: Bandung)
+ 
 
     // Semua daftar tile layer
     var baseLayers = {
@@ -740,5 +751,65 @@
       map.fitBounds(bond);
 
     });
+
+    function loadCabang() {
+  fetch(endpointCabang)
+    .then(res => res.json())
+    .then(data => {
+      data.forEach(c => {
+        if (c.latitude && c.longitude) {
+          L.marker([c.latitude, c.longitude])
+            .bindPopup(`
+                <b>${c.nama_cabang}</b><br>
+                ${c.kabkot_nama}
+            `)
+            .addTo(map);
+        }
+      });
+    })
+    .catch(err => console.log("Error cabang:", err));
+}
+
+  </script>
+  <script>
+    let cabangMarkers = [];
+
+let cabangMarkers = [];
+
+function loadCabang() {
+    $.ajax({
+        url: "<?= base_url("cabang/data_cabang") ?>",
+        type: "GET",
+        success: function(res) {
+
+            // Bersihkan marker lama
+            cabangMarkers.forEach(marker => map.removeLayer(marker));
+            cabangMarkers = [];
+
+            res.data.forEach(function(c) {
+                if (c.latitude && c.longitude) {
+
+                    let marker = L.marker([c.latitude, c.longitude]).addTo(map);
+
+                    marker.bindPopup(`
+                        <b>${c.nama_cabang}</b><br>
+                        Kab/Kota: ${c.kabkot_nama}<br>
+                        Lat: ${c.latitude}<br>
+                        Lng: ${c.longitude}
+                    `);
+
+                    cabangMarkers.push(marker);
+                }
+            });
+        }
+    });
+}
+
+function hideCabang() {
+    cabangMarkers.forEach(marker => map.removeLayer(marker));
+    cabangMarkers = [];
+}
+
+
   </script>
 </body>
