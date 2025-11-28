@@ -144,4 +144,104 @@ class Penanganan extends CI_Controller
 			->set_output(json_encode($data));
 		return;
 	}
+
+	public function read_petugas()
+	{
+		$dt = $this->__datatablesRequest();
+		$res = $this->model_penanganan->read_petugas($dt, $this->session->userdata('id_user'));
+		$total = $this->model_penanganan->count_petugas($this->session->userdata('id_user'));
+		$data = [
+			'status' => 200,
+			'message' => 'Berhasil request',
+			"recordsFiltered" => $total,
+			"recordsTotal" => $total,
+			'data' => $res
+		];
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($data));
+		return;
+	}
+
+	public function konfirmasi_selesai(){
+		$penanganan_id = $this->input->post('penanganan_id');
+		$catatan = $this->input->post('catatan');
+
+		if (!$penanganan_id) {
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode(['status' => 400, 'message' => 'penanganan_id required']));
+			return;
+		}
+
+		// handle file uploads (lampiran[])
+		$uploaded = [];
+		if (count($_FILES) > 0 && isset($_FILES['lampiran'])) {
+			$this->load->library('upload');
+			$files = $_FILES['lampiran'];
+			$file_count = count($files['name']);
+			for ($i = 0; $i < $file_count; $i++) {
+				if (empty($files['name'][$i])) continue;
+
+				$_FILES['userfile']['name']     = $files['name'][$i];
+				$_FILES['userfile']['type']     = $files['type'][$i];
+				$_FILES['userfile']['tmp_name'] = $files['tmp_name'][$i];
+				$_FILES['userfile']['error']    = $files['error'][$i];
+				$_FILES['userfile']['size']     = $files['size'][$i];
+
+				$ext = pathinfo($_FILES['userfile']['name'], PATHINFO_EXTENSION);
+				$filename = time() . '_' . $i . '.' . $ext;
+
+				$config['upload_path']   = './assets/img/dokumentasi/';
+				$config['allowed_types'] = 'jpg|jpeg|png|pdf';
+				$config['max_size']      = 15000; // 15MB per file
+				$config['file_name']     = $filename;
+
+				if (!is_dir($config['upload_path'])) {
+					mkdir($config['upload_path'], 0777, true);
+				}
+
+				$this->upload->initialize($config);
+				if ($this->upload->do_upload('userfile')) {
+					$data = $this->upload->data();
+					$uploaded[] = $data['file_name'];
+				} else {
+					log_message('error', 'Upload lampiran error: ' . $this->upload->display_errors('', ''));
+				}
+			}
+		}
+
+		// prepare lampiran value: if multiple, store JSON; if single, store filename; if none, null
+		$lampiran_value = null;
+		if (count($uploaded) === 1) $lampiran_value = $uploaded[0];
+		else if (count($uploaded) > 1) $lampiran_value = json_encode($uploaded);
+
+		// update penanganan record
+		$now = date('Y-m-d H:i:s');
+		$update = [
+			'catatan' => $catatan,
+			'lampiran' => $lampiran_value,
+			'status_penanganan' => 'selesai',
+			'waktu_selesai_ditangani' => $now,
+			'waktu_dikonfirmasi_selesai' => $now,
+		];
+
+		$ok = $this->model_penanganan->update_data($penanganan_id, $update);
+
+		// mark related laporan as 'selesai'
+		$this->db->where('penanganan_id', $penanganan_id);
+		$this->db->update('laporan', ['status' => 'selesai']);
+
+		if ($ok) {
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode(['status' => 200, 'message' => 'Konfirmasi selesai berhasil']));
+			return;
+		} else {
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode(['status' => 500, 'message' => 'Gagal menyimpan data']));
+			return;
+		}
+	}
 }

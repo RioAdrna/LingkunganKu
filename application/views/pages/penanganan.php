@@ -657,8 +657,6 @@
     		fn();
     	});
     	$(document).ready(function() {
-
-
     		dataTableConfig = {
     			serverSide: true,
     			ajax: {

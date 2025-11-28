@@ -68,4 +68,40 @@ class Model_penanganan extends CI_Model
 		return $this->db->delete("penanganan");
 	}
 
+	private function __search2($q)
+	{
+		if (strlen($q) > 0) {
+			$this->db->like('penangan.id', $q);
+			$this->db->or_like('penanganan.catatan ', $q);
+			$this->db->or_like('penanganan.status_penanganan ', $q);
+			$this->db->or_like('penanganan.lampiran ', $q);
+			$this->db->or_like('penanganan.created_at ', $q);
+			$this->db->or_like('penanganan.waktu_selesai_ditangani ', $q);
+			$this->db->or_like('penanganan.waktu_dikonfirmasi_selesai ', $q);
+		}
+	}
+
+	function read_petugas($data, $petugas_id)
+	{
+		$this->db->select('penanganan.id as id');
+		$this->db->select('penanganan.catatan as catatan');
+		$this->db->select('penanganan.status_penanganan as status_penanganan');
+		$this->db->select('penanganan.lampiran as lampiran');
+		$this->db->select('penanganan.created_at as created_at');
+		$this->db->select('penanganan.waktu_selesai_ditangani as waktu_selesai_ditangani');
+		$this->db->select('penanganan.waktu_dikonfirmasi_selesai as waktu_dikonfirmasi_selesai');
+
+		$this->db->where('penanganan.petugas_id', $petugas_id);
+		$this->__search2($data->search);
+		$this->db->order_by($this->columns[$data->column], $data->dir);
+		$this->db->limit($data->length, $data->start);
+		return $this->db->get('penanganan')->result();
+	}
+
+	function count_petugas($petugas_id)
+	{
+		$this->db->select('count(penanganan.id) as total');
+		$this->db->where('penanganan.petugas_id', $petugas_id);
+		return $this->db->get('penanganan')->result()[0]->total;
+	}
 }
