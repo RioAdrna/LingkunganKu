@@ -152,7 +152,7 @@
 					<div class="icon icon-shape text-center rounded-circle mx-auto mb-2" 
 						style="width: 45px; height: 45px; display:flex; align-items:center; justify-content:center;
 								background-color:#d6e4ff;">
-						<i class="fas fa-comments" style="color:#2f6fe4;"></i>
+						<i class="fas fa-comments" style="color: blue"></i>
 					</div>
 
 					<h6 class="mb-0 text-dark">Bantuan</h6>

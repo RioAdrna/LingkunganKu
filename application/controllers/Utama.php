@@ -44,6 +44,30 @@ class Utama extends CI_Controller
 		} else {
 			// Sudah login → dashboard
 			$data = [];
+
+			if ($this->session->userdata('level') === "user") {
+				$user_id = $this->session->userdata('user_id');
+
+				$data['jumlah_terkirim'] = $this->db
+					->where('user_id', $user_id)
+					->where('status', 'terkirim')
+					->count_all_results('laporan');
+
+				$data['jumlah_selesai'] = $this->db
+					->where('user_id', $user_id)
+					->where('status', 'selesai')
+					->count_all_results('laporan');
+
+				$data['jumlah_ditolak'] = $this->db
+					->where('user_id', $user_id)
+					->where('status', 'ditolak')
+					->count_all_results('laporan');
+
+				$data['jumlah_proses'] = $this->db
+					->where('user_id', $user_id)
+					->where('status', 'proses')
+					->count_all_results('laporan');
+			}
 			if (isset($_GET['p'])) {
 				if (base64_decode($_GET['p']) == "peta_laporan") {
 					$this->load->model('model_map');
