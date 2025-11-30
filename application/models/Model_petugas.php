@@ -99,4 +99,14 @@ class Model_petugas extends CI_Model
 		
 	}
 
+	function get_cabang_petugas($id_petugas){
+		$this->db->select('count(users.id) as total_anggota');
+		$this->db->select('cabang.*');
+		$this->db->select('kabkot.nama as nama_kabkot');
+		$this->db->where('users.id', $id_petugas);
+		$this->db->join('cabang', 'cabang.id = users.cabang_petugas_id');
+		$this->db->join('kabkot', 'kabkot.id = cabang.kabkot_id', 'left');
+		return $this->db->get('users')->result()[0];
+	}
+
 }
