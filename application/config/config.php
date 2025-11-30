@@ -533,4 +533,4 @@ $config['proxy_ips'] = '';
 
 //Gemini API key
 
-$config['gemini_api_key'] = 'AIzaSyD9ciqNIVyIN8rszssZ-XoZwTOyZRucDII';
+$config['gemini_api_key'] = 'AIzaSyB890gtcQrYBe9puT5kPm3XSbFsIybZjak';
