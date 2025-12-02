@@ -47,17 +47,3 @@ Password: admin
 - Mengunggah foto pendukung.
 
 - Melihat status laporan (ditinjau, diproses, selesai).
-
-🧩 Teknologi yang Digunakan
-
-- PHP ≥ 5.6 (Direkomendasikan 7.x)
-
-- CodeIgniter 3 Framework
-
-- MySQL / MariaDB
-
-- Bootstrap 
-
-- jQuery & AJAX
-
-- FontAwesome
